@@ -1,8 +1,0 @@
-[
-  {
-    "title": "calculadora",
-    "price": 125.32,
-    "thumbnail": "https://aQualquierLugar",
-    "Id": 1
-  }
-]
