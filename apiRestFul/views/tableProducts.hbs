@@ -1,29 +1,27 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
+<div class="m-5 text-center card" >
+  <h1>Tabla de productos</h3>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Titulo</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Minuatura</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#if productos}}
+      {{#each productos}}
+      <tr>
+        <th scope="row">{{this.id}}</th>
+        <td>{{this.title}}</td>
+        <td>{{this.price}}</td>
+        <td><img width="50px" height= "50px" src={{this.thumbnail}} /></td>
+      </tr>
+      {{/each}}
+      {{/if}}
+    </tbody>
+  </table>
+  <a href="/"><button class="btn btn-primary">Ingreso de productos</button></a>
+
+</div>

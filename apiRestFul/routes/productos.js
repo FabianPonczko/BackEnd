@@ -3,17 +3,24 @@ const {Router} = express
 
 const router = Router()
 
-let productos= [{
+const productos= [{
     title:"Notebook hp",
     price:250000,
-    thumbnail:'https://lezamapc.com.ar/33210-large_default/notebook-hp-14-245-amd-ryzen-5-5500u-1t-8gb.jpg',
+    thumbnail: 'https://lezamapc.com.ar/33210-large_default/notebook-hp-14-245-amd-ryzen-5-5500u-1t-8gb.jpg',
     id:1
 }]
 
+router.get("/",(req,res)=>{
+    res.render("formProducts")
+})
 
+router.get('/productos',(req,res)=>{
+    res.render("tableProducts" , {productos: productos})
+})
 
 router.get('/api/productos',(req,res)=>{
-    res.json(productos)
+     res.json(productos)
+   
 })
 
 router.get('/api/productos/:id', (req,res)=>{
@@ -29,7 +36,8 @@ router.post('/api/productos',(req,res)=>{
     const productoPost = req.body
     productoPost['id']=  Date.now()
     productos.push(productoPost)
-    res.json(productoPost)
+    // res.json(productoPost)
+    res.redirect('/')
 })
 
 router.put('/api/productos/:id',(req,res)=>{
@@ -61,5 +69,7 @@ router.delete('/api/productos/:id',(req,res)=>{
     
     
 })
+
+
 
 module.exports = router
