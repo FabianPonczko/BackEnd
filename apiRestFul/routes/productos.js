@@ -10,6 +10,8 @@ let productos= [{
     id:1
 }]
 
+
+
 router.get('/api/productos',(req,res)=>{
     res.json(productos)
 })
