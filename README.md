@@ -1,2 +1,4 @@
-# Apiresful-
-Entrega de trabajo practico de api de productos.
+# Plantilla-
+Entrega de trabajo practico con plantillas.
+Eligí handlerbar porque me resultó mas facil para aplicar.
+
