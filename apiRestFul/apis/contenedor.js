@@ -48,7 +48,30 @@ class Container{
         console.log(`Error al obtener todos los objetos: ${error.message}`)
       }
     }
- 
+    async updateById(payload, id) {
+      try {
+        const { data } = await this.getData()
+        const indexFound = data.findIndex( element => element.id === Number(id))
+        if( indexFound === -1)
+          throw new Error('Elemento no encontrado')
+        data.splice(indexFound, 1, {...payload, id})
+        await fs.promises.writeFile(this.name, JSON.stringify(data, null, 2))
+      } catch (error) {
+        console.log(`Error al eliminar un objeto: ${error.message}`)
+      }
+    }
+    async getBySocketId(socketId) {
+      try {
+        const { data } = await this.getData()
+        const foundData = data.find( element => element.socketId === socketId )
+        if(!foundData)
+          throw new Error('Elemento no encontrado')
+        return foundData
+      } catch (error) {
+        console.log(`Error al obtener un usuario por su socketId: ${error.message}`)
+      }
+    }
+    
 }
 
 module.exports = Container
