@@ -2,6 +2,7 @@
   <h1>Tabla de productos</h3>
   <table class="table table-hover">
     <thead>
+      {{#if products}}
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Titulo</th>
@@ -10,8 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      {{#if productos}}
-      {{#each productos}}
+      {{#each products}}
       <tr>
         <th scope="row">{{this.id}}</th>
         <td>{{this.title}}</td>
@@ -19,9 +19,11 @@
         <td><img width="50px" height= "50px" src={{this.thumbnail}} /></td>
       </tr>
       {{/each}}
+       {{else}}
+          <p id="products_empty" style="color:red">No posee productos ingresados</p>
       {{/if}}
     </tbody>
   </table>
-  <a href="/"><button class="btn btn-primary">Ingreso de productos</button></a>
+  
 
 </div>
