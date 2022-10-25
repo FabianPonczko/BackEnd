@@ -66,7 +66,6 @@ const newUserConnected = async () => {
 const newMessage = async (socket, io, newMsg) => {
   const date = new Date()
   const dateFormated = dayjs(date).format('DD/MM/YYYY hh:mm:ss')
-  // await Messages.save({ msg: newMsg, socketId: socket.id, createdAt: `${dateFormated} hs`})
   await Messages.save({ msg: newMsg, socketId: newMsg.email, createdAt: `${dateFormated} hs`})
   const allMsg = await Messages.getAll()
   io.sockets.emit('all messages', allMsg)
