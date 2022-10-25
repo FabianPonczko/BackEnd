@@ -1,0 +1,38 @@
+[
+  {
+    "msg": {
+      "email": "fabian@yahoo.com",
+      "textMsg": "hola"
+    },
+    "socketId": "fabian@yahoo.com",
+    "createdAt": "25/10/2022 12:01:12 hs",
+    "id": 1
+  },
+  {
+    "msg": {
+      "email": "fabian2@yahoo.com",
+      "textMsg": "mensaje enviado de fabian"
+    },
+    "socketId": "fabian2@yahoo.com",
+    "createdAt": "25/10/2022 12:01:17 hs",
+    "id": 2
+  },
+  {
+    "msg": {
+      "email": "fabian2@yahoo.com",
+      "textMsg": "432r34r34r4r"
+    },
+    "socketId": "fabian2@yahoo.com",
+    "createdAt": "25/10/2022 12:01:20 hs",
+    "id": 3
+  },
+  {
+    "msg": {
+      "email": "fabian2@yahoo.com",
+      "textMsg": "34r34r34r34r"
+    },
+    "socketId": "fabian2@yahoo.com",
+    "createdAt": "25/10/2022 12:01:24 hs",
+    "id": 4
+  }
+]

@@ -1,8 +1,12 @@
 const express = require (`express`)
 const { Server: HttpServer } = require('http')
 const { Server: SocketIOServer }  = require('socket.io')
-const handlebars = require('express-handlebars')
 const Container = require('./apis/contenedor')
+const dayjs = require("dayjs")
+const customParseFormat = require('dayjs/plugin/customParseFormat')
+
+dayjs.extend(customParseFormat)
+
 
 const products = new Container("products")
 const Messages = new Container("messages")
@@ -25,39 +29,28 @@ const io = new SocketIOServer(httpServer)
 const PORT = 8080
 
 
-
 app.use(express.static('./public'))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use('/api', routers)
+
 
 httpServer.listen(PORT, () =>{
   console.log(`Server running on port: ${PORT}`)
 })
 
 
-// app.engine(
-//     "hbs",
-//     handlebars.engine({
-//         extname: ".hbs",
-//         defaultLayout: "main.hbs",
-//     })
-// )
-// app.set("view engine", "hbs")
-// app.set("views", "./views")
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 app.use('/',express.static(__dirname+'/public'))
 
-// app.use('/',productos)
+
 
 const newProduct = async (newProduct) => {
   await products.save(newProduct)
   const allProduct = await products.getAll()
-  // Propago los productos en todos los sockets
   io.sockets.emit('all products', allProduct)
 }
 
@@ -65,21 +58,17 @@ const newUserConnected = async () => {
    const allMsg = await Messages.getAll()
    const allUser = await Users.getAll()
   const allProducts = await products.getAll()
-  // Envio todos los usuarios a todos los sockets
    io.sockets.emit('all users', allUser)
-  // Envio todos los mensajes a todos los sockets
    io.sockets.emit('all messages', allMsg)
-  // Envio todos los productos a todos los sockets
   io.sockets.emit('all products', allProducts)
 }
 
 const newMessage = async (socket, io, newMsg) => {
   const date = new Date()
-  // const dateFormated = dayjs(date).format('DD/MM/YYYY hh:mm:ss')
-  // console.log("🚀 ~ file: message.handler.js ~ line 11 ~ newMessage ~ dateFormat", dateFormated)
-  await Messages.save({ msg: newMsg, socketId: socket.id, createdAt: `${date} hs`})
+  const dateFormated = dayjs(date).format('DD/MM/YYYY hh:mm:ss')
+  // await Messages.save({ msg: newMsg, socketId: socket.id, createdAt: `${dateFormated} hs`})
+  await Messages.save({ msg: newMsg, socketId: newMsg.email, createdAt: `${dateFormated} hs`})
   const allMsg = await Messages.getAll()
-  // Propago los mensajes en todos los sockets
   io.sockets.emit('all messages', allMsg)
 }
 
@@ -88,7 +77,6 @@ const userChangeAlias = async (socket, io, alias) => {
   const userUpdated = {...user, name: alias}
   await Users.updateById(userUpdated, user.id)
   const allUser = await Users.getAll()
-  // Envio todos los usuarios a todos los sockets
   io.sockets.emit('all users', allUser)
 }
 
@@ -96,12 +84,9 @@ io.on('connection', socket => {
     console.log(`nuevo cliente conectado: ${socket.id}`)
     newUserConnected()
 
-
     socket.on('new product', newProd => {
       newProd['id']=  Date.now()
       newProduct(newProd)
-      // io.sockets.emit('all products', products)
-
 
     })
     socket.on('new msg', newMsg => {

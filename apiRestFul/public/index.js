@@ -8,14 +8,14 @@ const productSection = document.getElementById('products')
 const createProductForm = document.getElementById('createProduct__form')
 const chatDisplay = document.getElementById('chat__display')
 const textMsgForm = document.getElementById('textMsg__form')
-const aliasForm = document.getElementById('alias__form')
+const emailForm = document.getElementById('email__form')
 
 const cleanProducts = () => {
     productSection.innerHTML = ""
   }
   const renderProducts = async (products) => {
     let response = await fetch('/views/tableProducts.hbs')
-    console.log({response})
+    // console.log({response})
     const template = await response.text()
     const templateCompiled = Handlebars.compile(template)
     const html = templateCompiled({ products })
@@ -23,7 +23,7 @@ const cleanProducts = () => {
   }
 
   createProductForm.addEventListener('submit', (e) => {
-    console.log('enviando')
+    // console.log('enviando')
     e.preventDefault()
     const formData = new FormData(createProductForm)
     const formValues = Object.fromEntries(formData)
@@ -35,7 +35,7 @@ const cleanProducts = () => {
   }
 
   const getNameBySocketId = (socketId) => {
-    const foundData = users.find( element => element.socketId === socketId )
+    const foundData = messages.find( element => element.socketId === socketId )
     if(foundData === undefined)
       return 'Desconectado'
     if(!foundData.name)
@@ -44,7 +44,8 @@ const cleanProducts = () => {
   }
 
   const renderMsg = ({msg, socketId, createdAt}) => {
-    const classMsg = (socketId === socket.id) ? "chat__msg-own" : "chat__msg"
+    console.log({msg})
+    const classMsg = (msg.email === socketId) ? "chat__msg-own": "chat__msg"
     const chatOwnerContent = (socketId === socket.id) ? "Yo" : getNameBySocketId(socketId)
     const chatMsg = document.createElement("div")
     const chatOwner = document.createElement("p")
@@ -55,27 +56,29 @@ const cleanProducts = () => {
     chatOwner.innerHTML = chatOwnerContent
     chatDate.innerHTML = createdAt
     chatMsg.appendChild(chatOwner)
-    chatMsg.innerHTML = chatMsg.innerHTML + msg
+    chatMsg.innerHTML = chatMsg.innerHTML + msg.textMsg
     chatMsg.appendChild(chatDate)
     chatDisplay.appendChild(chatMsg)
-    console.log('llegaron los mensajes')
+    // console.log('llegaron los mensajes')
   }
 
   textMsgForm.addEventListener('submit', (e) => {
     e.preventDefault()
     const formData = new FormData(textMsgForm)
     const formValues = Object.fromEntries(formData)
-    socket.emit('new msg', formValues.textMsg)
+    // console.log(formValues)
+    // socket.emit('new msg', formValues.textMsg)
+    socket.emit('new msg', formValues)
   })
   
-  aliasForm.addEventListener('submit', (e) => {
+  emailForm.addEventListener('submit', (e) => {
     e.preventDefault()
-    const formData = new FormData(aliasForm)
-    const formValues = Object.fromEntries(formData)
-    socket.emit('change alias', String(formValues.alias))
+    // const formData = new FormData(aliasForm)
+    // const formValues = Object.fromEntries(formData)
+    // socket.emit('change alias', String(formValues.alias))
   })
   socket.on('all products', allProduct => {
-    console.log(`llegando los productos ${allProduct}`)
+    // console.log(`llegando los productos ${allProduct}`)
     products = allProduct
     cleanProducts()
     renderProducts(allProduct)

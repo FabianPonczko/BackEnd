@@ -28,15 +28,15 @@
     </div>
 
     <div id="chat" style=" background-color: #f0f8ff7d; border-radius: 0.5rem;padding: 1rem;display: flex;flex-direction: column;align-items: center;">
-        <h2 id="chat__title">Chat</h2>
-        <form id="alias__form">
-          <input type="text" name="alias" placeholder="Alias">
-          <button type="submit" id="alias__submit">Cambiar alias</button>
+        <h2 id="chat__title">Canal de Chat</h2>
+        <form id="email__form">
         </form>
         <div id="chat__display" style=" height: 20rem;min-width: 40rem;background-color: #fcfcfc;border-radius: 0.5rem;display: flex;flex-direction: column;padding: 1rem 2rem;overflow-y: scroll;">
-        
+            
         </div>
         <form id="textMsg__form" style=" width: 100%;display: flex;margin: 0.3rem;">
+            <input type="email" name="email" placeholder="email" required>
+            <!-- <button type="submit" id="alias__submit">Cambiar email</button> -->
           <input type="text" name="textMsg" placeholder="Mensaje" id="textMsg__inp" style=" width: 94%;">
           <button type="submit" id="textMsg__submit">Enviar</button>
         </form>
