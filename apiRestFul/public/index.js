@@ -15,7 +15,6 @@ const cleanProducts = () => {
   }
   const renderProducts = async (products) => {
     let response = await fetch('/views/tableProducts.hbs')
-    // console.log({response})
     const template = await response.text()
     const templateCompiled = Handlebars.compile(template)
     const html = templateCompiled({ products })
@@ -23,7 +22,6 @@ const cleanProducts = () => {
   }
 
   createProductForm.addEventListener('submit', (e) => {
-    // console.log('enviando')
     e.preventDefault()
     const formData = new FormData(createProductForm)
     const formValues = Object.fromEntries(formData)
@@ -59,26 +57,16 @@ const cleanProducts = () => {
     chatMsg.innerHTML = chatMsg.innerHTML + msg.textMsg
     chatMsg.appendChild(chatDate)
     chatDisplay.appendChild(chatMsg)
-    // console.log('llegaron los mensajes')
   }
 
   textMsgForm.addEventListener('submit', (e) => {
     e.preventDefault()
     const formData = new FormData(textMsgForm)
     const formValues = Object.fromEntries(formData)
-    // console.log(formValues)
-    // socket.emit('new msg', formValues.textMsg)
     socket.emit('new msg', formValues)
   })
   
-  emailForm.addEventListener('submit', (e) => {
-    e.preventDefault()
-    // const formData = new FormData(aliasForm)
-    // const formValues = Object.fromEntries(formData)
-    // socket.emit('change alias', String(formValues.alias))
-  })
   socket.on('all products', allProduct => {
-    // console.log(`llegando los productos ${allProduct}`)
     products = allProduct
     cleanProducts()
     renderProducts(allProduct)
