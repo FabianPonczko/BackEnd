@@ -1,0 +1,22 @@
+[
+  {
+    "title": "uno",
+    "description": "hola",
+    "code": "34343",
+    "thumbnail": "3erwdfedf4e",
+    "price": 5000,
+    "stock": 23,
+    "timestamp": "31/10/2022 23:45:03",
+    "id": 1
+  },
+  {
+    "title": "cambie dos 2",
+    "description": "hola",
+    "code": "34343",
+    "thumbnail": "3erwdfedf4e",
+    "price": 5000,
+    "stock": 23,
+    "timestamp": "31/10/2022 23:45:49",
+    "id": 2
+  }
+]
