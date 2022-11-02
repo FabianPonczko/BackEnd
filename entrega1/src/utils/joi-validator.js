@@ -9,6 +9,13 @@ const product = joi.object({
     stock:joi.number().required(),
     timestamp:joi.string().required()
 })
+const cart = joi.object({
+    timestamp:joi.string().required()
+})
 
 
-export const JOI_VALIDATOR={product}
+export const JOI_VALIDATOR=
+{
+    product,
+    cart
+}

@@ -37,7 +37,7 @@ class Container{
           const { newId, data } = await this.getData()
           data.push( {...payload, id: newId} )
           await fs.promises.writeFile(this.filepath, JSON.stringify(data, null, 2))
-          
+          return data
         } catch (error) {
           console.log(`Error al guardar un objeto: ${error.message}`)
           
@@ -74,7 +74,19 @@ class Container{
           throw new Error('Elemento no encontrado')
         return foundData
       } catch (error) {
-        console.log(`Error al obtener un usuario por su socketId: ${error.message}`)
+        console.log(`Error al obtener un usuario por su Id: ${error.message}`)
+      }
+    }
+    async DeleteById(id) {
+      try {
+        const { data } = await this.getData()
+        const indexFound = data.findIndex( element => element.id === Number(id))
+        if( indexFound === -1)
+          throw new Error('Elemento no encontrado')
+        data.splice(indexFound, 1)
+        await fs.promises.writeFile(this.filepath, JSON.stringify(data, null, 2))
+      } catch (error) {
+        console.log(`Error al eliminar un objeto: ${error.message}`)
       }
     }
     

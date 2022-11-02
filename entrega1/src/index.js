@@ -1,5 +1,5 @@
 import  express  from "express"
-import { ProductRouter } from "./routers/index.js";
+import { cartRouter, ProductRouter } from "./routers/index.js";
 
 
 
@@ -13,6 +13,10 @@ app.use(express.urlencoded({extended:true}))
 
 app.use('/api/products', ProductRouter)
 
+app.use('/',cartRouter)
 
+app.use('*', (req,res)=>{
+    res.send({ error : -1, descripcion: "ruta no existe" })
+})
 
 app.listen(PORT,()=>{console.log(`Server corriendo en puerto: ${PORT}`)})

@@ -48,6 +48,15 @@ router.put("/:id",verifyRole, async (req,res)=>{
         console.log(`Error: ${error}`)
       }
 })
+router.delete("/:id",verifyRole, async (req,res)=>{
+    try{
+        const {id} =req.params
+        const product = await productsDao.DeleteById(Number(id))
+        res.send(product)
+    }catch (error) {
+        console.log(`Error: ${error}`)
+      }
+})
 
 
 export {router as ProductRouter}
