@@ -54,7 +54,7 @@ class Container{
       }
     }
     async updateById(payload, id) {
-      console.log(payload)
+      
       try {
         const { data } = await this.getData()
         const indexFound = data.findIndex( element => element.id === Number(id))

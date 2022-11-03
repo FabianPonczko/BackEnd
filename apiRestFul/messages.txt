@@ -1,0 +1,20 @@
+[
+  {
+    "msg": {
+      "email": "fabian@yahoo.com",
+      "textMsg": "we3e3e3e3"
+    },
+    "socketId": "fabian@yahoo.com",
+    "createdAt": "25/10/2022 12:08:31 hs",
+    "id": 1
+  },
+  {
+    "msg": {
+      "email": "fabian2@yahoo.com",
+      "textMsg": "mensaje enviado de fabian"
+    },
+    "socketId": "fabian2@yahoo.com",
+    "createdAt": "25/10/2022 12:08:36 hs",
+    "id": 2
+  }
+]

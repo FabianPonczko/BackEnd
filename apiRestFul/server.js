@@ -4,13 +4,14 @@ const { Server: SocketIOServer }  = require('socket.io')
 const Container = require('./apis/contenedor')
 const dayjs = require("dayjs")
 const customParseFormat = require('dayjs/plugin/customParseFormat')
+const optionDB = require('./apis/configDB')
 
 dayjs.extend(customParseFormat)
 
 
-const products = new Container("products")
-const Messages = new Container("messages")
-const Users = new Container("users")
+const products = new Container(optionDB)
+// const Messages = new Container("messages")
+// const Users = new Container("users")
 
 
 const productos= [{

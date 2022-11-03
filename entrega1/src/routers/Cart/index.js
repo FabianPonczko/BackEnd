@@ -73,9 +73,6 @@ router.post('/:id/productos', verifyRole, async (req,res)=>{
     }
 })
 
-router.get('*',(res)=>{
 
-    res.send({ error : -1, descripcion: "ruta no existe" })
-})
 
 export {router as cartRouter}
