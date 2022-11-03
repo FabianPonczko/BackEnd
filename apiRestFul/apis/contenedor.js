@@ -4,32 +4,31 @@
 // const path = require('path')
 // const fs = fSync.promises
 
-const knex = require('knex')
-
 // const fs = require('fs')
 
 class Container{
-    constructor(optionDB) {
-        this.option=optionDB
+    constructor(knexWithOptions,dbName) {
+        this.knex=knexWithOptions
+        this.dbName=dbName
     }
 
-    async createDB(){
-      try {
-        const tabla = await knex.option.schema.createTable('productos',(table)=>{
-          table.increment("id")
-          table.string("title")
-          table.string("thumbnail")
-          table.number("price")
-        })
-      } catch (error) {
-        console.log(error)
-      }
+    // async createDB(){
+    //   try {
+    //     const tabla = await this.knex.schema.createTable(this.dbName,(table)=>{
+    //       table.increment("id")
+    //       table.string("title")
+    //       table.string("thumbnail")
+    //       table.number("price")
+    //     })
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
 
-    }
+    // }
 
     async getData(){
         try {
-            const data = await knex.from('productos').select('*')
+            const data = await this.knex.from(this.dbName).select('*')
             // const arrayData = JSON.parse(data)
             // Devuelvo el ultimo id utilizado incrementado en 1
             // if(arrayData.length)
@@ -45,7 +44,7 @@ class Container{
     async save(payload){
         try {
           // const { newId } = await this.getData()
-          await knex.from('productos').indert({...payload})
+          await this.knex.from(this.dbName).indert({...payload})
           
         } catch (error) {
           console.log(`Error al guardar un objeto: ${error.message}`)
@@ -65,7 +64,7 @@ class Container{
 
     async updateById(payload, idSerch) {
       try {
-        await knex.from('productos').where({id:idSerch}).update({...payload})
+        await this.knex.from(this.dbName).where({id:idSerch}).update({...payload})
       } catch (error) {
         console.log(`Error al eliminar un objeto: ${error.message}`)
       }

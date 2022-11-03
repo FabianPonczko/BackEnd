@@ -4,14 +4,41 @@ const { Server: SocketIOServer }  = require('socket.io')
 const Container = require('./apis/contenedor')
 const dayjs = require("dayjs")
 const customParseFormat = require('dayjs/plugin/customParseFormat')
-const optionDB = require('./apis/configDB')
+const {KnexMysql,KnexSqlite3} = require('./apis/configDB')
+const knex = require('knex')
 
 dayjs.extend(customParseFormat)
 
 
-const products = new Container(optionDB)
-// const Messages = new Container("messages")
-// const Users = new Container("users")
+const products = new Container(KnexMysql,'./DB/products')
+const Messages = new Container(KnexSqlite3,'../DB/mydb.messages.sqlite')
+
+const Users = new Container(KnexMysql,'users')
+
+const createTablaProducts= async ()=>{
+  try {
+    const tabla = await knex.schema.createTable('.DB/products',(table)=>{
+      table.increment("id")
+      table.string("title")
+      table.string("thumbnail")
+      table.number("price")
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const createTablaMessages= async ()=>{
+  try {
+    const tabla = await knex.schema.createTable("./DB/mydb.messages.sqlite",(table)=>{
+      table.increment("id")
+      table.string("messages")
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 
 
 const productos= [{
