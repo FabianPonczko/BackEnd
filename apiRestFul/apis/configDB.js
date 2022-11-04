@@ -1,8 +1,8 @@
-export const KnexMysql = required('knex')({
+ const KnexMysql = require('knex')({
     client: 'mysql',
     connection: {
       host : '127.0.0.1',
-      port : 8080,
+      port : 3306,
       user : 'root',
       password : '',
       database : 'products'
@@ -10,15 +10,14 @@ export const KnexMysql = required('knex')({
 })
 
 
- export const KnexSqlite3 = required('knex')({
+ const KnexSqlite3 = require('knex')({
     client: 'sqlite3',
     connection: {
       filename: "./DB/mydb.messages.sqlite"
     }
 })
 
-// module.export = {
-//   KnexMysql,
-//   KnexSqlite3
-// }
+module.exports =  KnexMysql,
+module.exports =  KnexSqlite3
+
 

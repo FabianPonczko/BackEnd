@@ -12,19 +12,31 @@ class Container{
         this.dbName=dbName
     }
 
-    // async createDB(){
-    //   try {
-    //     const tabla = await this.knex.schema.createTable(this.dbName,(table)=>{
-    //       table.increment("id")
-    //       table.string("title")
-    //       table.string("thumbnail")
-    //       table.number("price")
-    //     })
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
+    async createDBproducts(){
+      try {
+        const tabla = await this.knex.schema.createTable(this.dbName,(table)=>{
+          table.increments("id")
+          table.string("title")
+          table.string("thumbnail")
+          table.integer("price")
+        })
+      } catch (error) {
+        console.log(error)
+      }
 
-    // }
+    }async createDBmenssages(){
+      try {
+        const tabla = await this.knex.schema.createTable(this.dbName,(table)=>{
+          table.increment("id")
+          table.string("messages")
+        })
+      } catch (error) {
+        console.log(error)
+      }
+
+    }
+
+
 
     async getData(){
         try {
@@ -44,7 +56,7 @@ class Container{
     async save(payload){
         try {
           // const { newId } = await this.getData()
-          await this.knex.from(this.dbName).indert({...payload})
+          await this.knex.from(this.dbName).insert({...payload})
           
         } catch (error) {
           console.log(`Error al guardar un objeto: ${error.message}`)

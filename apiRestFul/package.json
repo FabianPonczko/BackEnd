@@ -7,5 +7,16 @@
     "mysql": "^2.18.1",
     "socket.io": "^4.5.3",
     "sqlite3": "^5.1.2"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "apirestful",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

@@ -10,35 +10,40 @@ const knex = require('knex')
 dayjs.extend(customParseFormat)
 
 
-const products = new Container(KnexMysql,'./DB/products')
-const Messages = new Container(KnexSqlite3,'../DB/mydb.messages.sqlite')
+const products = new Container(KnexMysql,'products')
+const Messages = new Container(KnexSqlite3,'./DB/mydb.messages.sqlite')
 
 const Users = new Container(KnexMysql,'users')
 
-const createTablaProducts= async ()=>{
-  try {
-    const tabla = await knex.schema.createTable('.DB/products',(table)=>{
-      table.increment("id")
-      table.string("title")
-      table.string("thumbnail")
-      table.number("price")
-    })
-  } catch (error) {
-    console.log(error)
-  }
-}
+// const createTablaProducts= async ()=>{
+//   try {
+//     const tabla1 = await knex.schema.createTable('.DB/products',(table)=>{
+//       table.increment("id")
+//       table.string("title")
+//       table.string("thumbnail")
+//       table.number("price")
+//     })
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
 
-const createTablaMessages= async ()=>{
-  try {
-    const tabla = await knex.schema.createTable("./DB/mydb.messages.sqlite",(table)=>{
-      table.increment("id")
-      table.string("messages")
-    })
-  } catch (error) {
-    console.log(error)
-  }
-}
+// const createTablaMessages= async ()=>{
+//   try {
+//     const tabla2 = await knex.schema.createTable("./DB/mydb.messages.sqlite",(table)=>{
+//       table.increment("id")
+//       table.string("messages")
+//     })
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
 
+// createTablaMessages()
+// createTablaProducts
+
+products.createDBproducts()
+Messages.createDBmenssages()
 
 
 const productos= [{
