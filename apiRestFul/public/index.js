@@ -1,3 +1,5 @@
+
+
 const socket = io()
 
 let users = []
@@ -42,21 +44,24 @@ const cleanProducts = () => {
   }
 
   const renderMsg = ({msg, socketId, createdAt}) => {
-    console.log({msg})
+    const mensaje = JSON.parse(msg)
     const classMsg = (msg.email === socketId) ? "chat__msg-own": "chat__msg"
     const chatOwnerContent = (socketId === socket.id) ? "Yo" : getNameBySocketId(socketId)
     const chatMsg = document.createElement("div")
     const chatOwner = document.createElement("p")
+    const ChatText = document.createElement("p")
     const chatDate = document.createElement("p")
     chatMsg.classList.add(classMsg)
+    ChatText.classList.add(classMsg)
     chatOwner.classList.add('chat__owner')
     chatDate.classList.add('chat__date')
     chatOwner.innerHTML = chatOwnerContent
     chatDate.innerHTML = createdAt
     chatMsg.appendChild(chatOwner)
-    chatMsg.innerHTML = chatMsg.innerHTML + msg.textMsg
-    chatMsg.appendChild(chatDate)
+    chatMsg.appendChild(ChatText)
+    ChatText.innerHTML = mensaje.textMsg
     chatDisplay.appendChild(chatMsg)
+    chatMsg.appendChild(chatDate)
   }
 
   textMsgForm.addEventListener('submit', (e) => {

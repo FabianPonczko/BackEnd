@@ -13,11 +13,14 @@
  const KnexSqlite3 = require('knex')({
     client: 'sqlite3',
     connection: {
-      filename: "./DB/mydb.messages.sqlite"
-    }
+      filename: './DB/mydb.messages.sqlite'
+    },
+    useNullAsDefault:true
 })
 
-module.exports =  KnexMysql,
-module.exports =  KnexSqlite3
+module.exports = {
+  KnexMysql,
+  KnexSqlite3,
+} 
 
 

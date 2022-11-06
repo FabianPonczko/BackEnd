@@ -11,9 +11,9 @@ dayjs.extend(customParseFormat)
 
 
 const products = new Container(KnexMysql,'products')
-const Messages = new Container(KnexSqlite3,'./DB/mydb.messages.sqlite')
+const Messages = new Container(KnexSqlite3,'ecommerce')
 
-const Users = new Container(KnexMysql,'users')
+// const Users = new Container(KnexMysql,'users')
 
 // const createTablaProducts= async ()=>{
 //   try {
@@ -89,9 +89,9 @@ const newProduct = async (newProduct) => {
 
 const newUserConnected = async () => {
    const allMsg = await Messages.getAll()
-   const allUser = await Users.getAll()
+  //  const allUser = await Users.getAll()
   const allProducts = await products.getAll()
-   io.sockets.emit('all users', allUser)
+  //  io.sockets.emit('all users', allUser)
    io.sockets.emit('all messages', allMsg)
   io.sockets.emit('all products', allProducts)
 }
@@ -99,25 +99,30 @@ const newUserConnected = async () => {
 const newMessage = async (socket, io, newMsg) => {
   const date = new Date()
   const dateFormated = dayjs(date).format('DD/MM/YYYY hh:mm:ss')
-  await Messages.save({ msg: newMsg, socketId: newMsg.email, createdAt: `${dateFormated} hs`})
+  try {
+    await Messages.save({ msg: newMsg, socketId: newMsg.email, createdAt: `${dateFormated} hs`})
+
+  } catch (error) {
+    console.log('error en Messages.save',error)
+  }
   const allMsg = await Messages.getAll()
   io.sockets.emit('all messages', allMsg)
 }
 
-const userChangeAlias = async (socket, io, alias) => {
-  const user = await Users.getBySocketId(socket.id)
-  const userUpdated = {...user, name: alias}
-  await Users.updateById(userUpdated, user.id)
-  const allUser = await Users.getAll()
-  io.sockets.emit('all users', allUser)
-}
+// const userChangeAlias = async (socket, io, alias) => {
+//   const user = await Users.getBySocketId(socket.id)
+//   const userUpdated = {...user, name: alias}
+//   await Users.updateById(userUpdated, user.id)
+//   const allUser = await Users.getAll()
+//   io.sockets.emit('all users', allUser)
+// }
 
 io.on('connection', socket => {
     console.log(`nuevo cliente conectado: ${socket.id}`)
     newUserConnected()
 
     socket.on('new product', newProd => {
-      newProd['id']=  Date.now()
+      // newProd['id']=  Date.now()
       newProduct(newProd)
 
     })
@@ -125,7 +130,7 @@ io.on('connection', socket => {
       newMessage(socket, io, newMsg)
     })
 
-    socket.on('change alias', alias => {
-       userChangeAlias(socket, io, alias)
-    })
+    // socket.on('change alias', alias => {
+    //    userChangeAlias(socket, io, alias)
+    // })
 })

@@ -15,7 +15,7 @@ class Container{
     async createDBproducts(){
       try {
         const tabla = await this.knex.schema.createTable(this.dbName,(table)=>{
-          table.increments("id")
+          table.increments('id')
           table.string("title")
           table.string("thumbnail")
           table.integer("price")
@@ -26,9 +26,12 @@ class Container{
 
     }async createDBmenssages(){
       try {
-        const tabla = await this.knex.schema.createTable(this.dbName,(table)=>{
-          table.increment("id")
-          table.string("messages")
+          const tabla = await this.knex.schema.createTable(this.dbName,(table)=>{
+            table.increments('id')
+          table.string("msg")
+          table.string("socketId")
+          table.string("createdAt")
+
         })
       } catch (error) {
         console.log(error)
@@ -43,31 +46,32 @@ class Container{
             const data = await this.knex.from(this.dbName).select('*')
             // const arrayData = JSON.parse(data)
             // Devuelvo el ultimo id utilizado incrementado en 1
-            // if(arrayData.length)
-            //   return { newId: arrayData.at(-1).id + 1, data: arrayData }
-            // return { newId: 1, data: arrayData}
-            return {data}
+            if(data.length)
+               return { newId: data.at(-1).id + 1, data:{data} }
+            return { newId: 1, data: {data}}
+            
           } catch (error) {
-            console.log(`Error al leer un archivo: ${error.message}`)
+            console.log(`Error al leer un archivo: de ${this.dbName} ${error.message}`)
             
           }
     }
 
     async save(payload){
         try {
-          // const { newId } = await this.getData()
+          const { newId } = await this.getData()
+          payload["id"]=newId
           await this.knex.from(this.dbName).insert({...payload})
           
         } catch (error) {
-          console.log(`Error al guardar un objeto: ${error.message}`)
+          console.log(`Error al guardar un objeto en ${this.dbName} ${error.message}`)
           
         }
       }
-   
+  
 
     async getAll() {
       try {
-        const { data } = await this.getData()
+        const  data  = await this.knex.from(this.dbName).select('*')
         return data
       } catch (error) {
         console.log(`Error al obtener todos los objetos: ${error.message}`)
