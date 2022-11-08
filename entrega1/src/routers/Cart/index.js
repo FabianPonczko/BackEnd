@@ -38,7 +38,7 @@ router.delete("/:id",verifyRole, async (req,res)=>{
 router.get("/:id/productos", async (req,res)=>{
     try{
         const {id} =req.params
-        const {products} = await cartDao.getById(id)
+        const products = await cartDao.getById(Number(id))
         res.send(products)
     }catch (error) {
         console.log(`Error: ${error}`)
