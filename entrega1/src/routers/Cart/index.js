@@ -29,8 +29,27 @@ router.post('/', verifyRole, async (req,res)=>{
 router.delete("/:id",verifyRole, async (req,res)=>{
     try{
         const {id} =req.params
+        // const {idProd} =req.params
         const cart = await cartDao.DeleteById(Number(id))
         res.send({success:true})
+    }catch (error) {
+        console.log(`Error: ${error}`)
+      }
+})
+router.delete("/:id_car/productos/:id_prod",verifyRole, async (req,res)=>{
+    try{
+        const {id_car} =req.params
+        const {id_prod} =req.params
+        const {products} = await cartDao.getById(Number(id_car))
+        const indice = products.findIndex(prod => prod.id === Number(id_prod))
+        console.log({indice})
+        if(indice !== -1){
+            products.splice(indice,1)
+            await cartDao.updateById({timestamp:DATE_UTILS.getTimestamp(),products:products},Number(id_car))
+            res.send({success:true})
+        }else{
+            res.send({success:false})
+        }
     }catch (error) {
         console.log(`Error: ${error}`)
       }
