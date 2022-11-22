@@ -2,17 +2,18 @@
 
 import { FireBaseDBservice } from '../services/FireBaseService/index.js'
 import { MongoDBService } from '../services/index.js'
-import {CartsMongo} from './Carts/index.js'
-import {ProductsMongo, ProductsFireBase} from './Products/index.js'
+import {CartsMongo,CartsFireBase,CartsFileSystem} from './Carts/index.js'
+import {ProductsMongo, ProductsFireBase,ProductsFileSystem } from './Products/index.js'
 
 
-// const PRODUCTS_FILENAME = 'products'
-// const CART_FILENAME = 'cart'
-
-// const productsDao = new Container(PRODUCTS_FILENAME)
-// const cartDao = new Container(CART_FILENAME)
+// ----------------------------------------------------------------
+// Cambiar SELECTED_DATABASE para usar DB: "mongo" ó DB:"firebase"
+// ---------------------------------------------------------------
 
 const SELECTED_DATABASE = "firebase"
+
+// -------------------------------------------------------------
+
 const getSelectedDaos = ()=>{
     switch(SELECTED_DATABASE){
         case "mongo":{
@@ -23,10 +24,17 @@ const getSelectedDaos = ()=>{
             }
         }
         case "firebase":{
-            FireBaseDBservice.init()
+            // FireBaseDBservice.init()
             return{
                 ProductDao: new ProductsFireBase(),
-                CartDao: new CartsMongo()
+                CartDao: new CartsFireBase()
+            }
+        }
+        case "filesystem":{
+            // FireBaseDBservice.init()
+            return{
+                ProductDao: new  ProductsFileSystem(),
+                CartDao: new CartsFileSystem()
             }
         }
     }

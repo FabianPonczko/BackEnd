@@ -1,3 +1,12 @@
+
+
+
+// ----------------------------------------------------------------
+// Cambiar SELECTED_DATABASE para usar DB: "mongo" ó DB:"firebase"
+//
+// Ruta para seleccionar base de datos "./srv/Dao/index.js":
+// ---------------------------------------------------------------
+
 Rutas para productos: '/api/products'
 
 para crear productos pasar por body: (post"/")
