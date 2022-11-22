@@ -25,7 +25,7 @@ const createTablaProducts= async ()=>{
     })
   } catch (error) {
     console.log(error)
-  }
+  }finally{console.log('Base de datos creada')}
 }
 
 const createTablaMessages= async ()=>{
@@ -36,7 +36,7 @@ const createTablaMessages= async ()=>{
     })
   } catch (error) {
     console.log(error)
-  }
+  }finally{console.log('Base de datos creada')}
 }
 
 
