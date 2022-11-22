@@ -18,7 +18,8 @@ router.get('/', async(req,res)=>{
 
 router.post('/', verifyRole, async (req,res)=>{
     try{
-        const cart = ({timestamp:DATE_UTILS.getTimestamp(), products: []})
+        const cart = ({timeStamp:DATE_UTILS.getTimestamp(), products: []})
+        console.log({cart})
         const cartCreated = await CartDao.save(cart)
         res.send({ success: true, cartId: cartCreated.id });
     }catch(error){
@@ -30,7 +31,7 @@ router.delete("/:id",verifyRole, async (req,res)=>{
     try{
         const {id} =req.params
         // const {idProd} =req.params
-        const cart = await CartDao.DeleteById(Number(id))
+        const cart = await CartDao.DeleteById(id)
         res.send({success:true})
     }catch (error) {
         console.log(`Error: ${error}`)
@@ -40,12 +41,13 @@ router.delete("/:id_car/productos/:id_prod",verifyRole, async (req,res)=>{
     try{
         const {id_car} =req.params
         const {id_prod} =req.params
-        const {products} = await CartDao.getById(Number(id_car))
-        const indice = products.findIndex(prod => prod.id === Number(id_prod))
+        const {products} = await CartDao.getById(id_car)
+        console.log({products})
+        const indice = products.findIndex(prod => prod.id === id_prod)
         console.log({indice})
         if(indice !== -1){
             products.splice(indice,1)
-            await CartDao.updateById({timestamp:DATE_UTILS.getTimestamp(),products:products},Number(id_car))
+            await CartDao.updateById(id_car,{timestamp:DATE_UTILS.getTimestamp(),products:products})
             res.send({success:true})
         }else{
             res.send({success:false})
@@ -54,10 +56,10 @@ router.delete("/:id_car/productos/:id_prod",verifyRole, async (req,res)=>{
         console.log(`Error: ${error}`)
       }
 })
-router.get("/:id/productos", async (req,res)=>{
+router.get("/:id", async (req,res)=>{
     try{
         const {id} =req.params
-        const products = await CartDao.getById(Number(id))
+        const products = await CartDao.getById(id)
         res.send(products)
     }catch (error) {
         console.log(`Error: ${error}`)
@@ -70,12 +72,12 @@ router.post('/:id/productos', verifyRole, async (req,res)=>{
         const { productId } = req.body;
         const { id } = req.params;
       
-        const cart = await CartDao.getById(Number(id));
+        const cart = await CartDao.getById(id);
       
         if (!cart)
           return res.send({ error: true, message: "carrito no encontrado" });
       
-        const product = await ProductDao.getById(Number(productId));
+        const product = await ProductDao.getById(productId);
       
         if (!product)
           return res.send({ error: true, message: "producto no encontrado" });
@@ -83,7 +85,7 @@ router.post('/:id/productos', verifyRole, async (req,res)=>{
         // TODO
         cart.products.push(product);
       
-        const updatedCart = await CartDao.updateById( cart,Number(id));
+        const updatedCart = await CartDao.updateById(id, cart);
       
         res.send({ success: true, cart: updatedCart });
     }catch(error){

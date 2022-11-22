@@ -7,4 +7,9 @@ export class CartsMongo extends MongoDbContainer{
             schema:CartModels.CartSchema
         })
     }
+
+    async getById(id) {
+        const response = await this.model.findById(id).populate("products")
+        return response
+    }
 }

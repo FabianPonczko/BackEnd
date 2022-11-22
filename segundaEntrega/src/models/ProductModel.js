@@ -13,14 +13,13 @@ const ProductSchema = new Schema({
 },
 {
     virtuals:true
-}
-
-)
+})
 
 ProductSchema.set("toJSON",{
     transform:(_,response)=>{
         response.id=response._id
-        // delete response._id
+        delete response._id
+        delete response.__v
         return response
     }
 })

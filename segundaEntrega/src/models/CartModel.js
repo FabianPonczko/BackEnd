@@ -5,9 +5,8 @@ const CartCollection= "carts"
 const CartSchema = new Schema(
     {
     timeStamp:{type: String, require:true,max:100},
-
     title:{type: String, require:true,max:100},
-    products:[{tipe:Schema.Types.ObjectId,Ref: "products"}]
+    products:[{type:Schema.Types.ObjectId,ref: "products"}]
     },
     {
         virtuals:true
@@ -18,7 +17,8 @@ const CartSchema = new Schema(
 CartSchema.set("toJSON",{
     transform:(_,response)=>{
         response.id=response._id
-        // delete response._id
+        delete response._id
+        delete response.__v
         return response
     }
 })

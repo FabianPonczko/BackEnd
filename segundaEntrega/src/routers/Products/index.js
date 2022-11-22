@@ -20,7 +20,7 @@ router.get("/", async (req,res)=>{
 router.get("/:id", async (req,res)=>{
     try{
         const {id} =req.params
-        const product = await ProductDao.getById(Number(id))
+        const product = await ProductDao.getById(id)
         res.send(product)
     }catch (error) {
         console.log(`Error: ${error}`)
@@ -42,7 +42,7 @@ router.put("/:id",verifyRole, async (req,res)=>{
     try{
         const {id} =req.params
         const {title,description,code,thumbnail,price,stock} = req.body
-        const product = await ProductDao.updateById({title,description,code,thumbnail,price,stock,timestamp:DATE_UTILS.getTimestamp()},Number(id))
+        const product = await ProductDao.updateById(id,{title,description,code,thumbnail,price,stock,timestamp:DATE_UTILS.getTimestamp()})
         res.send(product)
     }catch (error) {
         console.log(`Error: ${error}`)
@@ -51,7 +51,7 @@ router.put("/:id",verifyRole, async (req,res)=>{
 router.delete("/:id",verifyRole, async (req,res)=>{
     try{
         const {id} =req.params
-        const product = await ProductDao.DeleteById(Number(id))
+        const product = await ProductDao.DeleteById(id)
         res.send(product)
     }catch (error) {
         console.log(`Error: ${error}`)

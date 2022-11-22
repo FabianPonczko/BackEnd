@@ -26,6 +26,8 @@ class MongoDbContainer{
         return response
     }
     async DeleteById(id) {
+        const response = this.model.findByIdAndDelete(id)
+        return response
     }
     
 }
