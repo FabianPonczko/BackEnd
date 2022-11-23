@@ -47,7 +47,7 @@ router.delete("/:id_car/productos/:id_prod",verifyRole, async (req,res)=>{
         console.log({indice})
         if(indice !== -1){
             products.splice(indice,1)
-            await CartDao.updateById(id_car,{timestamp:DATE_UTILS.getTimestamp(),products:products})
+            await CartDao.updateById(id_car,{timeStamp:DATE_UTILS.getTimestamp(),products:products})
             res.send({success:true})
         }else{
             res.send({success:false})
@@ -71,13 +71,14 @@ router.post('/:id/productos', verifyRole, async (req,res)=>{
     try{
         const { productId } = req.body;
         const { id } = req.params;
-      
+
         const cart = await CartDao.getById(id);
       
         if (!cart)
           return res.send({ error: true, message: "carrito no encontrado" });
       
         const product = await ProductDao.getById(productId);
+        console.log("products",product)
       
         if (!product)
           return res.send({ error: true, message: "producto no encontrado" });

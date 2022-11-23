@@ -10,7 +10,7 @@ import {ProductsMongo, ProductsFireBase,ProductsFileSystem } from './Products/in
 // Cambiar SELECTED_DATABASE para usar DB: "mongo" ó DB:"firebase"
 // ---------------------------------------------------------------
 
-const SELECTED_DATABASE = "firebase"
+const SELECTED_DATABASE = "mongo"
 
 // -------------------------------------------------------------
 

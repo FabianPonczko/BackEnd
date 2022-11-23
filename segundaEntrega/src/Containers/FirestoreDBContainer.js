@@ -13,6 +13,7 @@ class FireBaseDbContainer{
        const response = await this.model.get()
        return response.docs.map(doc =>{ return {...doc.data(), id:doc.id}} )
     }
+    
     async save(element){
         const response=this.model.doc().create(element)
         // nos brinda un documento temporal con un id autogenerado
@@ -22,10 +23,10 @@ class FireBaseDbContainer{
 
     async getById(id) {
         const response = await this.model.doc(id).get()
-        return response.data()
+        return {...response.data(),id:response.id}
     }
     async updateById(id,newData) {
-        const elemento = this.model.doc(id)
+        const elemento =  this.model.doc(id)
         const response = await elemento.update(newData)
         return response
     }

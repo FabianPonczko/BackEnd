@@ -7,7 +7,7 @@ import  fs  from 'fs'
 
 
 class Container{
-    constructor(name) {
+    constructor({name}) {
         this.filepath=`./src/db/${name}.json`
       try {
         fs.promises.writeFile(this.filepath, '[]')
