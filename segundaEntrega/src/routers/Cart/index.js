@@ -19,7 +19,6 @@ router.get('/', async(req,res)=>{
 router.post('/', verifyRole, async (req,res)=>{
     try{
         const cart = ({timeStamp:DATE_UTILS.getTimestamp(), products: []})
-        console.log({cart})
         const cartCreated = await CartDao.save(cart)
         res.send({ success: true, cartId: cartCreated.id });
     }catch(error){
@@ -42,9 +41,7 @@ router.delete("/:id_car/productos/:id_prod",verifyRole, async (req,res)=>{
         const {id_car} =req.params
         const {id_prod} =req.params
         const {products} = await CartDao.getById(id_car)
-        console.log({products})
         const indice = products.findIndex(prod => prod.id === id_prod)
-        console.log({indice})
         if(indice !== -1){
             products.splice(indice,1)
             await CartDao.updateById(id_car,{timeStamp:DATE_UTILS.getTimestamp(),products:products})

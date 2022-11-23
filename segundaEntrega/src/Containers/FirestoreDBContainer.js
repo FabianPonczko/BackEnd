@@ -1,12 +1,15 @@
 // import mongoose from "mongoose"
-import {FireBaseDBservice} from '../services/FireBaseService/index.js'
+// import {FireBaseDBservice} from '../services/FireBaseService/index.js'
+ import firebase from 'firebase-admin'
 
+ const db=firebase.firestore()
 
 class FireBaseDbContainer{
     constructor({collections}) {
-        FireBaseDBservice.init().then(db=>{
-            this.model= db.collection(collections)
-        })
+        // FireBaseDBservice.init().then(db=>{
+        //     this.model= db.collection(collections)
+        // })
+        this.model= db.collection(collections)
     }
 
     async getAll() {

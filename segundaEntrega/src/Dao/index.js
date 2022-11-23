@@ -10,7 +10,7 @@ import {ProductsMongo, ProductsFireBase,ProductsFileSystem } from './Products/in
 // Cambiar SELECTED_DATABASE para usar DB: "mongo" ó DB:"firebase"
 // ---------------------------------------------------------------
 
-const SELECTED_DATABASE = "mongo"
+const SELECTED_DATABASE = "firebase"
 
 // -------------------------------------------------------------
 
@@ -24,14 +24,14 @@ const getSelectedDaos = ()=>{
             }
         }
         case "firebase":{
-            // FireBaseDBservice.init()
+             FireBaseDBservice.init()
             return{
                 ProductDao: new ProductsFireBase(),
                 CartDao: new CartsFireBase()
             }
         }
         case "filesystem":{
-            // FireBaseDBservice.init()
+
             return{
                 ProductDao: new  ProductsFileSystem(),
                 CartDao: new CartsFileSystem()
