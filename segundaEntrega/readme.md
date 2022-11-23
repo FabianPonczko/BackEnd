@@ -1,13 +1,14 @@
 
 
+***
 
-```bash
 ## Cambiar SELECTED_DATABASE para usar DB: "mongo" ó DB:"firebase"
-```
+
+***
 
 ## Ruta para seleccionar base de datos "./srv/Dao/index.js" :13
 
-# Rutas para productos: '/api/products'
+### Rutas para productos: '/api/products'
 
 * para crear productos pasar por body: (post"/")
    ```python
@@ -45,7 +46,7 @@
     ```
 
 
-# Rutas para carts: '/api/carts'
+### Rutas para carts: '/api/carts'
 
 * para crear carts realizar (post"/") y pasar por body:
     ```python
