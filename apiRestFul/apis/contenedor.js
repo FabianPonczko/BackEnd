@@ -14,25 +14,30 @@ class Container{
 
     async createDBproducts(){
       try {
-        const tabla = await this.knex.schema.createTable(this.dbName,(table)=>{
-          table.increments('id')
-          table.string("title")
-          table.string("thumbnail")
-          table.integer("price")
-        })
+        const is_Exist_Db= await this.knex.schema.hasTable(this.dbName)
+        if (!is_Exist_Db){
+          const tabla = await this.knex.schema.createTable(this.dbName,(table)=>{
+            table.increments('id')
+            table.string("title")
+            table.string("thumbnail")
+            table.integer("price")
+          })
+        }
       } catch (error) {
         console.log(error)
       }
 
     }async createDBmenssages(){
       try {
+        const is_Exist_Db= await this.knex.schema.hasTable(this.dbName)
+        if (!is_Exist_Db){
           const tabla = await this.knex.schema.createTable(this.dbName,(table)=>{
             table.increments('id')
           table.string("msg")
           table.string("socketId")
           table.string("createdAt")
-
         })
+      }
       } catch (error) {
         console.log(error)
       }

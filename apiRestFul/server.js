@@ -6,52 +6,29 @@ const dayjs = require("dayjs")
 const customParseFormat = require('dayjs/plugin/customParseFormat')
 const {KnexMysql,KnexSqlite3} = require('./apis/configDB')
 const knex = require('knex')
+const ContenedorMock = require ('./apis/contenedorMock')
 
 dayjs.extend(customParseFormat)
 
 
-const products = new Container(KnexMysql,'products')
+// const products = new Container(KnexMysql,'products')
+const products = new ContenedorMock()
+products.createProducts()
 const Messages = new Container(KnexSqlite3,'ecommerce')
 
-// const Users = new Container(KnexMysql,'users')
+console.log({products})
 
-// const createTablaProducts= async ()=>{
-//   try {
-//     const tabla1 = await knex.schema.createTable('.DB/products',(table)=>{
-//       table.increment("id")
-//       table.string("title")
-//       table.string("thumbnail")
-//       table.number("price")
-//     })
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
 
-// const createTablaMessages= async ()=>{
-//   try {
-//     const tabla2 = await knex.schema.createTable("./DB/mydb.messages.sqlite",(table)=>{
-//       table.increment("id")
-//       table.string("messages")
-//     })
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
-
-// createTablaMessages()
-// createTablaProducts
-
-products.createDBproducts()
+// products.createDBproducts()
 Messages.createDBmenssages()
 
 
-const productos= [{
-    title:"Notebook hp",
-    price:250000,
-    thumbnail: 'https://lezamapc.com.ar/33210-large_default/notebook-hp-14-245-amd-ryzen-5-5500u-1t-8gb.jpg',
-    id:1
-}]
+// const productos= [{
+//     title:"Notebook hp",
+//     price:250000,
+//     thumbnail: 'https://lezamapc.com.ar/33210-large_default/notebook-hp-14-245-amd-ryzen-5-5500u-1t-8gb.jpg',
+//     id:1
+// }]
 
 
 
