@@ -6,20 +6,21 @@ const dayjs = require("dayjs")
 const customParseFormat = require('dayjs/plugin/customParseFormat')
 const {KnexMysql,KnexSqlite3} = require('./apis/configDB')
 const knex = require('knex')
-const ContenedorMock = require ('./apis/contenedorMock')
+const router=require("./routes/productos")
+
 
 dayjs.extend(customParseFormat)
 
 
-// const products = new Container(KnexMysql,'products')
-const products = new ContenedorMock()
-products.createProducts()
+const products = new Container(KnexMysql,'products')
+products.createDBproducts()
+
 const Messages = new Container(KnexSqlite3,'ecommerce')
 
-console.log({products})
+// console.log({products})
 
 
-// products.createDBproducts()
+
 Messages.createDBmenssages()
 
 
@@ -55,6 +56,8 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 app.use('/',express.static(__dirname+'/public'))
+
+app.use("/", router)
 
 
 

@@ -3,6 +3,13 @@ const {Router} = express
 
 const router = Router()
 
+
+const ContenedorMock = require ('../apis/contenedorMock')
+
+
+const productosMock = new ContenedorMock()
+productosMock.createProducts()
+
 const productos= [{
     title:"Notebook hp",
     price:250000,
@@ -14,6 +21,10 @@ router.get("/",(req,res)=>{
     res.render("formProducts")
 })
 
+router.get('api/productos-test',(req,res)=>{
+    console.log("entro aqui")
+    res.render("tableProducts" , {productos: productosMock})
+})
 router.get('/productos',(req,res)=>{
     res.render("tableProducts" , {productos: productos})
 })
