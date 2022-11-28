@@ -7,6 +7,7 @@ const customParseFormat = require('dayjs/plugin/customParseFormat')
 const {KnexMysql,KnexSqlite3} = require('./apis/configDB')
 const knex = require('knex')
 const router=require("./routes/productos")
+const contenedorMock =require('./apis/contenedorMock')
 
 
 dayjs.extend(customParseFormat)
@@ -15,9 +16,14 @@ dayjs.extend(customParseFormat)
 const products = new Container(KnexMysql,'products')
 products.createDBproducts()
 
+
+const productsMocks= new contenedorMock()
+productsMocks.createProducts()
+
 const Messages = new Container(KnexSqlite3,'ecommerce')
 
 // console.log({products})
+
 
 
 
@@ -40,9 +46,9 @@ const io = new SocketIOServer(httpServer)
 const PORT = 8080
 
 
-app.use(express.static('./public'))
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.static('./public'))
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 
 
 
@@ -57,20 +63,24 @@ app.use(express.urlencoded({extended:true}))
 
 app.use('/',express.static(__dirname+'/public'))
 
-app.use("/", router)
+
+
+
 
 
 
 const newProduct = async (newProduct) => {
   await products.save(newProduct)
-  const allProduct = await products.getAll()
+  // const allProduct = await products.getAll()
+  const allProduct = await productsMocks.getAll()
   io.sockets.emit('all products', allProduct)
 }
 
 const newUserConnected = async () => {
    const allMsg = await Messages.getAll()
   //  const allUser = await Users.getAll()
-  const allProducts = await products.getAll()
+  // const allProducts = await products.getAll()
+  const allProducts = await productsMocks.getAll()
   //  io.sockets.emit('all users', allUser)
    io.sockets.emit('all messages', allMsg)
   io.sockets.emit('all products', allProducts)

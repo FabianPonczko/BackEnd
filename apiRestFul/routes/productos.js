@@ -1,7 +1,11 @@
 const express = require ('express')
+
 const {Router} = express
 
 const router = Router()
+
+const app = express()
+
 
 
 const ContenedorMock = require ('../apis/contenedorMock')
@@ -10,27 +14,27 @@ const ContenedorMock = require ('../apis/contenedorMock')
 const productosMock = new ContenedorMock()
 productosMock.createProducts()
 
-const productos= [{
-    title:"Notebook hp",
-    price:250000,
-    thumbnail: 'https://lezamapc.com.ar/33210-large_default/notebook-hp-14-245-amd-ryzen-5-5500u-1t-8gb.jpg',
-    id:1
-}]
+// const productos= [{
+//     title:"Notebook hp",
+//     price:250000,
+//     thumbnail: 'https://lezamapc.com.ar/33210-large_default/notebook-hp-14-245-amd-ryzen-5-5500u-1t-8gb.jpg',
+//     id:1
+// }]
 
-router.get("/",(req,res)=>{
-    res.render("formProducts")
-})
+// router.get("/",(req,res)=>{
+//     res.render("formProducts")
+// })
 
 router.get('api/productos-test',(req,res)=>{
     console.log("entro aqui")
-    res.render("tableProducts" , {productos: productosMock})
+    res.render("tableProductsMocks" , {productos: productosMock})
 })
 router.get('/productos',(req,res)=>{
     res.render("tableProducts" , {productos: productos})
 })
 
 router.get('/api/productos',(req,res)=>{
-     res.json(productos)
+     res.json(productosMock)
    
 })
 
