@@ -32,10 +32,20 @@ class Container{
         const is_Exist_Db= await this.knex.schema.hasTable(this.dbName)
         if (!is_Exist_Db){
           const tabla = await this.knex.schema.createTable(this.dbName,(table)=>{
-            table.increments('id')
-          table.string("msg")
-          table.string("socketId")
-          table.string("createdAt")
+              table.string('id')//mail del usuario
+              table.string('nombre')
+              table.string('apellido')
+              table.string('edad')
+              table.string('alias')
+              table.string('avatar')// foto logo del usuario
+            
+            // table.increments('id');
+            table.string('text') //mensaje del usuario
+
+          //   table.increments('id')
+          // table.string("msg")
+          // table.string("socketId")
+          // table.string("createdAt")
         })
       }
       } catch (error) {
@@ -52,8 +62,9 @@ class Container{
             // const arrayData = JSON.parse(data)
             // Devuelvo el ultimo id utilizado incrementado en 1
             if(data.length)
-               return { newId: data.at(-1).id + 1, data:{data} }
-            return { newId: 1, data: {data}}
+              //  return { newId: data.at(-1).id + 1, data:{data} }
+            // return { newId: 1, data: {data}}  
+             return  {data}
             
           } catch (error) {
             console.log(`Error al leer un archivo: de ${this.dbName} ${error.message}`)
@@ -63,8 +74,8 @@ class Container{
 
     async save(payload){
         try {
-          const { newId } = await this.getData()
-          payload["id"]=newId
+          // const { newId } = await this.getData()
+          // payload["id"]=newId
           await this.knex.from(this.dbName).insert({...payload})
           
         } catch (error) {

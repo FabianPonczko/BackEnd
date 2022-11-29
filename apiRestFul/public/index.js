@@ -15,7 +15,7 @@ const cleanProducts = () => {
     productSection.innerHTML = ""
   }
   const renderProducts = async (products) => {
-    let response = await fetch('/views/tableProducts.hbs')
+    let response = await fetch('./views/tableProducts.hbs')
     const template = await response.text()
     const templateCompiled = Handlebars.compile(template)
     const html = templateCompiled({ products })
@@ -42,26 +42,26 @@ const cleanProducts = () => {
     else return foundData.name
   }
 
-  const renderMsg = ({msg, socketId, createdAt}) => {
-    const mensaje = JSON.parse(msg)
-    const classMsg = (msg.email === socketId) ? "chat__msg-own": "chat__msg"
-    const chatOwnerContent = (socketId === socket.id) ? "Yo" : getNameBySocketId(socketId)
-    const chatMsg = document.createElement("div")
-    const chatOwner = document.createElement("p")
-    const ChatText = document.createElement("p")
-    const chatDate = document.createElement("p")
-    chatMsg.classList.add(classMsg)
-    ChatText.classList.add(classMsg)
-    chatOwner.classList.add('chat__owner')
-    chatDate.classList.add('chat__date')
-    chatOwner.innerHTML = chatOwnerContent
-    chatDate.innerHTML = createdAt
-    chatMsg.appendChild(chatOwner)
-    chatMsg.appendChild(ChatText)
-    ChatText.innerHTML = mensaje.textMsg
-    chatDisplay.appendChild(chatMsg)
-    chatMsg.appendChild(chatDate)
-  }
+  // const renderMsg = ({msg, socketId, createdAt}) => {
+  //   const mensaje = JSON.parse(msg)
+  //   const classMsg = (msg.email === socketId) ? "chat__msg-own": "chat__msg"
+  //   const chatOwnerContent = (socketId === socket.id) ? "Yo" : getNameBySocketId(socketId)
+  //   const chatMsg = document.createElement("div")
+  //   const chatOwner = document.createElement("p")
+  //   const ChatText = document.createElement("p")
+  //   const chatDate = document.createElement("p")
+  //   chatMsg.classList.add(classMsg)
+  //   ChatText.classList.add(classMsg)
+  //   chatOwner.classList.add('chat__owner')
+  //   chatDate.classList.add('chat__date')
+  //   chatOwner.innerHTML = chatOwnerContent
+  //   chatDate.innerHTML = createdAt
+  //   chatMsg.appendChild(chatOwner)
+  //   chatMsg.appendChild(ChatText)
+  //   ChatText.innerHTML = mensaje.textMsg
+  //   chatDisplay.appendChild(chatMsg)
+  //   chatMsg.appendChild(chatDate)
+  // }
 
   textMsgForm.addEventListener('submit', (e) => {
     e.preventDefault()
