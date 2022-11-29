@@ -102,17 +102,19 @@ const newUserConnected = async () => {
   io.sockets.emit('all products', allProducts)
 }
 
-const newMessage = async (...newMsg) => {
-  console.log("llego",...newMsg)
+const newMessage = async (newMsg) => {
   const date = new Date()
   const dateFormated = dayjs(date).format('DD/MM/YYYY hh:mm:ss')
+  const {email,nombre,apellido,edad,alias,avatar,textMsg} = newMsg
+
   try {
     // await Messages.save({ msg: newMsg, socketId: newMsg.email, createdAt: `${dateFormated} hs`})
-    await Messages.save( {...newMsg})
+    await Messages.save( {id:email,nombre,apellido,edad,alias,avatar,text:textMsg})
   } catch (error) {
     console.log('error en Messages.save',error)
   }
   const allMsg = await Messages.getAll()
+  console.log(allMsg)
   io.sockets.emit('all messages', allMsg)
 }
 
@@ -135,7 +137,6 @@ io.on('connection', socket => {
     })
     socket.on('new msg', newMsg => {
       // newMessage(socket, io, newMsg)
-      console.log("llegando valores",newMsg)
       newMessage(newMsg)
     })
 
