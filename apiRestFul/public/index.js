@@ -1,4 +1,3 @@
-
 const socket = io()
 
 let users = []
@@ -35,7 +34,6 @@ const cleanProducts = () => {
 
   const getNameBySocketId = (socketId) => {
     console.log("socketid",socketId)
-    // const foundData = messages.find( element => element.socketId === socketId )
     const foundData = messages.find( element => element.id === socketId )
     console.log("foundData",foundData)
     if(foundData === undefined)
@@ -43,31 +41,11 @@ const cleanProducts = () => {
     
     if(foundData.id)
       return foundData.id
-    // else return foundData.name
   }
 
   const renderMsg = (msgData) => {
     const {id,nombre,apellido,edad,alias,avatar,text} = msgData
-    // const mensaje = JSON.parse(msgData)
-    // const {text} = msgData
-    console.log()
-    const authorData = {
-    author:{
-      id,
-      nombre,
-      apellido,
-      edad,
-      alias,
-      avatar,
-    },
-    text
-  }
-
-    console.log(authorData)
-    // const classMsg = (msgData.email === socketId) ? "chat__msg-own": "chat__msg"
     const classMsg =  "chat__msg"
-    // const chatOwnerContent = (socketId === socket.id) ? "Yo" : getNameBySocketId(socketId)
-    // const chatOwnerContent =  getNameBySocketId(msgData.id)
     const chatMsg = document.createElement("div")
     const chatOwner = document.createElement("p")
     const ChatText = document.createElement("p")
@@ -83,8 +61,6 @@ const cleanProducts = () => {
     ChatText.classList.add(classMsg)
     chatOwner.classList.add('chat__owner')
     chatDate.classList.add('chat__date')
-    // chatOwner.innerHTML = chatOwnerContent
-    // chatDate.innerHTML = createdAt
     chatMsg.appendChild(chatOwner)
     chatMsg.appendChild(chatEmail)
     chatMsg.appendChild(chatNombre)
@@ -99,9 +75,7 @@ const cleanProducts = () => {
     chatEdad.innerHTML=edad
     chatAlias.innerHTML=alias
     chatAvatar.innerHTML=avatar
-    // ChatText.innerHTML = JSON.stringify(authorData,null,2) 
     chatDisplay.appendChild(chatMsg)
-    // chatMsg.appendChild(chatDate)
   }
 
   textMsgForm.addEventListener('submit', (e) => {
@@ -117,11 +91,23 @@ const cleanProducts = () => {
     renderProducts(allProduct)
   })
  
+  //llegan los mensajes normalizados
+
+  const author = new normalizr.schema.Entity('author',{idAttribute: 'email'})//{idAttribute: 'email'}
+
+  const mensajes = new normalizr.schema.Entity('mensajes',{
+      mensaje : author
+  }) 
+
   socket.on('all messages', allMsg => {
     messages = allMsg
+    //desnormalizo los mensajes para mostrarlos en el dom
+    const allMsgDesnormalized = normalizr.denormalize(allMsg.result,mensajes, allMsg.entities)
+    console.log("allMsg",allMsgDesnormalized)
     cleanChat()
-     for (msgData of allMsg){
-      renderMsg(msgData)
-     }
+    //  for (msgData of allMsg){
+      // renderMsg(msgData)
+    //  }
+    renderMsg(allMsgDesnormalized)
      chatDisplay.scrollTo(0, chatDisplay.scrollHeight)
     })

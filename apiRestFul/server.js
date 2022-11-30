@@ -6,8 +6,8 @@ const dayjs = require("dayjs")
 const customParseFormat = require('dayjs/plugin/customParseFormat')
 const {KnexMysql,KnexSqlite3} = require('./apis/configDB')
 const knex = require('knex')
-// const router=require("./routes/productos")
 const contenedorMock =require('./apis/contenedorMock')
+const {normalizeData}=require('./normalizr/normalizar')
 
 const handlebars = require('express-handlebars')
 const {engine} = require('express-handlebars')
@@ -19,6 +19,7 @@ app.use(express.urlencoded({extended:true}))
 
 app.use('/',express.static(__dirname+'/public'))
 
+//configuro handlebars
 app.engine('hbs', engine({
   extname:'.hbs',
   defaultLayout:"main.hbs"
@@ -29,36 +30,18 @@ app.set('views',  './public/views');
 dayjs.extend(customParseFormat)
 
 
-
+//obtengo productos desde mysql
 const products = new Container(KnexMysql,'products')
 products.createDBproducts()
 
-
+//obtengo productos desde Mocks
 const productsMocks= new contenedorMock()
 productsMocks.createProducts()
 
 
+//obtengo mensajes desde sqlite3
 const Messages = new Container(KnexSqlite3,'ecommerce')
-
-// console.log({products})
-
-
-
-
 Messages.createDBmenssages()
-
-
-
-
-
-// const productos= [{
-//     title:"Notebook hp",
-//     price:250000,
-//     thumbnail: 'https://lezamapc.com.ar/33210-large_default/notebook-hp-14-245-amd-ryzen-5-5500u-1t-8gb.jpg',
-//     id:1
-// }]
-
-
 
 
 const httpServer = new HttpServer(app)
@@ -66,23 +49,15 @@ const io = new SocketIOServer(httpServer)
 
 const PORT = 8080
 
-
-// app.use(express.static('./public'))
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-
-
-
 httpServer.listen(PORT, () =>{
   console.log(`Server running on port: ${PORT}`)
 })
 
 
-
+//creo ruta a view handlebars con tabla de productos desde Mocks
 app.get('/api/productos-test', (req,res)=>{
   res.render('tableProductsMocks', productsMocks )
 })
-
 
 
 const newProduct = async (newProduct) => {
@@ -94,12 +69,25 @@ const newProduct = async (newProduct) => {
 
 const newUserConnected = async () => {
    const allMsg = await Messages.getAll()
-  //  const allUser = await Users.getAll()
-  const allProducts = await products.getAll()
-  // const allProducts = await productsMocks.getAll()
-  //  io.sockets.emit('all users', allUser)
-   io.sockets.emit('all messages', allMsg)
-  io.sockets.emit('all products', allProducts)
+   const {email,nombre,apellido,edad,alias,avatar,textMsg} = allMsg
+   const authorData = 
+    {
+      author:{
+        id:email,
+        nombre,
+        apellido,
+        edad,
+        alias,
+        avatar,
+      },
+      text:textMsg
+    }
+    const allProducts = await products.getAll()
+    io.sockets.emit('all products', allProducts)
+    
+    //envio mensajes al from normalizados
+    const mensajeNormalizer = normalizeData({id:"mensajes",authorData})
+    io.sockets.emit('all messages', mensajeNormalizer)
 }
 
 const newMessage = async (newMsg) => {
@@ -108,39 +96,40 @@ const newMessage = async (newMsg) => {
   const {email,nombre,apellido,edad,alias,avatar,textMsg} = newMsg
 
   try {
-    // await Messages.save({ msg: newMsg, socketId: newMsg.email, createdAt: `${dateFormated} hs`})
     await Messages.save( {id:email,nombre,apellido,edad,alias,avatar,text:textMsg})
   } catch (error) {
     console.log('error en Messages.save',error)
   }
   const allMsg = await Messages.getAll()
-  console.log(allMsg)
-  io.sockets.emit('all messages', allMsg)
+   
+  //aca normalizo el mensaje y luego enviar al front
+  const authorData = 
+    {
+      author:{
+        id:email,
+        nombre,
+        apellido,
+        edad,
+        alias,
+        avatar,
+      },
+      text:textMsg
+    }
+const mensajeNormalizer = normalizeData({id:"mensajes",authorData})
+  io.sockets.emit('all messages', mensajeNormalizer)
 }
 
-// const userChangeAlias = async (socket, io, alias) => {
-//   const user = await Users.getBySocketId(socket.id)
-//   const userUpdated = {...user, name: alias}
-//   await Users.updateById(userUpdated, user.id)
-//   const allUser = await Users.getAll()
-//   io.sockets.emit('all users', allUser)
-// }
 
 io.on('connection', socket => {
     console.log(`nuevo cliente conectado: ${socket.id}`)
     newUserConnected()
 
     socket.on('new product', newProd => {
-      // newProd['id']=  Date.now()
       newProduct(newProd)
 
     })
     socket.on('new msg', newMsg => {
-      // newMessage(socket, io, newMsg)
       newMessage(newMsg)
     })
 
-    // socket.on('change alias', alias => {
-    //    userChangeAlias(socket, io, alias)
-    // })
 })
