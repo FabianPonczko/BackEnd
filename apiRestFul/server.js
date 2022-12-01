@@ -8,9 +8,11 @@ const {KnexMysql,KnexSqlite3} = require('./apis/configDB')
 const knex = require('knex')
 const contenedorMock =require('./apis/contenedorMock')
 const {normalizeData}=require('./normalizr/normalizar')
+const util = require('util')
 
 const handlebars = require('express-handlebars')
 const {engine} = require('express-handlebars')
+const e = require('express')
 
 const app = express();
 
@@ -69,24 +71,30 @@ const newProduct = async (newProduct) => {
 
 const newUserConnected = async () => {
    const allMsg = await Messages.getAll()
-   const {email,nombre,apellido,edad,alias,avatar,textMsg} = allMsg
-   const authorData = 
-    {
-      author:{
-        id:email,
-        nombre,
-        apellido,
-        edad,
-        alias,
-        avatar,
-      },
-      text:textMsg
-    }
+  
+   const authorData =[]
+   for (ele of allMsg){
+      authorData.push(
+        {author:{
+          id:ele.id,
+          nombre:ele.nombre,
+          apellido:ele.apellido,
+          edad:ele.edad,
+          alias:ele.alias,
+          avatar:ele.avatar,
+        },
+        text:ele.text
+        }
+      )
+   }
+   
+    
     const allProducts = await products.getAll()
     io.sockets.emit('all products', allProducts)
     
     //envio mensajes al from normalizados
     const mensajeNormalizer = normalizeData({id:"mensajes",authorData})
+    // console.log("data normalizada",util.inspect(mensajeNormalizer,false,12,true))
     io.sockets.emit('all messages', mensajeNormalizer)
 }
 
@@ -103,19 +111,22 @@ const newMessage = async (newMsg) => {
   const allMsg = await Messages.getAll()
    
   //aca normalizo el mensaje y luego enviar al front
-  const authorData = 
-    {
-      author:{
-        id:email,
-        nombre,
-        apellido,
-        edad,
-        alias,
-        avatar,
-      },
-      text:textMsg
-    }
-const mensajeNormalizer = normalizeData({id:"mensajes",authorData})
+  const authorData =[]
+  for (ele of allMsg){
+     authorData.push(
+       {author:{
+         id:ele.id,
+         nombre:ele.nombre,
+         apellido:ele.apellido,
+         edad:ele.edad,
+         alias:ele.alias,
+         avatar:ele.avatar,
+       },
+       text:ele.text
+       }
+     )
+  }
+const mensajeNormalizer = normalizeData({id:"id",authorData})//id:"mensajes",authorData
   io.sockets.emit('all messages', mensajeNormalizer)
 }
 

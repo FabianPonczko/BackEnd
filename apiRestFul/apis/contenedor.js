@@ -59,11 +59,7 @@ class Container{
     async getData(){
         try {
             const data = await this.knex.from(this.dbName).select('*')
-            // const arrayData = JSON.parse(data)
-            // Devuelvo el ultimo id utilizado incrementado en 1
             if(data.length)
-              //  return { newId: data.at(-1).id + 1, data:{data} }
-            // return { newId: 1, data: {data}}  
              return  {data}
             
           } catch (error) {
@@ -73,10 +69,7 @@ class Container{
     }
 
     async save(payload){
-      console.log("save",payload)
         try {
-          // const { newId } = await this.getData()
-          // payload["id"]=newId
           await this.knex.from(this.dbName).insert({...payload})
           
         } catch (error) {

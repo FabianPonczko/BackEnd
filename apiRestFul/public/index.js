@@ -33,7 +33,6 @@ const cleanProducts = () => {
   }
 
   const getNameBySocketId = (socketId) => {
-    console.log("socketid",socketId)
     const foundData = messages.find( element => element.id === socketId )
     console.log("foundData",foundData)
     if(foundData === undefined)
@@ -43,8 +42,8 @@ const cleanProducts = () => {
       return foundData.id
   }
 
-  const renderMsg = (msgData) => {
-    const {id,nombre,apellido,edad,alias,avatar,text} = msgData
+  const renderMsg = (msgData,text) => {
+    const {id,nombre,apellido,edad,alias,avatar} = msgData
     const classMsg =  "chat__msg"
     const chatMsg = document.createElement("div")
     const chatOwner = document.createElement("p")
@@ -55,6 +54,7 @@ const cleanProducts = () => {
     const chatEdad = document.createElement("p")
     const chatAlias = document.createElement("p")
     const chatAvatar = document.createElement("p")
+    const chatText = document.createElement("p")
     const chatDate = document.createElement("p")
 
     chatMsg.classList.add(classMsg)
@@ -68,6 +68,7 @@ const cleanProducts = () => {
     chatMsg.appendChild(chatEdad)
     chatMsg.appendChild(chatAlias)
     chatMsg.appendChild(chatAvatar)
+    chatMsg.appendChild(chatText)
 
     chatEmail.innerHTML = id
     chatNombre.innerHTML=nombre
@@ -75,6 +76,7 @@ const cleanProducts = () => {
     chatEdad.innerHTML=edad
     chatAlias.innerHTML=alias
     chatAvatar.innerHTML=avatar
+    chatText.innerHTML=text
     chatDisplay.appendChild(chatMsg)
   }
 
@@ -93,21 +95,20 @@ const cleanProducts = () => {
  
   //llegan los mensajes normalizados
 
-  const author = new normalizr.schema.Entity('author',{idAttribute: 'email'})//{idAttribute: 'email'}
+  const author = new normalizr.schema.Entity('author',{idAttribute: 'id'})//{idAttribute: 'email'}
 
   const mensajes = new normalizr.schema.Entity('mensajes',{
-      mensaje : author
+      mensajes : author
   }) 
 
   socket.on('all messages', allMsg => {
     messages = allMsg
     //desnormalizo los mensajes para mostrarlos en el dom
+    console.log(allMsg)
     const allMsgDesnormalized = normalizr.denormalize(allMsg.result,mensajes, allMsg.entities)
-    console.log("allMsg",allMsgDesnormalized)
     cleanChat()
-    //  for (msgData of allMsg){
-      // renderMsg(msgData)
-    //  }
-    renderMsg(allMsgDesnormalized)
+     for (msgData of allMsgDesnormalized.authorData){
+      renderMsg(msgData.author,msgData.text)
+     }
      chatDisplay.scrollTo(0, chatDisplay.scrollHeight)
     })
