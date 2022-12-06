@@ -4,11 +4,21 @@ let users = []
 let messages = []
 let products = []
 
+const loginSession = document.getElementById('loginSession')
 const productSection = document.getElementById('products')
 const createProductForm = document.getElementById('createProduct__form')
 const chatDisplay = document.getElementById('chat__display')
 const textMsgForm = document.getElementById('textMsg__form')
 const emailForm = document.getElementById('email__form')
+
+const renderLoginUser = async (userSession)=>{
+  let response = await fetch('./views/sessionUser.hbs')
+  const template = await response.text()
+  const templateCompiled= Handlebars.compile(template)
+  const html = templateCompiled({userSession})
+  loginSession.innerHTML = html
+
+}
 
 const cleanProducts = () => {
     productSection.innerHTML = ""
@@ -87,10 +97,12 @@ const cleanProducts = () => {
     socket.emit('new msg', formValues)
   })
   
-  socket.on('all products', allProduct => {
+  socket.on('all products', allProduct  => {
     products = allProduct
     cleanProducts()
     renderProducts(allProduct)
+    const user = "fabian"
+    renderLoginUser(user)
   })
  
   //llegan los mensajes normalizados

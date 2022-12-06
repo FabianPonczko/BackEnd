@@ -12,14 +12,20 @@ const util = require('util')
 
 const handlebars = require('express-handlebars')
 const {engine} = require('express-handlebars')
-const e = require('express')
+const router = require('./routes/login')
+const session = require ('express-session')
+const { nextTick } = require('process')
+const mongoStore = require('connect-mongo')
+
+
 
 const app = express();
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-app.use('/',express.static(__dirname+'/public'))
+//contador con session
+
 
 //configuro handlebars
 app.engine('hbs', engine({
@@ -28,6 +34,18 @@ app.engine('hbs', engine({
 }));
 app.set('view engine', '.hbs');
 app.set('views',  './public/views');
+
+
+//configuracion session
+
+app.use(session({
+  secret:"secreto",
+  resave:true,
+  saveUninitialized:true
+}))
+
+app.use('/', express.static(__dirname+'/public'))
+
 
 dayjs.extend(customParseFormat)
 
@@ -60,6 +78,14 @@ httpServer.listen(PORT, () =>{
 app.get('/api/productos-test', (req,res)=>{
   res.render('tableProductsMocks', productsMocks )
 })
+
+//llamo a ruta de login
+app.use('/',router)
+
+
+
+
+
 
 
 const newProduct = async (newProduct) => {
