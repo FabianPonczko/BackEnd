@@ -1,8 +1,15 @@
-### Entrega de trabajo con normalizr de mensajes y Mocks con 5 productos en ruta 'api/productos-test
+### localhost:8080
+### la app se inicia en server.js 
 
-#### rutas:
-- ./api  `contenedores`
-- ./DB   `base de datos sqlite3`
-- ./normaliz  `funciones de normalizar/desnormalizar`
+### ./sessionConfig configuracion de la DB para MongoStore (funciona bien)
+### ./routes/login.js la ruta de login la cual toma el nombre y nombra la session
+###
+###
+###
+###
+###
 
- `server.js`   archivo de partida donde carga el servidor en `localhost:8080`
+### lo que funciona si entro a http://localhost:8080/login puedo generar el usuario luego 
+### cuando voy a http://localhost:8080 no me lo carga tengo que refrescar y alli si me lo toma,
+### el boton de desconectar de la paguina principal funciona bien y me lleva a login pero si vuelvo localhost:8080
+### tengo que refrescar sino no se ve el cambio
