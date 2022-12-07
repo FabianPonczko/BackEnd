@@ -11,11 +11,12 @@ const chatDisplay = document.getElementById('chat__display')
 const textMsgForm = document.getElementById('textMsg__form')
 const emailForm = document.getElementById('email__form')
 
-const renderLoginUser = async (userSession)=>{
+//banner de session de usuario
+const renderLoginUser = async (userName)=>{
   let response = await fetch('./views/sessionUser.hbs')
   const template = await response.text()
   const templateCompiled= Handlebars.compile(template)
-  const html = templateCompiled({userSession})
+  const html = templateCompiled({userName})
   loginSession.innerHTML = html
 
 }
@@ -97,12 +98,15 @@ const cleanProducts = () => {
     socket.emit('new msg', formValues)
   })
   
-  socket.on('all products', allProduct  => {
+  socket.on('user', userName  => {    
+    console.log("llegan",userName)    
+    renderLoginUser(userName)
+  })
+  socket.on('all products', (allProduct)  => {    
     products = allProduct
     cleanProducts()
     renderProducts(allProduct)
-    const user = "fabian"
-    renderLoginUser(user)
+    // renderLoginUser(userName)
   })
  
   //llegan los mensajes normalizados

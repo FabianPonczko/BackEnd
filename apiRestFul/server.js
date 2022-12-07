@@ -12,11 +12,13 @@ const util = require('util')
 
 const handlebars = require('express-handlebars')
 const {engine} = require('express-handlebars')
-const router = require('./routes/login')
+const routerLogin = require('./routes/login')
+const routerDestroy = require('./routes/destroy')
 const session = require ('express-session')
-const { nextTick } = require('process')
-const mongoStore = require('connect-mongo')
-
+// const { nextTick } = require('process')
+const MongoStore = require('connect-mongo')
+const FileStore = require('session-file-store')(session)
+const sesiones = require('./sessionConfig/session.js')
 
 
 const app = express();
@@ -36,15 +38,23 @@ app.set('view engine', '.hbs');
 app.set('views',  './public/views');
 
 
-//configuracion session
+app.use(sesiones.mongo)
 
-app.use(session({
-  secret:"secreto",
-  resave:true,
-  saveUninitialized:true
-}))
+let userName = ""
 
-app.use('/', express.static(__dirname+'/public'))
+const userVerify = async (req,res,next)=>{
+  userName= await req.session.nombre
+  
+  // if (!userName){
+  //   return res.redirect("/login")
+  // }
+  
+  // console.log("session name ",userName)
+  
+  next()
+}
+
+app.use("/",userVerify, express.static(__dirname+'/public'))
 
 
 dayjs.extend(customParseFormat)
@@ -80,9 +90,9 @@ app.get('/api/productos-test', (req,res)=>{
 })
 
 //llamo a ruta de login
-app.use('/',router)
+app.use('/',routerLogin)
 
-
+app.use('/',routerDestroy)
 
 
 
@@ -116,7 +126,11 @@ const newUserConnected = async () => {
    
     
     const allProducts = await products.getAll()
-    io.sockets.emit('all products', allProducts)
+   console.log("mando",userName)
+
+    io.sockets.emit('user', (userName))
+    
+    io.sockets.emit('all products', (allProducts))
     
     //envio mensajes al from normalizados
     const mensajeNormalizer = normalizeData({id:"mensajes",authorData})
