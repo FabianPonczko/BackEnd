@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const session = require('express-session')
+// const session = require('express-session')
 
 
 router.get('/login', (req,res)=>{
@@ -8,7 +8,8 @@ router.get('/login', (req,res)=>{
     
     const {name} = req.query  
     req.session.nombre= name      
-    console.log("se modifica nombre a", req.session.nombre)
+    if(req.session.nombre)
+        console.log("se modifica nombre a", req.session.nombre)
     
    
 })

@@ -3,11 +3,15 @@ const router = express.Router()
 const session = require('express-session')
 
 
-router.get('/destroy', (req,res)=>{
-
-    console.log("se elimino session ", req.session.nombre)
+router.get('/destroy',(req,res)=>{
+    const userName=req.session.nombre
+    console.log("se elimino session ", userName)
     req.session.destroy()    
-   res.redirect("/login")
+    res.render('logout.hbs',{userName})
+    
+    setTimeout(()=>{
+        res.redirect("/login")
+    }, 2000);
 })
 
 module.exports = router

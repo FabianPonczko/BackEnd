@@ -1,3 +1,4 @@
+
 const socket = io()
 
 let users = []
@@ -11,15 +12,16 @@ const chatDisplay = document.getElementById('chat__display')
 const textMsgForm = document.getElementById('textMsg__form')
 const emailForm = document.getElementById('email__form')
 
+
 //banner de session de usuario
-const renderLoginUser = async (userName)=>{
+const renderSessionUser = async (userName)=>{
   let response = await fetch('./views/sessionUser.hbs')
   const template = await response.text()
   const templateCompiled= Handlebars.compile(template)
   const html = templateCompiled({userName})
   loginSession.innerHTML = html
-
 }
+
 
 const cleanProducts = () => {
     productSection.innerHTML = ""
@@ -99,14 +101,17 @@ const cleanProducts = () => {
   })
   
   socket.on('user', userName  => {    
-    console.log("llegan",userName)    
-    renderLoginUser(userName)
+    console.log("llegan",userName)  
+    if(userName==null){
+      location.href="/login"
+    }  
+    renderSessionUser(userName)
   })
   socket.on('all products', (allProduct)  => {    
     products = allProduct
     cleanProducts()
     renderProducts(allProduct)
-    // renderLoginUser(userName)
+  // renderLoginUser(userName)
   })
  
   //llegan los mensajes normalizados

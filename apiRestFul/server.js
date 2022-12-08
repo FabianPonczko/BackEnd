@@ -42,8 +42,8 @@ app.use(sesiones.mongo)
 
 let userName = ""
 
-const userVerify = async (req,res,next)=>{
-  userName= await req.session.nombre
+const userVerify =  (req,res,next)=>{
+  userName= req.session.nombre
   
   // if (!userName){
   //   return res.redirect("/login")
@@ -92,6 +92,7 @@ app.get('/api/productos-test', (req,res)=>{
 //llamo a ruta de login
 app.use('/',routerLogin)
 
+//llamo a la ruta para borrar la session luego redirecciono a login
 app.use('/',routerDestroy)
 
 
