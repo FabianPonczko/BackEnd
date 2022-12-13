@@ -21,7 +21,29 @@ const FileStore = require('session-file-store')(session)
 const sesiones = require('./sessionConfig/session.js')
 
 
+
+// import { PassportAuth } from "./middlewares/index.js";
+// import passport from "passport";
+
+const {PassportAuth} =require('./middlewares/passportAuth')
+const passport =require('passport')
+
+
 const app = express();
+
+PassportAuth.init();
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -38,7 +60,7 @@ app.set('view engine', '.hbs');
 app.set('views',  './public/views');
 
 
-app.use(sesiones.mongo)
+// app.use(sesiones.mongo)
 
 let userName = ""
 

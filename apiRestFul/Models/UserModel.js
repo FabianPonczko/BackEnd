@@ -1,22 +1,18 @@
 // import { Schema } from 'mongoose'
 const {Schema} = require('mongoose')
 
-const UsersCollection= "users"
+const UserCollection= "users"
 
-const UsersSchema = new Schema({
-    title:{type: String, require:true,max:100},
-    description:{type: String, require:true,max:150},
-    code:{type: String, require:true,max:10},
-    thumbnail:{type: String, require:true,max:150},
-    price:{type: Number, require:true},
-    stock:{type: Number, require:true},
-    timeStamp:{type: String, require:true,max:100},
+const UserSchema = new Schema({
+    name:{type: String, require:true,max:100},
+    email:{type: String, require:true,max:150},
+    password:{type: String, require:true,max:10},
 },
 {
     virtuals:true
 })
 
-UsersSchema.set("toJSON",{
+UserSchema.set("toJSON",{
     transform:(_,response)=>{
         response.id=response._id
         delete response._id
@@ -24,5 +20,5 @@ UsersSchema.set("toJSON",{
         return response
     }
 })
-const UsersModels = {UsersCollection,UsersSchema}
-module.exports = UsersModels 
+const UserModel = {UserCollection,UserSchema}
+module.exports = {UserModel}

@@ -1,11 +1,12 @@
 
-const { MongoDbContainer, ProductModels } =require ("../../Containers/index.js");
+const { MongoDbContainer } =require ("../containers/MongoDbContainer");
+const { UserModel} =require('../Models/UserModel')
 
-export default class ProductsMongo extends MongoDbContainer{
+module.exports = class UsersMongo extends MongoDbContainer{
     constructor(){
         super({
-            name:ProductModels.ProductsCollection,
-            schema:ProductModels.ProductSchema
+            name:UserModel.UserCollection,
+            schema:UserModel.UserSchema
         })
     }
 }
