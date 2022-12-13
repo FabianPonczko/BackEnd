@@ -103,7 +103,8 @@ const cleanProducts = () => {
   socket.on('user', userName  => {    
     console.log("llegan",userName)  
     if(userName==null){
-      location.href="/login"
+      // location.href="/login"
+      location.href="/loginEmail"
     }  
     renderSessionUser(userName)
   })
