@@ -13,5 +13,13 @@ router.get('/login', (req,res)=>{
     
    
 })
+router.get('/loginEmail',(req,res)=>{
+    res.render('loginEmailUser')
+
+})
+
+router.get('/register',(req,res)=>{
+    res.render('RegisterEmailUser')
+})
 
 module.exports = router
