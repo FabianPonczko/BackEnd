@@ -4,7 +4,7 @@ const {Schema} = require('mongoose')
 const UserCollection= "users"
 
 const UserSchema = new Schema({
-    name:{type: String, require:true,max:100},
+    // name:{type: String, require:true,max:100},
     email:{type: String, require:true,max:150},
     password:{type: String, require:true,max:10},
 },
@@ -21,4 +21,4 @@ UserSchema.set("toJSON",{
     }
 })
 const UserModel = {UserCollection,UserSchema}
-module.exports = {UserModel}
+module.exports.UserModel = {UserCollection,UserSchema}

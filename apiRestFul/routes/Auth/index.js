@@ -3,14 +3,14 @@ const {Router} = require('express')
 // import passport from "passport";
 const passport = require('passport')
 // import { UserDao } from "../../Dao/index.js";
-const UserDao = require('../../Dao/index')
+const {UserDao} = require('../../Dao/index.js')
 
 const router = Router();
 
 router.post("/signup", async (req, res) => {
   try {
-    const { name, lastname, email, password } = req.body;
-    if (!name || !lastname || !email || !password)
+    const { email, password } = req.body;
+    if (!email || !password)
       return res.send({ success: false });
     // verificar si existe o no (CLAVE PARA PASSPORT CON RRSS)
 
@@ -30,7 +30,7 @@ router.post("/signup", async (req, res) => {
 
     // PASSWORD! podriamos usar bcrypt!
     // POR AHORA SIN CARRITO
-    await UserDao.save({ name, lastname, email, password });
+    await UserDao.save({ email, password });
 
     res.send({ success: true });
   } catch (error) {
@@ -44,13 +44,6 @@ router.post("/", passport.authenticate("login"), async (req, res) => {
   res.send({ success: true, message: "Logueado!", user: req.user });
 });
 
-router.get("/github-login", passport.authenticate("github"), (req, res) => {
-  res.send("hoola");
-});
-
-router.get("/github", passport.authenticate("github"), (req, res) => {
-  res.send(req.user);
-});
 
 
-module.exports = {AuthRouter:router} ;
+module.exports = router ;

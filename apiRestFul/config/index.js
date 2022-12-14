@@ -4,6 +4,8 @@ const dotenv =require('dotenv')
 dotenv.config()
 const PRODUCTS_FINENAME ="products"
 const CARTS_FILENAME ="carts"
+const USERS_FILENAME ="users"
+
 
 const config={
     SERVER:{
@@ -13,7 +15,8 @@ const config={
     DATABASES:{
         FileSystem:{
             PRODUCTS_FINENAME,
-            CARTS_FILENAME
+            CARTS_FILENAME,
+            USERS_FILENAME
         },
         mongo:{
             url: process.env.Mongo_DB_Url,
@@ -21,4 +24,4 @@ const config={
         }
     }
 }
-module.export ={config}
+module.exports ={config}

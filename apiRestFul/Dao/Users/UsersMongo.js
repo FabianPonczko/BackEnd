@@ -1,12 +1,13 @@
 // import { MongoDBContainer } from "../../Containers/index.js";
-const MongoDBContainer = require('../../Containers/MongoDbContainer')
+const {MongoDbContainer} = require('../../Containers/MongoDbContainer.js')
 // import { UserModel } from "../../models/index.js";
-const UserModel = require('../../models/UserModel')
-module.exports = class UsersMongo extends MongoDBContainer {
-  constructor() {
-    super({
-      name: UserModel.UserCollection,
-      schema: UserModel.UserSchema,
-    });
+const {UserModel} = require('../../models/UserModel.js')
+module.exports =  class UsersMongo extends MongoDbContainer {
+    constructor() {
+      super({
+        name: UserModel.UserCollection,
+        schema: UserModel.UserSchema
+      });
+    }
   }
-}
+

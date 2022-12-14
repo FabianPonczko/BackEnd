@@ -1,5 +1,5 @@
 
-const { MongoDbContainer } =require ("../containers/MongoDbContainer");
+const { MongoDbContainer } =require ("../containers/MongoDbContainer.js");
 const { UserModel} =require('../Models/UserModel')
 
 module.exports = class UsersMongo extends MongoDbContainer{

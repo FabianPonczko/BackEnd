@@ -28,6 +28,7 @@ const sesiones = require('./sessionConfig/session.js')
 const {PassportAuth} =require('./middlewares/passportAuth')
 const passport =require('passport')
 
+const AuthRouter = require('./routes/Auth/index')
 
 const app = express();
 
@@ -118,7 +119,7 @@ app.use('/',routerLogin)
 //llamo a la ruta para borrar la session luego redirecciono a login
 app.use('/',routerDestroy)
 
-
+app.use("/api/auth", AuthRouter);
 
 
 

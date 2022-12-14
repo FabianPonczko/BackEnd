@@ -5,7 +5,6 @@ class MongoDbContainer{
     constructor({name, schema}) {
         this.model=mongoose.model(name,schema)
     }
-
    
     async getAll() {
        const response = await this.model.find()
@@ -15,6 +14,10 @@ class MongoDbContainer{
         const response = await this.model.create(element)
         return response
     }
+    async getOne(options) {
+        const response = await this.model.findOne(options).lean().exec();
+        return response
+      }
 
     async getById(id) {
         const response = this.model.findById(id)
@@ -33,4 +36,4 @@ class MongoDbContainer{
     
 }
 
-module.exports= {MongoDbContainer}
+module.exports = {MongoDbContainer}
