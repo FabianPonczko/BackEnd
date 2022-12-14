@@ -34,8 +34,6 @@ const app = express();
 PassportAuth.init();
 
 
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use(
   session({
@@ -43,8 +41,11 @@ app.use(
     resave: false,
     saveUninitialized: false,
   })
-);
-
+  );
+  
+  app.use(passport.initialize());
+  app.use(passport.session());
+  
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
