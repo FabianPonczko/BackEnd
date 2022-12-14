@@ -5,7 +5,7 @@ const LocalStrategy = require('passport-local')
 // import { Strategy as GithubStrategy } from "passport-github2";
 
 // import { UserDao } from "../Dao/index.js";
-const {UserDao} = require('../Dao/usderDao')
+const {UserDao} = require('../Dao/Users/index.js')
 
 const init = () => {
   passport.serializeUser((user, done) => {
@@ -28,8 +28,8 @@ const init = () => {
       async (req, email, password, done) => {
         try {
           if (!email || !password) return done(null, false);
-
-          const user = await UserDao.getOne({ email: email });
+          console.log("entra en strategy del login")
+          const user = await UserDao.getOne({ email })
           // no da el tiempo, pero bcryipt o similar
           if (!user || user.password !== password) return done(null, false);
 

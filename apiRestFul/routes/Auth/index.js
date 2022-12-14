@@ -14,7 +14,7 @@ router.post("/signup", async (req, res) => {
       return res.send({ success: false });
     // verificar si existe o no (CLAVE PARA PASSPORT CON RRSS)
 
-    const existUser = await UserDao.getOne({ email });
+    const existUser = await UserDao.getOne({ email :email});
 
     if (existUser && existUser.password) {
       return res.send({ success: false, error: "el usuario ya existe" });

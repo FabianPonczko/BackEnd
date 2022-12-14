@@ -1,11 +1,10 @@
 // import dotenv from 'dotenv'
-const dotenv =require('dotenv')
+const dotenv = require('dotenv')
 
 dotenv.config()
 const PRODUCTS_FINENAME ="products"
 const CARTS_FILENAME ="carts"
 const USERS_FILENAME ="users"
-
 
 const config={
     SERVER:{
@@ -14,8 +13,8 @@ const config={
     },
     DATABASES:{
         FileSystem:{
-            PRODUCTS_FINENAME,
-            CARTS_FILENAME,
+            // PRODUCTS_FINENAME,
+            // CARTS_FILENAME,
             USERS_FILENAME
         },
         mongo:{
@@ -24,4 +23,4 @@ const config={
         }
     }
 }
-module.exports ={config}
+module.exports = {config}

@@ -15,7 +15,7 @@ class MongoDbContainer{
         return response
     }
     async getOne(options) {
-        const response = await this.model.findOne(options).lean().exec();
+        const response = await this.model.findOne(options)//.lean().exec();
         return response
       }
 

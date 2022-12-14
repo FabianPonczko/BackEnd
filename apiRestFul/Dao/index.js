@@ -1,13 +1,7 @@
-// import {Container} from '../Containers/index.js'
 
-// import { FireBaseDBservice } from '../services/FireBaseService/index.js'
-// import { MongoDBService } from '../services/index.js'
- const {MongoDBService} = require('../services/MongoDBService/index')
-// import {CartsMongo,CartsFireBase,CartsFileSystem} from './Carts/index.js'
-// import {ProductsMongo, ProductsFireBase,ProductsFileSystem } from './Products/index.js'
+ const {MongoDBService} = require('../services/MongoDBService/index.js')
 
-// import { UsersMongo } from "./Users/index.js";
-const UsersMongo =require('./Users/UsersMongo')
+const UsersMongo =require('./Users/UsersMongo.js')
 
 
 // ----------------------------------------------------------------
@@ -44,6 +38,6 @@ const getSelectedDaos = ()=>{
     }
 
 }
-const {ProductDao,CartDao} = getSelectedDaos()
+const {ProductDao,CartDao,UserDao} = getSelectedDaos()
 
-module.export = {ProductDao,CartDao}
+module.exports = {ProductDao,CartDao,UserDao}
