@@ -6,6 +6,7 @@ const LocalStrategy = require('passport-local')
 
 // import { UserDao } from "../Dao/index.js";
 const {UserDao} = require('../Dao/index.js')
+const bcrypt = require('bcrypt')
 
 const init = () => {
   passport.serializeUser((user, done) => {
@@ -29,8 +30,13 @@ const init = () => {
         try {
           if (!email || !password) return done(null, false);
           const user = await UserDao.getOne({ email })
+          
+          
+          console.log(password)
+          console.log(user.password)
+          
           // no da el tiempo, pero bcryipt o similar
-          if (!user || user.password !== password) return done(null, false);
+          if (!user || !bcrypt.compareSync(password, user.password)) return done(null, false);
 
           const userResponse = {
             id: user._id,

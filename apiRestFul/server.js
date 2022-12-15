@@ -35,14 +35,14 @@ const app = express();
 PassportAuth.init();
 
 
-
-app.use(
-  session({
-    secret: "secret",
-    resave: false,
-    saveUninitialized: false,
-  })
-  );
+// app.use(
+//   session({
+//     secret: "secret",
+//     resave: false,
+//     saveUninitialized: false,
+//   })
+//   );
+app.use(sesiones.mongo)
   
   app.use(passport.initialize());
   app.use(passport.session());
@@ -62,7 +62,6 @@ app.set('view engine', '.hbs');
 app.set('views',  './public/views');
 
 
-// app.use(sesiones.mongo)
 
 let userName = ""
 

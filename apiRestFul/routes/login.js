@@ -3,6 +3,8 @@ const router = express.Router()
 // const session = require('express-session')
 const {UserDao} = require('../Dao/index.js')
 const passport = require('passport')
+const bcrypt = require('bcrypt');
+
 
 
 router.get('/login', (req,res)=>{
@@ -48,18 +50,20 @@ router.get('/register',async(req,res)=>{
         if (existUser && existUser.password) {
           return console.log({ success: false, error: "el usuario ya existe" });
         }
-    
+        const passwordHash = bcrypt.hashSync(password, 12)
+        console.log(passwordHash)
+
         if (existUser && !existUser.password) {
           const updateUser = await UserDao.updateById(existUser._id, {
             ...existUser,
-            password,
+            passwordHash,
           });
           return console.log({ success: true });
         }
     
         // PASSWORD! podriamos usar bcrypt!
         // POR AHORA SIN CARRITO
-        await UserDao.save({ email, password });
+        await UserDao.save({ email, password :passwordHash});
     
         console.log({ success: true });
       } catch (error) {
