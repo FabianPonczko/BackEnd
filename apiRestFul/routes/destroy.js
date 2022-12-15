@@ -12,9 +12,9 @@ router.get('/destroy',async (req,res)=>{
         res.render('logout.hbs',{userName})
         res.setHeader('Content-Type', 'text/html');
         
-    res.setTimeout(3000,function(){
-        res.render('loginUser.hbs')
-    })
+    // res.setTimeout(3000,function(){
+    //     res.render('loginEmailUser.hbs')
+    // })
 
 
 

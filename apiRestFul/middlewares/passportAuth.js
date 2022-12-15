@@ -28,7 +28,6 @@ const init = () => {
       async (req, email, password, done) => {
         try {
           if (!email || !password) return done(null, false);
-          console.log("entra en strategy del login")
           const user = await UserDao.getOne({ email })
           // no da el tiempo, pero bcryipt o similar
           if (!user || user.password !== password) return done(null, false);
@@ -48,58 +47,6 @@ const init = () => {
     )
   );
 
-//   passport.use(
-//     "github",
-//     new GithubStrategy(
-//       {
-//         // deben poner el clientID y clientSecret generado por github
-//         // Pueden verlo en la grabacion
-//         clientID: "",
-//         clientSecret: "",
-//         callbackURL: "http://localhost:8080/api/auth/github",
-//         scope: ["user:email"],
-//       },
-//       async (accessToken, refreshToken, profile, done) => {
-//         try {
-//           const githubEmail = profile.emails?.[0].value;
-
-//           if (!githubEmail) return done(null, false);
-
-//           const user = await UserDao.getOne({ email: githubEmail });
-
-//           if (user) {
-//             const userResponse = {
-//               id: user._id,
-//               email: user.email,
-//               cart: user.cart,
-//             };
-
-//             return done(null, userResponse);
-//           }
-
-//           const newUser = {
-//             email: githubEmail,
-//             name: profile._json.name,
-//             lastname: "-",
-//             // no guardar contraseña
-//           };
-
-//           const createdUser = await UserDao.save(newUser);
-
-//           const userResponse = {
-//             id: createdUser._id,
-//             email: createdUser.email,
-//             cart: createdUser.cart,
-//           };
-
-//           done(null, userResponse);
-//         } catch (error) {
-//           console.log(error);
-//           done(error);
-//         }
-//       }
-//     )
-//   );
 };
 const PassportAuth ={
     init
