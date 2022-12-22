@@ -14,12 +14,14 @@ const handlebars = require('express-handlebars')
 const {engine} = require('express-handlebars')
 const routerLogin = require('./routes/login')
 const routerDestroy = require('./routes/destroy')
+const routerInfo = require('./routes/info.js')
+const routerApirandons = require('./routes/apiRandom.js')
 const session = require ('express-session')
 // const { nextTick } = require('process')
 const MongoStore = require('connect-mongo')
 const FileStore = require('session-file-store')(session)
 const sesiones = require('./sessionConfig/session.js')
-
+const {config} =require('./config/index.js')
 
 
 // import { PassportAuth } from "./middlewares/index.js";
@@ -29,6 +31,10 @@ const {PassportAuth} =require('./middlewares/passportAuth')
 const passport =require('passport')
 
 const AuthRouter = require('./routes/Auth/index')
+
+
+const args = process.argv.slice(2)
+
 
 const app = express();
 
@@ -100,7 +106,7 @@ Messages.createDBmenssages()
 const httpServer = new HttpServer(app)
 const io = new SocketIOServer(httpServer)
 
-const PORT = 8080
+const PORT = args[0] || 8080
 
 httpServer.listen(PORT, () =>{
   console.log(`Server running on port: ${PORT}`)
@@ -117,6 +123,11 @@ app.use('/',routerLogin)
 
 //llamo a la ruta para borrar la session luego redirecciono a login
 app.use('/',routerDestroy)
+
+
+app.use('/', routerInfo)
+
+app.use('/',routerApirandons)
 
 app.use("/api/auth", AuthRouter);
 
