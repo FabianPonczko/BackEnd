@@ -1,14 +1,14 @@
-## Trabajo finalizado y funcionando perfecto.
 
-### localhost:8080
+### PORT se pasa por parametro Ej: "node server.js 8081 sino 8080 por default
 ### la app se inicia en server.js 
 
-* /sessionConfig configuracion de la DB para MongoStore 
+* archivo .env tine las variables del sistema cargadas luego por la libreria dotenv
 
-* /routes/login la ruta de login la cual toma el nombre por quary y nombra la session
+* /util carpeta donde se realiza el calculo aleatorio 
 
-* /routes/destroy elimina la session y vuelve al Login
+* /routes/apiRandom.js se alojan las rutas de apirandoms para realizar el calculo y donde se usa Fork
 
-* /public/views todas las vistas
+* /routes/info se alojan la info obtenida por prosess
+
 
 

@@ -1,20 +1,22 @@
 const express = require('express')
 const router = express.Router()
 
+const {fork} = require('child_process')
+
+
+let countNum
+
 router.get('/apirandoms',(req,res)=>{
-    const countNum = req.query.cant||100000
-    let aleatorio
-    let numeros={}
-    for (let index = 0; index < countNum; index++) {
-        aleatorio = Math.floor(Math.random()*1000)+1
-        
-        numeros[aleatorio]?numeros[aleatorio]++:numeros[aleatorio]=1
-        
-        // console.log(numeros)
-    }
+    countNum = req.query.cant || 100000000
+    
+    const child = fork('./util/calculoAleatorio.js',[countNum])
+    
+    child.on('message', msg => {
+        res.send({resultado:msg})
+    });
+
     
     
-     res.send(numeros)
 })
 
 module.exports = router
