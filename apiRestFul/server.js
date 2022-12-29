@@ -23,6 +23,9 @@ const FileStore = require('session-file-store')(session)
 const sesiones = require('./sessionConfig/session.js')
 const {config} =require('./config/index.js')
 
+const cluster = require("cluster")
+const numCluster= require('os').cpus().length
+const {fork} = require('child_process')
 
 // import { PassportAuth } from "./middlewares/index.js";
 // import passport from "passport";
@@ -41,13 +44,7 @@ const app = express();
 PassportAuth.init();
 
 
-// app.use(
-//   session({
-//     secret: "secret",
-//     resave: false,
-//     saveUninitialized: false,
-//   })
-//   );
+
 app.use(sesiones.mongo)
   
   app.use(passport.initialize());
@@ -56,7 +53,6 @@ app.use(sesiones.mongo)
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-//contador con session
 
 
 //configuro handlebars
@@ -108,9 +104,27 @@ const io = new SocketIOServer(httpServer)
 
 const PORT = args[0] || 8080
 
-httpServer.listen(PORT, () =>{
-  console.log(`Server running on port: ${PORT}`)
-})
+const modo = args[1] || "FORK"
+
+if(modo == "CLUSTER"){
+  if(cluster.isPrimary){
+    for (let index = 0; index < numCluster; index++) {
+      cluster.fork()
+    }
+  cluster.on('exit',(worker,code,signal)=>{
+    console.log(`worker ${worker.process.pid} died`)
+  })
+}else{
+  httpServer.listen(PORT, () =>{
+    console.log(`Server running on port: ${PORT} ands PID: ${process.pid}`)
+  })
+  // console.log(`worker ${process.pid} started`)
+}
+}else{
+  httpServer.listen(PORT, () =>{
+    console.log(`Server running on port: ${PORT} ands PID: ${process.pid} modo FORK`)
+  })
+}
 
 
 //creo ruta a view handlebars con tabla de productos desde Mocks

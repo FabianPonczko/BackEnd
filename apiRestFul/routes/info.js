@@ -1,6 +1,6 @@
 const express = require('express')
 const route = express.Router()
-
+const numCluster= require('os').cpus().length
 
 const datos ={
     argumentos: process.argv,
@@ -9,7 +9,8 @@ const datos ={
     memoria_Total_Rss:process.memoryUsage().rss,
     path_Ejecucion:process.argv[1],
     process_Id:process.pid,
-    carpeta_Projecto:process.cwd()
+    carpeta_Projecto:process.cwd(),
+    numero_Cpus:numCluster
 }
 
 route.get('/info', (req,res)=>{
