@@ -10,5 +10,7 @@
 
 * /routes/info se alojan la info obtenida por prosess
 
+* camandos.doc archivo de texto con comandos a usar
 
+* nginx.conf archivo configuracion de nginx
 
