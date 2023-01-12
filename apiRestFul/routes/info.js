@@ -1,4 +1,5 @@
 const express = require('express')
+const compression = require('compression')
 const route = express.Router()
 const numCluster= require('os').cpus().length
 
@@ -13,8 +14,11 @@ const datos ={
     numero_Cpus:numCluster
 }
 
-route.get('/info', (req,res)=>{
+
+
+route.get('/info', compression(),(req,res)=>{
     res.send(datos)
 })
+
 
 module.exports = route

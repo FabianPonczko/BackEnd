@@ -4,10 +4,14 @@ const router = express.Router()
 const {UserDao} = require('../Dao/index.js')
 const passport = require('passport')
 const bcrypt = require('bcrypt');
+const {porConsola,porArchivoWarn,porArchivoError} = require('../util/logger')
+
 
 
 
 router.get('/login', (req,res)=>{
+  const {url,method} = req
+  porConsola(`direccion ${url} , metodo ${method}`)
     res.render('loginUser')
     
     const {name} = req.query  
@@ -30,6 +34,9 @@ router.get('/auth',passport.authenticate("login"),(req,res)=>{
 })  
 
 router.get('/loginEmail',async(req,res)=>{
+  const {url,method} = req
+  porConsola(`direccion ${url} , metodo ${method}`)
+  porArchivoWarn(`direccion ${url} , metodo ${method}`)
     res.render('loginEmailUser')
 
 

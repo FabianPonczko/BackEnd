@@ -10,6 +10,8 @@
 
 * /routes/info se alojan la info obtenida por prosess
 
+* /routes/info se implementa el middleware "compression" para comprimir la respuesta 
+
 * camandos.doc archivo de texto con comandos a usar
 
 * nginx.conf archivo configuracion de nginx
