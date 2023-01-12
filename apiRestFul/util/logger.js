@@ -1,27 +1,32 @@
-const pino = require('pino')
+const logger = require('pino')
 
-function porConsola(){
-     const consola= pino()
-     consola.level = 'info'
-     return consola
+
+
+const porConsola=()=>{
+    const archivoConsola=logger()
+    archivoConsola.level="info"
+    return archivoConsola
 }
 
-function porArchivoWarn(){
-    const archivoWarn=pino("warn.log")
+const porArchivoWarn=()=>{
+    const archivoWarn=logger("warn.log")
     archivoWarn.level="warn"
     return archivoWarn
 }
 
 
-function porArchivoError(){
-    const archivoError=pino("error.log")
+const porArchivoError=()=>{
+    const archivoError=logger("error.log")
     archivoError.level="error"
     return archivoError
 }
+const consola = porConsola()
+const warn = porArchivoWarn()
+const error = porArchivoError()
 
 module.exports = {
-    porConsola,
-    porArchivoWarn,
-    porArchivoError
+    consola,
+    warn,
+    error
 }
 

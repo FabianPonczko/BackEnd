@@ -4,14 +4,12 @@ const router = express.Router()
 const {UserDao} = require('../Dao/index.js')
 const passport = require('passport')
 const bcrypt = require('bcrypt');
-const {porConsola,porArchivoWarn,porArchivoError} = require('../util/logger')
-
-
+const {consola,warn,error} = require('../util/logger.js')
 
 
 router.get('/login', (req,res)=>{
   const {url,method} = req
-  porConsola(`direccion ${url} , metodo ${method}`)
+  consola.info(`direccion ${url} , metodo ${method}`)
     res.render('loginUser')
     
     const {name} = req.query  
@@ -35,27 +33,31 @@ router.get('/auth',passport.authenticate("login"),(req,res)=>{
 
 router.get('/loginEmail',async(req,res)=>{
   const {url,method} = req
-  porConsola(`direccion ${url} , metodo ${method}`)
-  porArchivoWarn(`direccion ${url} , metodo ${method}`)
+  consola.info(`direccion ${url} , metodo ${method}`)
     res.render('loginEmailUser')
 
 
 })
 
 router.get('/register',async(req,res)=>{
+  const {url,method} = req
+  consola.info(`direccion ${url} , metodo ${method}`)
     res.render('RegisterEmailUser')
 
     try {
         const { email, password } = req.query;
-        if (!email || !password)
+        if (!email || !password){
           //return res.send({ success: false });
-          return console.log({ success: false });
+          warn.warn(`falta usuario o password`)
+          return consola.info(`falta usuario o password`)
+        }
         // verificar si existe o no (CLAVE PARA PASSPORT CON RRSS)
     
         const existUser = await UserDao.getOne({ email :email});
     
         if (existUser && existUser.password) {
-          return console.log({ success: false, error: "el usuario ya existe" });
+          error.error("el usuario ya existe" )
+          return consola.info("el usuario ya existe" )
         }
         const passwordHash = bcrypt.hashSync(password, 12)
         console.log(passwordHash)
@@ -69,7 +71,7 @@ router.get('/register',async(req,res)=>{
         }
     
         // PASSWORD! podriamos usar bcrypt!
-        // POR AHORA SIN CARRITO
+        
         await UserDao.save({ email, password :passwordHash});
     
         console.log({ success: true });
