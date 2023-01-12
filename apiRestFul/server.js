@@ -35,6 +35,8 @@ const passport =require('passport')
 
 const AuthRouter = require('./routes/Auth/index')
 
+const {consola,warn,error} = require('./util/logger.js')
+
 
 const args = process.argv.slice(2)
 
@@ -113,6 +115,7 @@ if(modo == "CLUSTER"){
     }
   cluster.on('exit',(worker,code,signal)=>{
     console.log(`worker ${worker.process.pid} died`)
+    // cluster.fork()
   })
 }else{
   httpServer.listen(PORT, () =>{
@@ -145,7 +148,10 @@ app.use('/',routerApirandons)
 
 app.use("/api/auth", AuthRouter);
 
-
+app.get('*',(req,res)=>{
+  const {url,method}=req
+  warn.warn(`Metodo: ${method} de la Ruta: ${url} no corresponde a una ruta valida`)
+})
 
 const newProduct = async (newProduct) => {
   await products.save(newProduct)

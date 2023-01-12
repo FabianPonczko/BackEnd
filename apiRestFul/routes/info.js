@@ -17,6 +17,7 @@ const datos ={
 
 
 route.get('/info', compression(),(req,res)=>{
+    
     res.send(datos)
 })
 

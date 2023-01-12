@@ -6,6 +6,9 @@
 
 // const fs = require('fs')
 
+const {consola,error} = require('../util/logger.js')
+
+
 class Container{
     constructor(knexWithOptions,dbName) {
         this.knex=knexWithOptions
@@ -23,8 +26,9 @@ class Container{
             table.integer("price")
           })
         }
-      } catch (error) {
-        console.log(error)
+      } catch (err) {
+        consola.info(err)
+        error.error("error" , err)
       }
 
     }async createDBmenssages(){
@@ -48,8 +52,9 @@ class Container{
           // table.string("createdAt")
         })
       }
-      } catch (error) {
-        console.log(error)
+      } catch (err) {
+        consola.info(err)
+        error.error("error", err)
       }
 
     }
@@ -62,8 +67,9 @@ class Container{
             if(data.length)
              return  {data}
             
-          } catch (error) {
-            console.log(`Error al leer un archivo: de ${this.dbName} ${error.message}`)
+          } catch (err) {
+            consola.info(`Error al leer un archivo: de ${this.dbName} ${err.message}`)
+            error.error(`Error al leer un archivo: de ${this.dbName} ${err.message}`)
             
           }
     }
@@ -72,8 +78,10 @@ class Container{
         try {
           await this.knex.from(this.dbName).insert({...payload})
           
-        } catch (error) {
-          console.log(`Error al guardar un objeto en ${this.dbName} ${error.message}`)
+        } catch (err) {
+          consola.info(`Error al guardar un objeto en ${this.dbName} ${err.message}`)
+          error.error(`Error al guardar un objeto en ${this.dbName} ${err.message}`)
+
           
         }
       }
@@ -83,16 +91,20 @@ class Container{
       try {
         const  data  = await this.knex.from(this.dbName).select('*')
         return data
-      } catch (error) {
-        console.log(`Error al obtener todos los objetos: ${error.message}`)
+      } catch (err) {
+        consola.info(`Error al obtener todos los objetos: ${err.message}`)
+        error.error(`Error al obtener todos los objetos: ${err.message}`)
+
       }
     }
 
     async updateById(payload, idSerch) {
       try {
         await this.knex.from(this.dbName).where({id:idSerch}).update({...payload})
-      } catch (error) {
-        console.log(`Error al eliminar un objeto: ${error.message}`)
+      } catch (err) {
+        consola.info(`Error al eliminar un objeto: ${err.message}`)
+        error.error(`Error al eliminar un objeto: ${err.message}`)
+
       }
     }
         
