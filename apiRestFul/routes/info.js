@@ -17,7 +17,11 @@ const datos ={
 
 
 route.get('/info', compression(),(req,res)=>{
-    
+    res.send(datos)
+})
+
+route.get('/info-console', compression(),(req,res)=>{
+    console.log("insertando un texto console.log")
     res.send(datos)
 })
 
