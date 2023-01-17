@@ -1,0 +1,27 @@
+<div class="m-5 text-center card" >
+  <h1>Tabla de productos</h3>
+  <table class="table table-hover">
+    <thead>
+      {{#if products}}
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Titulo</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Minuatura</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each products}}
+      <tr>
+        <th scope="row">{{this.id}}</th>
+        <td>{{this.title}}</td>
+        <td>{{this.price}}</td>
+        <td><img width="50px" height= "50px" src={{this.thumbnail}} /></td>
+      </tr>
+      {{/each}}
+       {{else}}
+          <p id="products_empty" style="color:red">No posee productos ingresados</p>
+      {{/if}}
+    </tbody>
+  </table>
+</div>

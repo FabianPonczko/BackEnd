@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <script src="/socket.io/socket.io.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <div style="display: flex;justify-content: center;margin-top:20px" id='loginSession'>
+    </div>
+    <div class="card m-5" style="background-color : rgb(245, 239, 74); display: flex;flex-direction: column;align-items: center;justify-content: space-evenly;height:250px">
+         <h3>Ingreso de productos</h3>
+            <div style="display: flex;justify-content: center;margin-top:20px">
+                <div>
+                    <form id="createProduct__form">
+                        <input type="text" name="title" placeholder="titulo">
+                        <input type="number" name="price" placeholder="precio">
+                        <input type="link" name="thumbnail" placeholder="url">
+                        <button class="btn btn-info"type="submit">Agregar registro</button>
+                    </form>
+                </div>
+            </div> 
+
+        </div> 
+        
+    <div  id="products">
+    </div>
+
+    <div id="chat" style=" background-color: #f0f8ff7d; border-radius: 0.5rem;padding: 1rem;display: flex;flex-direction: column;align-items: center;">
+        <h2 id="chat__title">Canal de Chat</h2>
+        <form id="email__form">
+        </form>
+        <div id="chat__display" style=" height: 20rem;min-width: 40rem;background-color: #fcfcfc;border-radius: 0.5rem;display: flex;flex-direction: column;padding: 1rem 2rem;overflow-y: scroll;">
+            
+        </div>
+        <form id="textMsg__form" style=" width: 50%;display: flex;flex-direction: column; margin: 0.3rem;">
+            <input type="email" name="email" placeholder="email" required>
+            <input type="text" name="nombre" placeholder="nombre" required>
+            <input type="apellido" name="apellido" placeholder="apellido" required>
+            <input type="number" name="edad" placeholder="edad" required>
+            <input type="text" name="alias" placeholder="alias" required>
+            <input type="text" name="avatar" placeholder="avatar" required>
+            <!-- <button type="submit" id="alias__submit">Cambiar email</button> -->
+          <input type="text" name="textMsg" placeholder="Mensaje" id="textMsg__inp">
+          <button type="submit" id="textMsg__submit">Enviar</button>
+        </form>
+
+      </div>
+
+<script src="./index.js"></script>
+</body>
+</html>
