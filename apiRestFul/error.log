@@ -1,2 +1,5 @@
 {"level":50,"time":1673569016035,"pid":16248,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
 {"level":50,"time":1673571766414,"pid":16440,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1674049152929,"pid":11140,"hostname":"DESKTOP-J54G45V","msg":"error"}
+{"level":50,"time":1674049169265,"pid":11140,"hostname":"DESKTOP-J54G45V","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1674049181632,"pid":11140,"hostname":"DESKTOP-J54G45V","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}

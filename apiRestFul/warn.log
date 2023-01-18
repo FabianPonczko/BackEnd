@@ -243,3 +243,5 @@
 {"level":40,"time":1673574205024,"pid":5364,"hostname":"LAPTOP-N8C0CK0F","msg":"Metodo: GET de la Ruta: /info-console no corresponde a una ruta valida"}
 {"level":40,"time":1673574205029,"pid":5364,"hostname":"LAPTOP-N8C0CK0F","msg":"Metodo: GET de la Ruta: /info-console no corresponde a una ruta valida"}
 {"level":40,"time":1673574205032,"pid":5364,"hostname":"LAPTOP-N8C0CK0F","msg":"Metodo: GET de la Ruta: /info-console no corresponde a una ruta valida"}
+{"level":40,"time":1674049169194,"pid":11140,"hostname":"DESKTOP-J54G45V","msg":"Metodo: GET de la Ruta: /favicon.ico no corresponde a una ruta valida"}
+{"level":40,"time":1674049189496,"pid":11140,"hostname":"DESKTOP-J54G45V","msg":"Metodo: GET de la Ruta: /favicon.ico no corresponde a una ruta valida"}
