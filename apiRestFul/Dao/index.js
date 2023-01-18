@@ -1,5 +1,5 @@
 
- const {MongoDBService} = require('../services/MongoDBService/index.js')
+ const {MongoDBService} = require('./../services/MongoDBService/index.js')
 
 const UsersMongo =require('./Users/UsersMongo.js')
 
