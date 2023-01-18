@@ -26,7 +26,7 @@
   },
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "nodemon server.js
+    "start": "nodemon server.js"
   },
   "name": "apirestful",
   "version": "1.0.0",
