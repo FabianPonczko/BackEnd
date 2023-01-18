@@ -25,7 +25,6 @@
     "util": "^0.12.5"
   },
   "scripts": {
-    //"start": "0x server.js",
     "dev": "nodemon server.js",
     "start": "nodemon server.js
   },
