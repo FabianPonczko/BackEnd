@@ -1,4 +1,4 @@
-import { MongoDbContainer, ProductModels } from "../../Containers/index.js";
+import { MongoDbContainer, ProductModels } from "../Containers/index.js";
 
 export class ProductsMongo extends MongoDbContainer{
     constructor(){

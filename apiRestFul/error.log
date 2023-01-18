@@ -5,3 +5,4 @@
 {"level":50,"time":1674049181632,"pid":11140,"hostname":"DESKTOP-J54G45V","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
 {"level":50,"time":1674060006190,"pid":11540,"hostname":"DESKTOP-J54G45V","msg":"error"}
 {"level":50,"time":1674060025712,"pid":11784,"hostname":"DESKTOP-J54G45V","msg":"error"}
+{"level":50,"time":1674069081083,"pid":196,"hostname":"DESKTOP-J54G45V","msg":"error"}
