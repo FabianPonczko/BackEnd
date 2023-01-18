@@ -81,10 +81,7 @@ const userVerify =  (req,res,next)=>{
   next()
 }
 
-// app.use("/",userVerify, express.static(__dirname+'/public'))
-app.use("/",userVerify, express.static('/public'))
-
-
+app.use("/",userVerify, express.static(__dirname+'/public'))
 
 
 dayjs.extend(customParseFormat)
