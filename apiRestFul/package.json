@@ -26,7 +26,7 @@
   },
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js 8085 CLUSTER"
   },
   "name": "apirestful",
   "version": "1.0.0",
