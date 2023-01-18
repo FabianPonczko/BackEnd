@@ -5,7 +5,7 @@ const LocalStrategy = require('passport-local')
 // import { Strategy as GithubStrategy } from "passport-github2";
 
 // import { UserDao } from "../Dao/index.js";
-const {UserDao} = require('../Dao/index.js')
+const {UserDao} = require('./../Dao/index.js')
 const bcrypt = require('bcrypt')
 
 const init = () => {

@@ -9,7 +9,7 @@ const app = express()
 
 
 
-const ContenedorMock = require ('../apis/contenedorMock')
+const ContenedorMock = require ('./../apis/contenedorMock')
 
 
 const productosMock = new ContenedorMock()

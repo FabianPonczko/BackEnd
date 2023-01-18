@@ -6,7 +6,7 @@
 
 // const fs = require('fs')
 
-const {consola,error} = require('../util/logger.js')
+const {consola,error} = require('./../util/logger.js')
 
 
 class Container{

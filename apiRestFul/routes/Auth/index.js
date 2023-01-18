@@ -3,7 +3,7 @@ const {Router} = require('express')
 // import passport from "passport";
 const passport = require('passport')
 // import { UserDao } from "../../Dao/index.js";
-const {UserDao} = require('../../Dao/index.js')
+const {UserDao} = require('./../../Dao/index.js')
 
 const router = Router();
 

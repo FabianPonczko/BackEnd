@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 // const session = require('express-session')
-const {UserDao} = require('../Dao/index.js')
+const {UserDao} = require('./../Dao/index.js')
 const passport = require('passport')
 const bcrypt = require('bcrypt');
-const {consola,warn,error} = require('../util/logger.js')
+const {consola,warn,error} = require('./../util/logger.js')
 
 
 router.get('/login', (req,res)=>{
