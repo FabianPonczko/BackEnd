@@ -36,4 +36,4 @@ class MongoDbContainer{
     
 }
 
-module.exports = {MongoDbContainer}
+module.exports = MongoDbContainer
