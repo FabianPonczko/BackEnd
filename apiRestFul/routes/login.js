@@ -34,8 +34,10 @@ router.get('/auth',passport.authenticate("login"),(req,res)=>{
 router.get('/loginEmail',async(req,res)=>{
   const {url,method} = req
   consola.info(`direccion ${url} , metodo ${method}`)
-    res.render('loginEmailUser')
-
+  if(!req.session.nombre){
+   return  res.render('loginEmailUser')
+  }
+  res.redirect('/')
 
 })
 
@@ -72,7 +74,7 @@ router.get('/register',async(req,res)=>{
     
         // PASSWORD! podriamos usar bcrypt!
         
-        await UserDao.save({ email, name,adress,age,phone,photo,password :passwordHash });
+        await UserDao.save({ email,password :passwordHash, name,adress,age,phone,photo ,products:[]});
     
         console.log({success: true});
 

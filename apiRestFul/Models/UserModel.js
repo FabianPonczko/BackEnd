@@ -12,6 +12,7 @@ const UserSchema = new Schema({
     age:{type: Number, require:true,max:150},
     phone:{type: String, require:true,max:500},
     photo:{type: String, require:true,max:500},
+    products:[{type:Schema.Types.ObjectId,ref: "products"}]
 },
 {
     virtuals:true

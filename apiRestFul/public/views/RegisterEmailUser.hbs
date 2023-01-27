@@ -11,21 +11,29 @@
     </h2>
     <form action="/register" style="    display: flex;
     flex-direction: column;
-    align-items: center; ">
-        <label for="email">Email</label>
-        <input type="email" name="email"  required>
-        <label for="password">Password</label>
-        <input type="password" name="password" required>
-        <label for="name">Nombre</label>
-        <input type="text" name="name"  required>
-        <label for="adress">Dirección</label>
-        <input type="text" name="adress"  required>
-        <label for="age">Edad</label>
-        <input type="number" name="age" required>
-        <label for="phone">Telefono</label>
-        <input type="tel" name="phone" required>
-        <label for="photo">Foto/Avatar</label>
-        <input type="text" name="photo" required>
+    align-items: center;">
+    
+        <label style="margin:5px;" for="email">Email
+            <input style="margin:5px;" type="email" name="email"  required>
+        </label>
+        <label style="margin:5px;" for="password">Password
+            <input style="margin:5px;" type="password" name="password" required>
+        </label>
+        <label style="margin:5px;" for="name">Nombre
+            <input style="margin:5px;" type="text" name="name"  required>
+        </label>
+        <label style="margin:5px;" for="adress">Dirección
+            <input style="margin:5px;" type="text" name="adress"  required>
+        </label>
+        <label style="margin:5px;"  for="age">Edad
+            <input style="margin:5px;" type="number" name="age" required>
+        </label>
+        <label style="margin:5px;" for="phone">Telefono
+            <input style="margin:5px;" type="tel" name="phone" pattern="[0-9]{2}-[0-9]{4}-[0-9]{7}"  placeholder="54-0351-8822318" required>
+        </label>
+        <label style="margin:5px;" for="photo">Foto/Avatar
+            <input style="margin:5px;" type="text" name="photo" required>
+        </label>
 
         <button type="submit" style="margin: 15px;">Registrar </button>
      </form>

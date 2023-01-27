@@ -100,13 +100,17 @@ const cleanProducts = () => {
     socket.emit('new msg', formValues)
   })
   
-  socket.on('user', userName  => {    
+  
+  socket.on('user', (userName,req,res)  => {    
     console.log("llegan",userName)  
-    if(userName==null){
+    if(userName==null || userName==undefined ){
       // location.href="/login"
       location.href="/loginEmail"
     }  
+    
+    // renderSessionUser(userName)
     renderSessionUser(userName)
+
   })
   socket.on('all products', (allProduct)  => {    
     products = allProduct

@@ -5,8 +5,8 @@ const transporter = createTransport({
     service: 'gmail',
     port: 587,
     auth: {
-        user: 'fabianponczko@gmail.com',
-        pass: 'nckrdvwwpdkhqnph'
+        user: 'backendponczko@gmail.com',
+        pass: 'dgchncmvwkwrnxle'
     },
      tls : { rejectUnauthorized: false }
 })
@@ -15,8 +15,8 @@ const transporter = createTransport({
 const envioMail=async(email, name,adress,age,phone,photo)=>{
     const mailOptions ={
         from:"servidor node",
-        to:'fabianponczko@gmail.com',
-        subject:"mail de prueba",
+        to:'backendponczko@gmail.com',
+        subject:"nuevo registro",
         html:`
         <h1 style="color:blue;">Nuevo usuario registrado</h1>
         <h3>nombre: ${name} </h3>
