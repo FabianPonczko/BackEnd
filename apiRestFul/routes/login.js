@@ -5,7 +5,7 @@ const {UserDao} = require('./../Dao/index.js')
 const passport = require('passport')
 const bcrypt = require('bcrypt');
 const {consola,warn,error} = require('./../util/logger.js')
-
+const { envioMail } = require ('../services/nodemailer/index.js')
 
 router.get('/login', (req,res)=>{
   const {url,method} = req
@@ -75,7 +75,8 @@ router.get('/register',async(req,res)=>{
         await UserDao.save({ email, name,adress,age,phone,photo,password :passwordHash });
     
         console.log({success: true});
-        
+
+        envioMail(email, name,adress,age,phone,photo)
         
 
       } catch (error) {

@@ -1,5 +1,5 @@
 
-#### Se publica el projecto en el servidor: https://backend-production-0a5b.up.railway.app/
+#### Se genera mail por cada registro (logica en /service/nodemailer/indx.js)
 ### PORT se pasa por parametro Ej: "node server.js 8081 sino 8080 por default
 ### la app se inicia en server.js 
 
