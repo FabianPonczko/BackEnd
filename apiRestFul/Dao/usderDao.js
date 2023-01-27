@@ -1,6 +1,6 @@
 
 const  MongoDbContainer  =require ("./../Containers/MongoDbContainer.js");
-const { UserModel} =require('./../Models/UserModel')
+const { UserModel} =require('./../Models/UserModel.js')
 
 module.exports = class UsersMongo extends MongoDbContainer{
     constructor(){

@@ -42,10 +42,10 @@ router.get('/loginEmail',async(req,res)=>{
 router.get('/register',async(req,res)=>{
   const {url,method} = req
   consola.info(`direccion ${url} , metodo ${method}`)
-    res.render('RegisterEmailUser')
+  res.render('RegisterEmailUser')
 
     try {
-        const { email, password } = req.query;
+        const { email, password ,name,adress,age,phone,photo} = req.query;
         if (!email || !password){
           //return res.send({ success: false });
           warn.warn(`falta usuario o password`)
@@ -72,9 +72,12 @@ router.get('/register',async(req,res)=>{
     
         // PASSWORD! podriamos usar bcrypt!
         
-        await UserDao.save({ email, password :passwordHash});
+        await UserDao.save({ email, name,adress,age,phone,photo,password :passwordHash });
     
-        console.log({ success: true });
+        console.log({success: true});
+        
+        
+
       } catch (error) {
         console.log(error);
     

@@ -7,6 +7,11 @@ const UserSchema = new Schema({
     // name:{type: String, require:true,max:100},
     email:{type: String, require:true,max:150},
     password:{type: String, require:true,max:150},
+    name:{type: String, require:true,max:150},
+    adress:{type: String, require:true,max:350},
+    age:{type: Number, require:true,max:150},
+    phone:{type: String, require:true,max:500},
+    photo:{type: String, require:true,max:500},
 },
 {
     virtuals:true
