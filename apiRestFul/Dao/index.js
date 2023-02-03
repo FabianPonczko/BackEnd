@@ -4,10 +4,6 @@
 const UsersMongo =require('./Users/UsersMongo.js')
 
 
-// ----------------------------------------------------------------
-// Cambiar SELECTED_DATABASE para usar DB: "mongo" ó DB:"firebase"
-// ---------------------------------------------------------------
-
 const SELECTED_DATABASE = "mongo"
 
 // -------------------------------------------------------------
@@ -18,26 +14,10 @@ const getSelectedDaos = ()=>{
             MongoDBService.init()
             return{
                 UserDao: new UsersMongo(),
-
-            }
-        }
-        case "firebase":{
-             FireBaseDBservice.init()
-            return{
-                ProductDao: new ProductsFireBase(),
-                CartDao: new CartsFireBase()
-            }
-        }
-        case "filesystem":{
-
-            return{
-                ProductDao: new  ProductsFileSystem(),
-                CartDao: new CartsFileSystem()
             }
         }
     }
-
 }
-const {ProductDao,CartDao,UserDao} = getSelectedDaos()
+const {UserDao} = getSelectedDaos()
 
-module.exports = {ProductDao,CartDao,UserDao}
+module.exports = {UserDao}

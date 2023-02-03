@@ -1,15 +1,9 @@
 const express = require (`express`)
 const { Server: HttpServer } = require('http')
 const { Server: SocketIOServer }  = require('socket.io')
-const Container = require('./apis/contenedor')
 const dayjs = require("dayjs")
 const customParseFormat = require('dayjs/plugin/customParseFormat')
-const {KnexMysql,KnexSqlite3} = require('./apis/configDB')
-const knex = require('knex')
-const contenedorMock =require('./apis/contenedorMock')
 const {normalizeData}=require('./normalizr/normalizar')
-const util = require('util')
-
 const handlebars = require('express-handlebars')
 const {engine} = require('express-handlebars')
 const routerLogin = require('./routes/login')
@@ -17,45 +11,35 @@ const routerDestroy = require('./routes/destroy')
 const routerInfo = require('./routes/info.js')
 const routerApirandons = require('./routes/apiRandom.js')
 const session = require ('express-session')
-// const { nextTick } = require('process')
-const MongoStore = require('connect-mongo')
-const FileStore = require('session-file-store')(session)
 const sesiones = require('./sessionConfig/session.js')
-const {config} =require('./config/index.js')
 
 const cluster = require("cluster")
 const numCluster= require('os').cpus().length
 const {fork} = require('child_process')
 
-// import { PassportAuth } from "./middlewares/index.js";
-// import passport from "passport";
-
 const {PassportAuth} =require('./middlewares/passportAuth')
 const passport =require('passport')
 
-const AuthRouter = require('./routes/Auth/index')
 
 const {consola,warn,error} = require('./util/logger.js')
+const {Messages} =require('./Dao/messages/messages.js')
+const {productos}= require('./Dao/products/products.js')
+const { productsMocks } = require('./controller/productsMocks')
+const { noRuta } = require('./controller/noRutas')
 
 
 const args = process.argv.slice(2)
-
 
 const app = express();
 
 PassportAuth.init();
 
-
-
-app.use(sesiones.mongo)
-  
-  app.use(passport.initialize());
-  app.use(passport.session());
+app.use(sesiones.mongo) 
+app.use(passport.initialize());
+app.use(passport.session());
   
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-
-
 
 //configuro handlebars
 app.engine('hbs', engine({
@@ -65,40 +49,17 @@ app.engine('hbs', engine({
 app.set('view engine', '.hbs');
 app.set('views',  './public/views');
 
-
-
 let userName = ""
 
 const userVerify =  (req,res,next)=>{
   userName= req.session.nombre
-  
-  // if (!userName){
-  //   return res.redirect("/login")
-  // }
-  
-  // console.log("session name ",userName)
-  
   next()
 }
 
 app.use("/",userVerify, express.static(__dirname+'/public'))
 
-
 dayjs.extend(customParseFormat)
 
-
-//obtengo productos desde mysql
-const products = new Container(KnexMysql,'products')
-products.createDBproducts()
-
-//obtengo productos desde Mocks
-const productsMocks= new contenedorMock()
-productsMocks.createProducts()
-
-
-//obtengo mensajes desde sqlite3
-const Messages = new Container(KnexSqlite3,'ecommerce')
-Messages.createDBmenssages()
 
 
 const httpServer = new HttpServer(app)
@@ -131,9 +92,7 @@ if(modo == "CLUSTER"){
 
 
 //creo ruta a view handlebars con tabla de productos desde Mocks
-app.get('/api/productos-test', (req,res)=>{
-  res.render('tableProductsMocks', productsMocks )
-})
+app.get('/api/productos-test', productsMocks)
 
 //llamo a ruta de login
 app.use('/',routerLogin)
@@ -146,22 +105,22 @@ app.use('/', routerInfo)
 
 app.use('/',routerApirandons)
 
-app.use("/api/auth", AuthRouter);
 
-app.get('*',(req,res)=>{
-  const {url,method}=req
-  warn.warn(`Metodo: ${method} de la Ruta: ${url} no corresponde a una ruta valida`)
-})
+app.get('*',noRuta)
+
+
+
 
 const newProduct = async (newProduct) => {
-  await products.save(newProduct)
-  const allProduct = await products.getAll()
+  await productos.products.save(newProduct)
+  const allProduct = await productos.products.getAll()
   // const allProduct = await productsMocks.getAll()
   io.sockets.emit('all products', allProduct)
 }
 
 const newUserConnected = async () => {
-   const allMsg = await Messages.getAll()
+      
+       const allMsg = await Messages.getAll()
   
    const authorData =[]
    for (ele of allMsg){
@@ -180,7 +139,7 @@ const newUserConnected = async () => {
    }
    
     
-    const allProducts = await products.getAll()
+    const allProducts = await productos.products.getAll()
    console.log("mando",userName)
 
     io.sockets.emit('user', (userName))
