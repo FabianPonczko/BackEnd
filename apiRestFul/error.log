@@ -1,0 +1,201 @@
+{"level":50,"time":1675555824166,"pid":3864,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675555826775,"pid":3864,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675555844667,"pid":3864,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675555885478,"pid":22676,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675555885522,"pid":22676,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675555888388,"pid":22676,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675555892839,"pid":22676,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675555896590,"pid":22676,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675555919090,"pid":4080,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675555919207,"pid":4080,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675555924945,"pid":4080,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556013653,"pid":17652,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675556013772,"pid":17652,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556018552,"pid":17652,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556085341,"pid":24352,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675556156748,"pid":1260,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675556205551,"pid":3864,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675556213967,"pid":3864,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556317279,"pid":404,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675556317426,"pid":404,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556322181,"pid":404,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556324821,"pid":404,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556331821,"pid":404,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556354984,"pid":24444,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675556355107,"pid":24444,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556407832,"pid":17076,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675556445075,"pid":17076,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556463101,"pid":17076,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556474757,"pid":17076,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556484742,"pid":17076,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556493866,"pid":17076,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556539135,"pid":7176,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675556541373,"pid":7176,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556574170,"pid":10700,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675556576774,"pid":10700,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556629998,"pid":10700,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556722945,"pid":12396,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675556723070,"pid":12396,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556725952,"pid":12396,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556769717,"pid":16300,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675556769833,"pid":16300,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556771943,"pid":16300,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675556782119,"pid":16300,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675609313538,"pid":11272,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675609322156,"pid":11272,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675609333331,"pid":11272,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675609426240,"pid":11272,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675609437965,"pid":11272,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675609441859,"pid":11272,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675609449837,"pid":11272,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675609459918,"pid":11272,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675609466396,"pid":11272,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675609470698,"pid":11272,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675609503939,"pid":11272,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675609510451,"pid":11272,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675609514776,"pid":11272,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675609568208,"pid":11272,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675609572456,"pid":11272,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675610163750,"pid":21036,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675610165644,"pid":21036,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675610175174,"pid":21036,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675946038741,"pid":20920,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675946077192,"pid":11216,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675948653194,"pid":7812,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949147852,"pid":23972,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949214868,"pid":17352,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949700046,"pid":19072,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949715970,"pid":12892,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949743863,"pid":13480,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949745069,"pid":2784,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949746626,"pid":17800,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949748268,"pid":6932,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949749645,"pid":5384,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949750980,"pid":22280,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949752390,"pid":7296,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949753645,"pid":23044,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949755204,"pid":1032,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949756818,"pid":15536,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949758035,"pid":6776,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949759441,"pid":3624,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949759639,"pid":3344,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949761079,"pid":16216,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949762104,"pid":15108,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949763177,"pid":9024,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949764008,"pid":6096,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949784779,"pid":3792,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949812338,"pid":19356,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675949898177,"pid":13044,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675950875730,"pid":1448,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675950902289,"pid":1448,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675950939332,"pid":16668,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675950941363,"pid":16668,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675950949781,"pid":16668,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675951456460,"pid":2904,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675951463994,"pid":2904,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675952500190,"pid":15828,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952514516,"pid":15828,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675952523336,"pid":15828,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1675952552660,"pid":14400,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952554130,"pid":23820,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952555652,"pid":24164,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952556900,"pid":7540,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952558378,"pid":13044,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952559411,"pid":20532,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952560750,"pid":17692,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952561854,"pid":22516,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952563107,"pid":1580,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952564290,"pid":5492,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952565367,"pid":16668,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952566402,"pid":2120,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952567448,"pid":7920,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952567925,"pid":8920,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952569054,"pid":672,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952570179,"pid":7388,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952571056,"pid":12500,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952617705,"pid":16584,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952633956,"pid":12680,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952635026,"pid":10308,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952636452,"pid":6880,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952637774,"pid":3184,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952639237,"pid":17084,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952640870,"pid":5348,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952642070,"pid":19336,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952643213,"pid":2616,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952644356,"pid":22740,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952645720,"pid":25532,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952646812,"pid":20052,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952647840,"pid":23952,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952649084,"pid":11728,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952649538,"pid":19532,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952650486,"pid":24836,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952651605,"pid":11760,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952652589,"pid":23200,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952743015,"pid":8936,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952757097,"pid":22920,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952758212,"pid":9784,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952759805,"pid":5988,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952761346,"pid":1864,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952762386,"pid":6564,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952763714,"pid":1184,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952765023,"pid":12700,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952766275,"pid":16308,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952767584,"pid":15212,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952768698,"pid":10900,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952769962,"pid":15688,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952771298,"pid":24608,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952772236,"pid":8524,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952772657,"pid":2472,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952773909,"pid":9700,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952774918,"pid":14208,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952775801,"pid":14100,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675952985845,"pid":4460,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953001627,"pid":14648,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953002839,"pid":24572,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953004580,"pid":17120,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953005954,"pid":9328,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953007230,"pid":20124,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953008581,"pid":10176,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953009647,"pid":21612,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953010799,"pid":21904,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953011966,"pid":3836,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953013329,"pid":12208,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953014482,"pid":21376,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953015860,"pid":6348,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953016997,"pid":20692,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953017222,"pid":10348,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953018506,"pid":12432,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953019456,"pid":13624,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953020491,"pid":5032,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953223989,"pid":3448,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953237778,"pid":21664,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953239242,"pid":1524,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953240801,"pid":11396,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953242277,"pid":17056,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953243553,"pid":22732,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953244677,"pid":18160,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953245913,"pid":9624,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953247353,"pid":25368,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953248722,"pid":6860,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953249984,"pid":18668,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953251250,"pid":6704,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953252460,"pid":24784,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953253190,"pid":17996,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953350363,"pid":13068,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953351292,"pid":23660,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953352623,"pid":13416,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953353906,"pid":22424,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953355174,"pid":15252,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953356652,"pid":7920,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953358310,"pid":12616,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953359713,"pid":24304,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953361082,"pid":18960,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953362670,"pid":25244,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953364168,"pid":5492,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953365749,"pid":3512,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953366935,"pid":18080,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953367203,"pid":20148,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953368243,"pid":20724,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953369375,"pid":18032,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953370362,"pid":20940,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
+{"level":50,"time":1675953377463,"pid":20940,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}

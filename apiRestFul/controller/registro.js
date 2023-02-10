@@ -1,5 +1,5 @@
 const {consola,warn,error} = require('../util/logger.js')
-const {UserDao} = require('../Dao/index.js')
+const {UserDao} = require('../Dao/factoryDao.js')
 const bcrypt = require('bcrypt');
 const session = require ('express-session')
 
@@ -52,10 +52,11 @@ const auth = async(req,res)=>{
 const loginEmail = async(req,res)=>{
     const {url,method} = req
       res.render('loginEmailUser')
-  }
+}
 
-  module.exports ={
-    registro,
-    loginEmail,
-    auth,
+
+module.exports ={
+  registro,
+  loginEmail,
+  auth,
 }

@@ -1,6 +1,6 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
-const {UserDao} = require('../Dao/index.js')
+const {UserDao} = require('../Dao/factoryDao.js')
 const bcrypt = require('bcrypt')
 
 const init = () => {

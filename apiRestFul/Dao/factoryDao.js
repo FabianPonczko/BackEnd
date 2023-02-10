@@ -4,16 +4,22 @@
 const UsersMongo =require('./Users/UsersMongo.js')
 
 
-const SELECTED_DATABASE = "mongo"
+// const SELECTED_DATABASE = "mongo"
+const SELECTED_DATABASE = process.argv[ 2 ]  // || 'mongo'
 
 // -------------------------------------------------------------
 
 const getSelectedDaos = ()=>{
     switch(SELECTED_DATABASE){
-        case "mongo":{
+        case 'mongo':{
             MongoDBService.init()
             return{
-                UserDao: new UsersMongo(),
+                UserDao:  UsersMongo.getinstanciaUserMongo(),
+            }
+        }
+        case 'filesystem':{
+            return {
+                UserDao: FileSystem()//datos cono ej.
             }
         }
     }

@@ -20,15 +20,12 @@ const {fork} = require('child_process')
 const {PassportAuth} =require('./middlewares/passportAuth')
 const passport =require('passport')
 
-
 const {consola,warn,error} = require('./util/logger.js')
 const {Messages} =require('./Dao/messages/messages.js')
 const {productos}= require('./Dao/products/products.js')
 const { productsMocks } = require('./controller/productsMocks')
 const { noRuta } = require('./controller/noRutas')
 
-
-const args = process.argv.slice(2)
 
 const app = express();
 
@@ -37,7 +34,7 @@ PassportAuth.init();
 app.use(sesiones.mongo) 
 app.use(passport.initialize());
 app.use(passport.session());
-  
+
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
@@ -49,21 +46,21 @@ app.engine('hbs', engine({
 app.set('view engine', '.hbs');
 app.set('views',  './public/views');
 
-let userName = ""
+let userName =""
 
 const userVerify =  (req,res,next)=>{
   userName= req.session.nombre
   next()
 }
 
-app.use("/",userVerify, express.static(__dirname+'/public'))
+app.use("/", userVerify, express.static(__dirname+'/public'))
 
 dayjs.extend(customParseFormat)
 
-
-
 const httpServer = new HttpServer(app)
 const io = new SocketIOServer(httpServer)
+
+const args = process.argv.slice(3)
 
 const PORT = args[0] || 8080
 
@@ -82,14 +79,12 @@ if(modo == "CLUSTER"){
   httpServer.listen(PORT, () =>{
     console.log(`Server running on port: ${PORT} ands PID: ${process.pid}`)
   })
-  // console.log(`worker ${process.pid} started`)
 }
 }else{
   httpServer.listen(PORT, () =>{
     console.log(`Server running on port: ${PORT} ands PID: ${process.pid} modo FORK`)
   })
 }
-
 
 //creo ruta a view handlebars con tabla de productos desde Mocks
 app.get('/api/productos-test', productsMocks)
@@ -100,21 +95,16 @@ app.use('/',routerLogin)
 //llamo a la ruta para borrar la session luego redirecciono a login
 app.use('/',routerDestroy)
 
-
 app.use('/', routerInfo)
 
 app.use('/',routerApirandons)
 
-
 app.get('*',noRuta)
-
-
 
 
 const newProduct = async (newProduct) => {
   await productos.products.save(newProduct)
   const allProduct = await productos.products.getAll()
-  // const allProduct = await productsMocks.getAll()
   io.sockets.emit('all products', allProduct)
 }
 
@@ -146,9 +136,7 @@ const newUserConnected = async () => {
     
     io.sockets.emit('all products', (allProducts))
     
-    //envio mensajes al from normalizados
     const mensajeNormalizer = normalizeData({id:"mensajes",authorData})
-    // console.log("data normalizada",util.inspect(mensajeNormalizer,false,12,true))
     io.sockets.emit('all messages', mensajeNormalizer)
 }
 

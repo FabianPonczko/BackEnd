@@ -1,7 +1,5 @@
 import { Schema } from 'mongoose'
-
 const ProductsCollection= "products"
-
 const ProductSchema = new Schema({
     title:{type: String, require:true,max:100},
     description:{type: String, require:true,max:150},
@@ -14,7 +12,6 @@ const ProductSchema = new Schema({
 {
     virtuals:true
 })
-
 ProductSchema.set("toJSON",{
     transform:(_,response)=>{
         response.id=response._id
@@ -23,5 +20,4 @@ ProductSchema.set("toJSON",{
         return response
     }
 })
-
 export const ProductModels = {ProductsCollection,ProductSchema}
