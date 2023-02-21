@@ -1,5 +1,6 @@
 import { Schema } from 'mongoose'
 const ProductsCollection= "products"
+
 const ProductSchema = new Schema({
     title:{type: String, require:true,max:100},
     description:{type: String, require:true,max:150},
