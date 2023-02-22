@@ -25,6 +25,8 @@ const {Messages} =require('./Dao/messages/messages.js')
 const {productos}= require('./Dao/products/products.js')
 const { productsMocks } = require('./controller/productsMocks')
 const { noRuta } = require('./controller/noRutas')
+const routerAxios = require('./routes/axios.js')
+
 
 
 const app = express();
@@ -98,6 +100,8 @@ app.use('/',routerDestroy)
 app.use('/', routerInfo)
 
 app.use('/',routerApirandons)
+
+app.use('/', routerAxios)
 
 app.get('*',noRuta)
 
