@@ -14,7 +14,7 @@ module.exports =  class UsersMongo extends MongoDbContainer {
     static getinstanciaUserMongo=()=>{
       if (!instancia){
         instancia = new UsersMongo()
-        console.log("se crea instancia")
+        console.log("se crea instancia User")
       }
       return instancia
     }

@@ -1,6 +1,8 @@
 // import { Schema } from 'mongoose'
 const {Schema} = require('mongoose')
+
 const CartCollection= "carts"
+
 const CartSchema = new Schema(
     {
         timeStamp:{type: String, require:true,max:100},
@@ -20,4 +22,4 @@ CartSchema.set("toJSON",{
     }
 })
 const CartModels = {CartCollection,CartSchema}
-module.export  = CartModels
+module.exports.CartModels = {CartCollection,CartSchema}

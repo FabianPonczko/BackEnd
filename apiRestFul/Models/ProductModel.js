@@ -1,4 +1,7 @@
-import { Schema } from 'mongoose'
+// import { Schema } from 'mongoose'
+
+const { Schema } = require('mongoose')
+
 const ProductsCollection= "products"
 
 const ProductSchema = new Schema({
@@ -21,4 +24,6 @@ ProductSchema.set("toJSON",{
         return response
     }
 })
-export const ProductModels = {ProductsCollection,ProductSchema}
+
+const ProductModels = {ProductsCollection,ProductSchema}
+module.exports.ProductModels = {ProductsCollection,ProductSchema}

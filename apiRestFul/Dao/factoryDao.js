@@ -3,6 +3,8 @@
 
 const UsersMongo =require('./Users/UsersMongo.js')
 
+const {CartMongo,ProductMongo,UsersMongo} = require('./index.js')
+
 
 // const SELECTED_DATABASE = "mongo"
 const SELECTED_DATABASE = process.argv[ 2 ]  // || 'mongo'
@@ -15,6 +17,8 @@ const getSelectedDaos = ()=>{
             MongoDBService.init()
             return{
                 UserDao:  UsersMongo.getinstanciaUserMongo(),
+                ProductDao : ProductMongo.getinstanciaProductMongo(),
+                CartDao : CartMongo.getinstanciaCartsMongo()
             }
         }
         case 'filesystem':{
@@ -24,6 +28,6 @@ const getSelectedDaos = ()=>{
         }
     }
 }
-const {UserDao} = getSelectedDaos()
+const {UserDao,ProductDao,CartDao} = getSelectedDaos()
 
-module.exports = {UserDao}
+module.exports = {UserDao,ProductDao,CartDao}
