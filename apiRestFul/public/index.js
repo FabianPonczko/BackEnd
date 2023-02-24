@@ -1,6 +1,5 @@
 
 const socket = io()
-
 let users = []
 let messages = []
 let products = []

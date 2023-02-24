@@ -23,7 +23,9 @@ const getSelectedDaos = ()=>{
         }
         case 'filesystem':{
             return {
-                UserDao: FileSystem()//datos cono ej.
+                UserDao: "",//datos cono ej.
+                ProductDao :"",
+                CartDao : ""
             }
         }
     }

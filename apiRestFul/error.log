@@ -202,3 +202,9 @@
 {"level":50,"time":1677018338434,"pid":404,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
 {"level":50,"time":1677018349185,"pid":404,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
 {"level":50,"time":1677018362782,"pid":404,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1677258513612,"pid":25720,"hostname":"armcd040579","msg":"error"}
+{"level":50,"time":1677258908384,"pid":22880,"hostname":"armcd040579","msg":"error"}
+{"level":50,"time":1677259007605,"pid":20356,"hostname":"armcd040579","msg":"error"}
+{"level":50,"time":1677259252116,"pid":16784,"hostname":"armcd040579","msg":"error"}
+{"level":50,"time":1677259402309,"pid":22208,"hostname":"armcd040579","msg":"error"}
+{"level":50,"time":1677259437395,"pid":26060,"hostname":"armcd040579","msg":"error"}
