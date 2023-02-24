@@ -23,6 +23,7 @@ const passport =require('passport')
 const {consola,warn,error} = require('./util/logger.js')
 const {Messages} =require('./Dao/messages/messages.js')
 const {productos}= require('./Dao/products/products.js')
+const {CartDao,ProductDao,UserDao} = require('./Dao/factoryDao')
 const { productsMocks } = require('./controller/productsMocks')
 const { noRuta } = require('./controller/noRutas')
 const routerAxios = require('./routes/axios.js')
@@ -107,8 +108,11 @@ app.get('*',noRuta)
 
 
 const newProduct = async (newProduct) => {
-  await productos.products.save(newProduct)
-  const allProduct = await productos.products.getAll()
+
+  // await productos.products.save(newProduct)
+  await ProductDao.save(newProduct)
+  // const allProduct = await productos.products.getAll()
+  const allProduct = await ProductDao.getAll()
   io.sockets.emit('all products', allProduct)
 }
 
@@ -133,7 +137,9 @@ const newUserConnected = async () => {
    }
    
     
-    const allProducts = await productos.products.getAll()
+    // const allProducts = await productos.products.getAll()
+  
+   const allProducts = await ProductDao.getAll()
    console.log("mando",userName)
 
     io.sockets.emit('user', (userName))
