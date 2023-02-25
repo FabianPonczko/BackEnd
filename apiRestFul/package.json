@@ -28,7 +28,7 @@
   },
   "scripts": {
     "start": "0x server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js mongo"
   },
   "name": "apirestful",
   "version": "1.0.0",

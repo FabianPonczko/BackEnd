@@ -202,3 +202,6 @@
 {"level":50,"time":1677018338434,"pid":404,"hostname":"LAPTOP-N8C0CK0F","msg":"error"}
 {"level":50,"time":1677018349185,"pid":404,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
 {"level":50,"time":1677018362782,"pid":404,"hostname":"LAPTOP-N8C0CK0F","msg":"Error al obtener todos los objetos: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":50,"time":1677341570567,"pid":18404,"hostname":"PcFabian","msg":"el usuario ya existe"}
+{"level":50,"time":1677341582091,"pid":18404,"hostname":"PcFabian","msg":"el usuario ya existe"}
+{"level":50,"time":1677342150512,"pid":18404,"hostname":"PcFabian","msg":"el usuario ya existe"}

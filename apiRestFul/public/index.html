@@ -14,20 +14,23 @@
 <body>
     <div style="display: flex;justify-content: center;margin-top:20px" id='loginSession'>
     </div>
-    <div class="card m-5" style="background-color : rgb(245, 239, 74); display: flex;flex-direction: column;align-items: center;justify-content: space-evenly;height:250px">
+    <div class="card m-5" style="background-color : rgb(244, 108, 11); display: flex;flex-direction: column;align-items: center;justify-content: space-evenly;height:250px">
          <h3>Ingreso de productos</h3>
             <div style="display: flex;justify-content: center;margin-top:20px">
                 <div>
                     <form id="createProduct__form">
-                        <input type="text" name="title" placeholder="titulo">
-                        <input type="number" name="price" placeholder="precio">
-                        <input type="link" name="thumbnail" placeholder="url">
+                        <input type="text" name="title" placeholder="titulo" required>
+                        <input type="number" name="price" placeholder="precio" required>
+                        <input type="link" name="thumbnail" placeholder="url" required>
                         <button class="btn btn-info"type="submit">Agregar registro</button>
                     </form>
                 </div>
             </div> 
+    </div> 
+                <div id="borrarProduct_div">
+                    
+                </div>
 
-        </div> 
         
     <div  id="products">
     </div>

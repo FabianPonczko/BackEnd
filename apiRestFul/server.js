@@ -26,6 +26,7 @@ const {productos}= require('./Dao/products/products.js')
 const { productsMocks } = require('./controller/productsMocks')
 const { noRuta } = require('./controller/noRutas')
 const routerAxios = require('./routes/axios.js')
+const {ProductDao} = require ('./Dao/factoryDao')
 
 
 
@@ -107,8 +108,22 @@ app.get('*',noRuta)
 
 
 const newProduct = async (newProduct) => {
-  await productos.products.save(newProduct)
-  const allProduct = await productos.products.getAll()
+  // await productos.products.save(newProduct)
+  await ProductDao.save(newProduct)
+  // const allProduct = await productos.products.getAll()
+  const allProduct = await ProductDao.getAll()
+  io.sockets.emit('all products', allProduct)
+}
+
+const newDeleteProduct = async (id) => {
+  // await productos.products.save(newProduct)
+  try {
+    await ProductDao.DeleteById(id.id)
+  } catch (error) {
+    console.log("error: ",error)
+  }
+  // const allProduct = await productos.products.getAll()
+  const allProduct = await ProductDao.getAll()
   io.sockets.emit('all products', allProduct)
 }
 
@@ -133,7 +148,8 @@ const newUserConnected = async () => {
    }
    
     
-    const allProducts = await productos.products.getAll()
+    // const allProducts = await productos.products.getAll()
+   const allProducts = await ProductDao.getAll()
    console.log("mando",userName)
 
     io.sockets.emit('user', (userName))
@@ -189,4 +205,7 @@ io.on('connection', socket => {
       newMessage(newMsg)
     })
 
+    socket.on('new delete', newMsg => {
+      newDeleteProduct(newMsg)
+    })
 })

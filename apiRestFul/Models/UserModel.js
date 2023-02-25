@@ -4,7 +4,10 @@ const {Schema} = require('mongoose')
 const UserCollection= "users"
 
 const UserSchema = new Schema({
-    // name:{type: String, require:true,max:100},
+    name:{type: String, require:true,max:100},
+    adress:{type: String, require:true,max:150},
+    age:{type: Number, require:true,max:120},
+    phone:{type: String, require:true,max:24},
     email:{type: String, require:true,max:150},
     password:{type: String, require:true,max:150},
     cart:[{type:Schema.Types.ObjectId,ref: "carts"}]

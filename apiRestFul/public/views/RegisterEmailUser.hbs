@@ -1,13 +1,60 @@
-<div >
-    <h2>
-        Registro de Usuario
-    </h2>
+<div class="card m-5">
+    
+        <h2>
+            Registro de Usuario
+        </h2>
+    
     <form action="/register">
-        <input type="email" name="email" placeholder="Ingrese su email" required>
-        <input type="password" name="password" placeholder="Ingrese su contraseña" required>
-        <button type="submit">Registrar </button>
+        <div class="row ">
+            <div class="col-sm-4">
+                <div class="m-2">
+                    <label for="formGroupExampleInput" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" name="name" placeholder="Nombre completo" required>
+                </div>
+            </div>
+            <div class="col-sm-10">
+                <div class="m-2">
+                    <label for="formGroupExampleInput" class="form-label">Dirección</label>
+                    <input type="text" class="form-control" name="adress" placeholder="Dirección actual" required>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="m-2">
+                    <label for="formGroupExampleInput" class="form-label">Edad</label>
+                    <input type="number" class="form-control" name="age" placeholder="Edad" required>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="m-2">
+                    <label for="formGroupExampleInput" class="form-label">Telefono</label>
+                    <input type="text" class="form-control" name="phone" placeholder="Telefono de contacto" required>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="m-2">
+                    <label for="formGroupExampleInput" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" placeholder="Ingrese su email" required>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="m-2 mb-4">
+                    <label for="formGroupExampleInput" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" placeholder="Ingrese su contraseña" required>
+                </div>
+            </div>
+             <div class="col-sm-4">
+                <div class="m-5">
+                    <button type="submit" class="form-control btn btn-success" >Registrar </button>
+                </div>
+             </div>
      </form>
-     <a href="/loginEmail">
-     <button>login</button>
-     </a>
-</div>
+</div> 
+                <div class="col-sm-4 ">
+                    <a href="/loginEmail">
+                        <button class=" btn btn-primary">login</button>
+                    </a>
+                </div>
+             
+             
+
+            

@@ -11,6 +11,9 @@ const createProductForm = document.getElementById('createProduct__form')
 const chatDisplay = document.getElementById('chat__display')
 const textMsgForm = document.getElementById('textMsg__form')
 const emailForm = document.getElementById('email__form')
+const deleteFormDiv = document.getElementById('borrarProduct_div')
+
+
 
 
 //banner de session de usuario
@@ -20,6 +23,24 @@ const renderSessionUser = async (userName)=>{
   const templateCompiled= Handlebars.compile(template)
   const html = templateCompiled({userName})
   loginSession.innerHTML = html
+
+  if(userName=="fabianponczko@live.com.ar"){
+    let responsePagina = await fetch('./views/deleteProducts.hbs')
+    const templateDelete = await responsePagina.text()
+    const templateCompiledDelete= Handlebars.compile(templateDelete)
+    const hbsDelete = templateCompiledDelete()
+    deleteFormDiv.innerHTML = hbsDelete
+    
+    const deleteForm = document.getElementById('borrarProduct__form')      
+    deleteForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const deleteFormData = new FormData(deleteForm)
+        const deleteIdValues = Object.fromEntries(deleteFormData)
+        console.log(deleteIdValues)
+        deleteForm.reset()
+        socket.emit('new delete', deleteIdValues)
+      })
+  }
 }
 
 
@@ -39,8 +60,10 @@ const cleanProducts = () => {
     const formData = new FormData(createProductForm)
     const formValues = Object.fromEntries(formData)
     createProductForm.reset()
-    socket.emit('new product', formValues)
+    formValues.title!==""?socket.emit('new product', formValues):""
   })
+
+ 
   const cleanChat = () => {
     chatDisplay.innerHTML = ""
   }

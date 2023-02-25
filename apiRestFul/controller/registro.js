@@ -10,7 +10,7 @@ const registro = async(req,res)=>{
       res.render('RegisterEmailUser')
   
       try {
-          const { email, password } = req.query;
+          const { name, adress, age, phone, email, password } = req.query;
           if (!email || !password){
             //return res.send({ success: false });
             warn.warn(`falta usuario o password`)
@@ -34,7 +34,7 @@ const registro = async(req,res)=>{
             return console.log({ success: true });
           }
       
-          await UserDao.save({ email, password :passwordHash});
+          await UserDao.save({ name, adress, age, phone, email, password :passwordHash});
       
           console.log({ success: true });
         } catch (error) {
