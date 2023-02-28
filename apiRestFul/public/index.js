@@ -16,6 +16,9 @@ const deleteFormDiv = document.getElementById('borrarProduct_div')
 
 
 
+// const comprar_id = document.getElementById(documentID)
+
+
 //banner de session de usuario
 const renderSessionUser = async (userName)=>{
   let response = await fetch('./views/sessionUser.hbs')
@@ -23,6 +26,7 @@ const renderSessionUser = async (userName)=>{
   const templateCompiled= Handlebars.compile(template)
   const html = templateCompiled({userName})
   loginSession.innerHTML = html
+  
 
   if(userName=="fabianponczko@live.com.ar"){
     let responsePagina = await fetch('./views/deleteProducts.hbs')
@@ -53,6 +57,15 @@ const cleanProducts = () => {
     const templateCompiled = Handlebars.compile(template)
     const html = templateCompiled({ products })
     productSection.innerHTML = html
+    
+    const documentID = document.querySelectorAll(".comprar_Id")
+    documentID.forEach((item)=>{
+      console.log(item.id.split("_").pop())
+      const button_Id = item.id.split("_").pop()
+      item.addEventListener("click",()=>{
+        console.log(`el boton ${button_Id} fue clickeado`)
+      })
+    })
   }
 
   createProductForm.addEventListener('submit', (e) => {
