@@ -11,6 +11,7 @@ const ProductSchema = new Schema({
     thumbnail:{type: String, require:true,max:150},
     price:{type: Number, require:true},
     stock:{type: Number, require:true},
+    category:{type: String, require:true},
     timeStamp:{type: String, require:true,max:100},
 },
 {

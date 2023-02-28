@@ -116,6 +116,7 @@ const newProduct = async (newProduct) => {
 }
 
 const newDeleteProduct = async (id) => {
+  console.log("llego para borrar: ", id)
   // await productos.products.save(newProduct)
   try {
     await ProductDao.DeleteById(id.id)

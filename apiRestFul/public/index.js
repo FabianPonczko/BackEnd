@@ -58,6 +58,7 @@ const cleanProducts = () => {
     const html = templateCompiled({ products })
     productSection.innerHTML = html
     
+  // boton comprar producto
     const documentID = document.querySelectorAll(".comprar_Id")
     documentID.forEach((item)=>{
       console.log(item.id.split("_").pop())
@@ -66,6 +67,16 @@ const cleanProducts = () => {
         console.log(`el boton ${button_Id} fue clickeado`)
       })
     })
+     // boton borrar producto
+     const documentBorrarID = document.querySelectorAll(".borrar_Id")
+     documentBorrarID.forEach((item)=>{
+       console.log(item.id.split("_").pop())
+       const Borrar_Id = item.id.split("_").pop()
+       item.addEventListener("click",()=>{
+         console.log(`el boton ${Borrar_Id} fue clickeado`)
+         socket.emit('new delete', {id:Borrar_Id})
+       })
+     })
   }
 
   createProductForm.addEventListener('submit', (e) => {
