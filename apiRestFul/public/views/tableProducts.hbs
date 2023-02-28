@@ -8,7 +8,9 @@
         <th scope="col">Titulo</th>
         <th scope="col">Precio</th>
         <th scope="col">Minuatura</th>
-        <th scope="col"></th>
+        <th scope="col">Comprar</th>
+        <th scope="col">Modificar</th>
+        <th scope="col">Eliminar</th>
       </tr>
     </thead>
     <tbody>
@@ -18,7 +20,10 @@
         <td>{{this.title}}</td>
         <td>{{this.price}}</td>
         <td><img width="50px" height= "50px" src={{this.thumbnail}} /></td>
-        <td><button class="comprar_Id" id="comprar_{{this.id}}" class="btn btn-success">Comprar</button></td>
+        <td><button class="comprar_Id btn btn-success" id="comprar_{{this.id}}">🛒</button></td>
+        <td><button class="modificar_Id btn btn-warning" id="modificar_{{this.id}}" >Modificar</button></td>
+        <td><button class="borrar_Id btn btn-danger" id="borrar_{{this.id}}" >Eliminar</button></td>
+        <td></td>
         </tr>
       {{/each}}
        {{else}}
