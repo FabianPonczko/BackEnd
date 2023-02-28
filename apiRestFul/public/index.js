@@ -13,14 +13,16 @@ const textMsgForm = document.getElementById('textMsg__form')
 const emailForm = document.getElementById('email__form')
 const deleteFormDiv = document.getElementById('borrarProduct_div')
 
-
-
-
+const document_Description = document.getElementById("title")
+const document_Price = document.getElementById("price")
+const document_Category = document.getElementById("category")
+const document_Thumbnail = document.getElementById("thumbnail")
 // const comprar_id = document.getElementById(documentID)
 
 
 //banner de session de usuario
 const renderSessionUser = async (userName)=>{
+  createProductForm.reset()
   let response = await fetch('./views/sessionUser.hbs')
   const template = await response.text()
   const templateCompiled= Handlebars.compile(template)
@@ -67,7 +69,7 @@ const cleanProducts = () => {
         console.log(`el boton ${button_Id} fue clickeado`)
       })
     })
-     // boton borrar producto
+  // boton borrar producto
      const documentBorrarID = document.querySelectorAll(".borrar_Id")
      documentBorrarID.forEach((item)=>{
        console.log(item.id.split("_").pop())
@@ -77,6 +79,24 @@ const cleanProducts = () => {
          socket.emit('new delete', {id:Borrar_Id})
        })
      })
+  // boton modificar producto
+     const documentModificarID = document.querySelectorAll(".modificar_Id")
+     documentModificarID.forEach((item)=>{
+       console.log(item.id.split("_").pop())
+       const Modificar_Id = item.id.split("_").pop()
+       item.addEventListener("click",()=>{
+         console.log(`el boton de modificar ${Modificar_Id} fue clickeado`)
+         socket.emit('modificar producto', Modificar_Id)
+       })
+     })
+  }
+
+  const modifyProducts = async (productById)=>{
+    console.log("productById.thumbnail: ", productById.thumbnail)
+    document_Description.value = productById.title
+    document_Price.value = productById.price
+    document_Category.value = productById.category
+    document_Thumbnail.value = productById.thumbnail
   }
 
   createProductForm.addEventListener('submit', (e) => {
@@ -159,6 +179,13 @@ const cleanProducts = () => {
     products = allProduct
     cleanProducts()
     renderProducts(allProduct)
+  // renderLoginUser(userName)
+  })
+  
+  socket.on('modify products', (productById)  => {    
+    products = productById
+    
+    modifyProducts(productById)
   // renderLoginUser(userName)
   })
  

@@ -115,6 +115,13 @@ const newProduct = async (newProduct) => {
   io.sockets.emit('all products', allProduct)
 }
 
+const newModifyProduct = async (id) => {
+  console.log("llegando modificar producto id: ",id)
+  const productById = await ProductDao.getById(id)
+  io.sockets.emit('modify products', productById)
+
+} 
+
 const newDeleteProduct = async (id) => {
   console.log("llego para borrar: ", id)
   // await productos.products.save(newProduct)
@@ -208,5 +215,9 @@ io.on('connection', socket => {
 
     socket.on('new delete', newMsg => {
       newDeleteProduct(newMsg)
+    })
+    
+    socket.on('modificar producto', newMsg => {
+      newModifyProduct(newMsg)
     })
 })
