@@ -13,6 +13,9 @@ const textMsgForm = document.getElementById('textMsg__form')
 const emailForm = document.getElementById('email__form')
 const deleteFormDiv = document.getElementById('borrarProduct_div')
 
+const btn_agregar = document.getElementById("btnAgregar")
+const btn_modificar = document.getElementById('btnModificar')
+
 const document_Description = document.getElementById("title")
 const document_Price = document.getElementById("price")
 const document_Category = document.getElementById("category")
@@ -45,6 +48,14 @@ const renderSessionUser = async (userName)=>{
         console.log(deleteIdValues)
         deleteForm.reset()
         socket.emit('new delete', deleteIdValues)
+      })
+
+      btn_modificar.addEventListener('click',()=>{
+        const dataProduct = new FormData(createProductForm)
+        const dates = Object.fromEntries(dataProduct)
+        createProductForm.reset()
+        console.log("los nuevos datos: ",dates)
+        socket.emit('modificar producto',(dates))
       })
   }
 }
@@ -79,14 +90,15 @@ const cleanProducts = () => {
          socket.emit('new delete', {id:Borrar_Id})
        })
      })
-  // boton modificar producto
+  // boton modificar producto - carga los productos en el form para modificar
      const documentModificarID = document.querySelectorAll(".modificar_Id")
      documentModificarID.forEach((item)=>{
        console.log(item.id.split("_").pop())
        const Modificar_Id = item.id.split("_").pop()
        item.addEventListener("click",()=>{
          console.log(`el boton de modificar ${Modificar_Id} fue clickeado`)
-         socket.emit('modificar producto', Modificar_Id)
+         
+         socket.emit('new modificar producto', Modificar_Id)
        })
      })
   }
@@ -184,7 +196,7 @@ const cleanProducts = () => {
   
   socket.on('modify products', (productById)  => {    
     products = productById
-    
+    console.log("productById",productById)
     modifyProducts(productById)
   // renderLoginUser(userName)
   })
