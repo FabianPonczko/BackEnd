@@ -53,6 +53,7 @@ let userName =""
 
 const userVerify =  (req,res,next)=>{
   userName= req.session.nombre
+  console.log("se conecto el usuario: ",userName)
   next()
 }
 

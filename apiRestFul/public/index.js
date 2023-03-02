@@ -27,12 +27,12 @@ const document_Thumbnail = document.getElementById("thumbnail")
 
 //banner de session de usuario
 const renderSessionUser = async (userName)=>{
-  localUserName=userName
+  // localUserName=userName
   createProductForm.reset()
   let response = await fetch('./views/sessionUser.hbs')
   const template = await response.text()
   const templateCompiled= Handlebars.compile(template)
-  const html = templateCompiled({localUserName})
+  const html = templateCompiled({userName})
   loginSession.innerHTML = html
   
 
@@ -79,7 +79,7 @@ const cleanProducts = () => {
   // boton comprar producto
     const documentID = document.querySelectorAll(".comprar_Id")
     documentID.forEach((item)=>{
-      console.log(item.id.split("_").pop())
+      // console.log(item.id.split("_").pop())
       const button_Id = item.id.split("_").pop()
       item.addEventListener("click",()=>{
         console.log(`el boton ${button_Id} fue clickeado`)
@@ -88,7 +88,7 @@ const cleanProducts = () => {
   // boton borrar producto
      const documentBorrarID = document.querySelectorAll(".borrar_Id")
      documentBorrarID.forEach((item)=>{
-       console.log(item.id.split("_").pop())
+      //  console.log(item.id.split("_").pop())
        const Borrar_Id = item.id.split("_").pop()
        item.addEventListener("click",()=>{
          console.log(`el boton ${Borrar_Id} fue clickeado`)
@@ -192,7 +192,11 @@ const cleanProducts = () => {
       // location.href="/login"
       location.href="/loginEmail"
     }
-    userName=localUserName
+    localUserName!=""?"":localUserName=userName
+    console.log("llegan userName:",userName)  
+    console.log("llegan localUserName:",localUserName)  
+    
+
     renderSessionUser(userName)
   })
   socket.on('all products', (allProduct)  => {    
