@@ -2,6 +2,7 @@
 const socket = io()
 
 let users = []
+let localUserName={}
 let messages = []
 let products = []
 
@@ -15,6 +16,7 @@ const deleteFormDiv = document.getElementById('borrarProduct_div')
 
 const btn_agregar = document.getElementById("btnAgregar")
 const btn_modificar = document.getElementById('btnModificar')
+btn_modificar.style.display="none"
 
 const document_Description = document.getElementById("title")
 const document_Price = document.getElementById("price")
@@ -25,11 +27,12 @@ const document_Thumbnail = document.getElementById("thumbnail")
 
 //banner de session de usuario
 const renderSessionUser = async (userName)=>{
+  localUserName=userName
   createProductForm.reset()
   let response = await fetch('./views/sessionUser.hbs')
   const template = await response.text()
   const templateCompiled= Handlebars.compile(template)
-  const html = templateCompiled({userName})
+  const html = templateCompiled({localUserName})
   loginSession.innerHTML = html
   
 
@@ -55,7 +58,9 @@ const renderSessionUser = async (userName)=>{
         const dates = Object.fromEntries(dataProduct)
         createProductForm.reset()
         console.log("los nuevos datos: ",dates)
-        socket.emit('modificar producto',(dates))
+        btn_agregar.style.display="block"
+        btn_modificar.style.display="none"
+       dates.title!=""?socket.emit('modificar producto',(dates)):""
       })
   }
 }
@@ -104,6 +109,8 @@ const cleanProducts = () => {
   }
 
   const modifyProducts = async (productById)=>{
+    btn_modificar.style.display="block"
+    btn_agregar.style.display="none"
     console.log("productById.thumbnail: ", productById.thumbnail)
     document_Description.value = productById.title
     document_Price.value = productById.price
@@ -184,7 +191,8 @@ const cleanProducts = () => {
     if(userName==null){
       // location.href="/login"
       location.href="/loginEmail"
-    }  
+    }
+    userName=localUserName
     renderSessionUser(userName)
   })
   socket.on('all products', (allProduct)  => {    
