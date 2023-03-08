@@ -131,13 +131,11 @@ const modificarProducto = async (id,data)=>{
 
 const newDeleteProduct = async (id) => {
   console.log("llego para borrar: ", id)
-  // await productos.products.save(newProduct)
   try {
     await ProductDao.DeleteById(id.id)
   } catch (error) {
     console.log("error: ",error)
   }
-  // const allProduct = await productos.products.getAll()
   const allProduct = await ProductDao.getAll()
   io.sockets.emit('all products', allProduct)
 }
@@ -146,24 +144,23 @@ const newUserConnected = async () => {
       
        const allMsg = await Messages.getAll()
   
-   const authorData =[]
-   for (ele of allMsg){
-      authorData.push(
-        {author:{
-          id:ele.id,
-          nombre:ele.nombre,
-          apellido:ele.apellido,
-          edad:ele.edad,
-          alias:ele.alias,
-          avatar:ele.avatar,
-        },
-        text:ele.text
-        }
-      )
-   }
+  //  const authorData =[]
+  //  for (ele of allMsg){
+  //     authorData.push(
+  //       {author:{
+  //         id:ele.id,
+  //         nombre:ele.nombre,
+  //         apellido:ele.apellido,
+  //         edad:ele.edad,
+  //         alias:ele.alias,
+  //         avatar:ele.avatar,
+  //       },
+  //       text:ele.text
+  //       }
+  //     )
+  //  }
    
     
-    // const allProducts = await productos.products.getAll()
    const allProducts = await ProductDao.getAll()
    console.log("mando",userName)
 
@@ -171,8 +168,8 @@ const newUserConnected = async () => {
     
     io.sockets.emit('all products', (allProducts))
     
-    const mensajeNormalizer = normalizeData({id:"mensajes",authorData})
-    io.sockets.emit('all messages', mensajeNormalizer)
+    // const mensajeNormalizer = normalizeData({id:"mensajes",authorData})
+    io.sockets.emit('all messages', allMsg)
 }
 
 const newMessage = async (newMsg) => {
@@ -188,23 +185,23 @@ const newMessage = async (newMsg) => {
   const allMsg = await Messages.getAll()
    
   //aca normalizo el mensaje y luego enviar al front
-  const authorData =[]
-  for (ele of allMsg){
-     authorData.push(
-       {author:{
-         id:ele.id,
-         nombre:ele.nombre,
-         apellido:ele.apellido,
-         edad:ele.edad,
-         alias:ele.alias,
-         avatar:ele.avatar,
-       },
-       text:ele.text
-       }
-     )
-  }
-const mensajeNormalizer = normalizeData({id:"id",authorData})//id:"mensajes",authorData
-  io.sockets.emit('all messages', mensajeNormalizer)
+  //   const authorData =[]
+  //   for (ele of allMsg){
+  //     authorData.push(
+  //       {author:{
+  //         id:ele.id,
+  //         nombre:ele.nombre,
+  //         apellido:ele.apellido,
+  //         edad:ele.edad,
+  //         alias:ele.alias,
+  //         avatar:ele.avatar,
+  //       },
+  //       text:ele.text
+  //       }
+  //     )
+  //   }
+  // const mensajeNormalizer = normalizeData({id:"id",authorData})//id:"mensajes",authorData
+  io.sockets.emit('all messages', allMsg)
 }
 
 

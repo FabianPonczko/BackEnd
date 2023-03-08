@@ -109,6 +109,7 @@ const cleanProducts = () => {
   }
 
   const modifyProducts = async (productById)=>{
+    createProductForm.scrollIntoView(0,0)
     btn_modificar.style.display="block"
     btn_agregar.style.display="none"
     console.log("productById.thumbnail: ", productById.thumbnail)
@@ -141,8 +142,8 @@ const cleanProducts = () => {
       return foundData.id
   }
 
-  const renderMsg = (msgData,text) => {
-    const {id,nombre,apellido,edad,alias,avatar} = msgData
+  const renderMsg = (msgData) => {
+    const {id,nombre,apellido,edad,alias,avatar,text} = msgData
     const classMsg =  "chat__msg"
     const chatMsg = document.createElement("div")
     const chatOwner = document.createElement("p")
@@ -225,10 +226,11 @@ const cleanProducts = () => {
     messages = allMsg
     //desnormalizo los mensajes para mostrarlos en el dom
     console.log(allMsg)
-    const allMsgDesnormalized = normalizr.denormalize(allMsg.result,mensajes, allMsg.entities)
+    // const allMsgDesnormalized = normalizr.denormalize(allMsg.result,mensajes, allMsg.entities)
     cleanChat()
-     for (msgData of allMsgDesnormalized.authorData){
-      renderMsg(msgData.author,msgData.text)
+    //  for (msgData of allMsgDesnormalized.authorData){
+    for (msgData of allMsg){
+      renderMsg(msgData)
      }
      chatDisplay.scrollTo(0, chatDisplay.scrollHeight)
     })
