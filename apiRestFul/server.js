@@ -27,7 +27,7 @@ const { productsMocks } = require('./controller/productsMocks')
 const { noRuta } = require('./controller/noRutas')
 const routerAxios = require('./routes/axios.js')
 const {ProductDao} = require ('./Dao/factoryDao')
-
+const cookieParser = require ('cookie-parser')
 
 
 const app = express();
@@ -37,6 +37,7 @@ PassportAuth.init();
 app.use(sesiones.mongo) 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cookieParser())
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -53,7 +54,13 @@ let userName =""
 
 const userVerify =  (req,res,next)=>{
   userName= req.session.nombre
+  if(userName!=undefined){
+    res.cookie("token",userName)
+  }else{
+    res.clearCookie("token")
+  }
   console.log("se conecto el usuario: ",userName)
+  userName= req.cookies.token
   next()
 }
 
