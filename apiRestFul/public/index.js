@@ -53,7 +53,8 @@ const renderSessionUser = async (userName)=>{
         socket.emit('new delete', deleteIdValues)
       })
 
-      btn_modificar.addEventListener('click',()=>{
+      btn_modificar.addEventListener('click',(e)=>{
+        e.preventDefault()
         const dataProduct = new FormData(createProductForm)
         const dates = Object.fromEntries(dataProduct)
         createProductForm.reset()
@@ -119,15 +120,19 @@ const cleanProducts = () => {
     document_Thumbnail.value = productById.thumbnail
   }
 
+    
   createProductForm.addEventListener('submit', (e) => {
     e.preventDefault()
+    if (e.key="Enter"){
+      return 
+    }
     const formData = new FormData(createProductForm)
     const formValues = Object.fromEntries(formData)
     createProductForm.reset()
     formValues.title!==""?socket.emit('new product', formValues):""
   })
-
- 
+  
+   
   const cleanChat = () => {
     chatDisplay.innerHTML = ""
   }
