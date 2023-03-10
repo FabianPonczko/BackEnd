@@ -122,10 +122,13 @@ const cleanProducts = () => {
 
     
   createProductForm.addEventListener('submit', (e) => {
+    console.log("boton agregar")
     e.preventDefault()
-    if (e.key="Enter"){
-      return 
-    }
+    // if (e.key="Enter"){
+    //   console.log("dentro del if",e.key)
+    //   return 
+    // }
+    console.log("boton agregar despues")
     const formData = new FormData(createProductForm)
     const formValues = Object.fromEntries(formData)
     createProductForm.reset()

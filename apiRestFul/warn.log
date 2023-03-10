@@ -2137,3 +2137,4 @@
 {"level":40,"time":1678415098339,"pid":11960,"hostname":"PcFabian","msg":"falta usuario o password"}
 {"level":40,"time":1678415098644,"pid":11960,"hostname":"PcFabian","msg":"Metodo: GET de la Ruta: /favicon.ico no corresponde a una ruta valida"}
 {"level":40,"time":1678415109084,"pid":11960,"hostname":"PcFabian","msg":"Metodo: GET de la Ruta: /favicon.ico no corresponde a una ruta valida"}
+{"level":40,"time":1678470690492,"pid":1556,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /favicon.ico no corresponde a una ruta valida"}

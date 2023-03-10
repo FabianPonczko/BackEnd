@@ -6,10 +6,17 @@ const customParseFormat = require('dayjs/plugin/customParseFormat')
 const {normalizeData}=require('./normalizr/normalizar')
 const handlebars = require('express-handlebars')
 const {engine} = require('express-handlebars')
-const routerLogin = require('./routes/login')
-const routerDestroy = require('./routes/destroy')
-const routerInfo = require('./routes/info.js')
-const routerApirandons = require('./routes/apiRandom.js')
+
+// const routerLogin = require('./routes/login')
+// const routerDestroy = require('./routes/destroy')
+// const routerInfo = require('./routes/info.js')
+// const routerApirandons = require('./routes/apiRandom.js')
+// const routerAxios = require('./routes/axios.js')
+// const {productos}= require('./Dao/products/products.js')
+
+const {routerApirandons,routerDestroy,routerInfo,routerLogin} = require ('./routes/index.js')
+
+
 const session = require ('express-session')
 const sesiones = require('./sessionConfig/session.js')
 
@@ -21,12 +28,12 @@ const {PassportAuth} =require('./middlewares/passportAuth')
 const passport =require('passport')
 
 const {consola,warn,error} = require('./util/logger.js')
+
 const {Messages} =require('./Dao/messages/messages.js')
-const {productos}= require('./Dao/products/products.js')
+const {ProductDao} = require ('./Dao/factoryDao')
+
 const { productsMocks } = require('./controller/productsMocks')
 const { noRuta } = require('./controller/noRutas')
-const routerAxios = require('./routes/axios.js')
-const {ProductDao} = require ('./Dao/factoryDao')
 const cookieParser = require ('cookie-parser')
 
 
@@ -78,25 +85,28 @@ const PORT = args[0] || 8080
 
 const modo = args[1] || "FORK"
 
-if(modo == "CLUSTER"){
-  if(cluster.isPrimary){
-    for (let index = 0; index < numCluster; index++) {
-      cluster.fork()
-    }
-  cluster.on('exit',(worker,code,signal)=>{
-    console.log(`worker ${worker.process.pid} died`)
-    // cluster.fork()
-  })
-}else{
-  httpServer.listen(PORT, () =>{
-    console.log(`Server running on port: ${PORT} ands PID: ${process.pid}`)
-  })
-}
-}else{
-  httpServer.listen(PORT, () =>{
-    console.log(`Server running on port: ${PORT} ands PID: ${process.pid} modo FORK`)
-  })
-}
+// if(modo == "CLUSTER"){
+//   if(cluster.isPrimary){
+//     for (let index = 0; index < numCluster; index++) {
+//       cluster.fork()
+//     }
+//   cluster.on('exit',(worker,code,signal)=>{
+//     console.log(`worker ${worker.process.pid} died`)
+//     // cluster.fork()
+//   })
+// }else{
+//   httpServer.listen(PORT, () =>{
+//     console.log(`Server running on port: ${PORT} ands PID: ${process.pid}`)
+//   })
+// }
+// }else{
+//   httpServer.listen(PORT, () =>{
+//     console.log(`Server running on port: ${PORT} ands PID: ${process.pid} modo FORK`)
+//   })
+// }
+httpServer.listen(PORT, () =>{
+  console.log(`Server running on port: ${PORT} ands PID: ${process.pid} modo FORK`)
+})
 
 //creo ruta a view handlebars con tabla de productos desde Mocks
 app.get('/api/productos-test', productsMocks)
@@ -111,7 +121,7 @@ app.use('/', routerInfo)
 
 app.use('/',routerApirandons)
 
-app.use('/', routerAxios)
+// app.use('/', routerAxios)
 
 app.get('*',noRuta)
 
