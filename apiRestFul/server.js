@@ -61,6 +61,7 @@ const userVerify =  (req,res,next)=>{
   }
   console.log("se conecto el usuario: ",userName)
   userName= req.cookies.token
+  console.log('req.cookie.token: ',userName)
   next()
 }
 
@@ -147,7 +148,7 @@ const newDeleteProduct = async (id) => {
   io.sockets.emit('all products', allProduct)
 }
 
-const newUserConnected = async () => {
+const newUserConnected = async (socket) => {
       
        const allMsg = await Messages.getAll()
   
@@ -170,8 +171,9 @@ const newUserConnected = async () => {
     
    const allProducts = await ProductDao.getAll()
    console.log("mando",userName)
-
+    
     io.sockets.emit('user', (userName))
+    
     
     io.sockets.emit('all products', (allProducts))
     

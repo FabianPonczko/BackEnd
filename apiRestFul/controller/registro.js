@@ -5,14 +5,17 @@ const session = require ('express-session')
 
 
 const registro = async(req,res)=>{
-    const {url,method} = req
-    consola.info(`direccion ${url} , metodo ${method}`)
-      res.render('RegisterEmailUser')
+  const {url,method} = req
+  consola.info(`direccion ${url} , metodo ${method}`)
+    res.render('RegisterEmailUser')
+  
+  
+    
   
       try {
-          const { name, adress, age, phone, email, password } = req.query;
-          if (!email || !password){
-            //return res.send({ success: false });
+          const { name, adress, age, phone, email, password ,password1} = req.query;
+          if (!email || !password || !password1){
+            // return res.send({ success: false });
             warn.warn(`falta usuario o password`)
             return consola.info(`falta usuario o password`)
           }
