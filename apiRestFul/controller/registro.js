@@ -49,8 +49,10 @@ const registro = async(req,res)=>{
 
 const auth = async(req,res)=>{
     const {email} =req.query 
-     req.session.nombre= email
-    res.redirect('/')
+    const existUser = await UserDao.getOne({ email :email});
+     req.session.nombre= existUser.name.split(" ").length > 1 ? existUser.name.split(" ")[0]:existUser.name      // nombre solo
+    console.log(existUser.name.split(" ").length)
+     res.redirect('/productos')
 }
 const loginEmail = async(req,res)=>{
     const {url,method} = req

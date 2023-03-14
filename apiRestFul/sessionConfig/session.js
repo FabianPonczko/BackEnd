@@ -9,7 +9,7 @@ const sesiones={
         store:MongoStore.create({
             mongoUrl:`${MongoUri}?dbName=segundaEntrega`,
             mongoOptions,
-            ttl:360,
+            ttl:60,
             collectionName:'sessions'
         }),
         secret:'secret',
