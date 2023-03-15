@@ -218,12 +218,20 @@ const cleanProducts = () => {
 
     renderSessionUser(userName)
   })
-  socket.on('all products', (allProduct)  => { 
-    products = allProduct
-    cleanProducts()
-    renderProducts(allProduct)
-    // renderLoginUser(userName)
-  })
+  // socket.on('all products', (allProduct)  => { 
+  //   products = allProduct
+  //   cleanProducts()
+  //   renderProducts(allProduct)
+  //   // renderLoginUser(userName)
+  // })
+
+  fetch('/productos/productos')
+    .then(data=>{
+      return data.json()})
+    .then(products=>{
+      renderProducts(products)
+    } )
+
   
   socket.on('products by category',(byCategory)=>{
     console.log("allproduct ",byCategory)
@@ -258,3 +266,6 @@ const cleanProducts = () => {
      }
      chatDisplay.scrollTo(0, chatDisplay.scrollHeight)
     })
+
+
+    

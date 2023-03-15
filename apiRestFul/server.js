@@ -14,7 +14,7 @@ const {engine} = require('express-handlebars')
 // const routerAxios = require('./routes/axios.js')
 // const {productos}= require('./Dao/products/products.js')
 
-const {routerApirandons,routerDestroy,routerInfo,routerLogin} = require ('./routes/index.js')
+const {routerApirandons,routerDestroy,routerInfo,routerLogin, routerProducts} = require ('./routes/index.js')
 
 
 const session = require ('express-session')
@@ -126,6 +126,10 @@ app.use('/',routerDestroy)
 app.use('/', routerInfo)
 
 app.use('/',routerApirandons)
+
+app.use('/productos', routerProducts)
+
+
 
 // app.use('/', routerAxios)
 
