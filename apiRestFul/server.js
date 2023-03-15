@@ -75,7 +75,6 @@ const userVerify =  (req,res,next)=>{
   }
   console.log("se conecto el usuario: ",userName)
   userName= req.session.nombre
-  console.log('req.cookie.token: ',generarToken(userName))
   next()
 }
 
@@ -230,6 +229,17 @@ const newMessage = async (newMsg) => {
   io.sockets.emit('all messages', allMsg)
 }
 
+const ProductoByCategory= async (category)=>{
+  let allProducts
+  if (category=="Todos"){
+    allProducts = await ProductDao.getAll()  
+    console.log ("category todos ",allProducts)
+  }else{
+    allProducts = await ProductDao.getAll({category:category})
+    console.log ("category otros ",allProducts)
+  }
+  io.sockets.emit('products by category', (allProducts))
+}
 
 io.on('connection', socket => {
     console.log(`nuevo cliente conectado: ${socket.id}`)
@@ -255,5 +265,9 @@ io.on('connection', socket => {
 
     socket.on('modificar producto', newMsg => {
       modificarProducto(idParaModificar,newMsg)
+    })
+
+    socket.on('category', newMsg => {
+      ProductoByCategory(newMsg)
     })
 })
