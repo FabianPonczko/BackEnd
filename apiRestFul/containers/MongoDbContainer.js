@@ -6,8 +6,13 @@ class MongoDbContainer{
         this.model=mongoose.model(name,schema)
     }
    
-    async getAll() {
-       const response = await this.model.find()
+    async getAll(option) {
+       let response
+        if(option){
+            response = await this.model.find(option) 
+       }else{
+            response = await this.model.find()
+       }
        return response
     }
     async save(element){

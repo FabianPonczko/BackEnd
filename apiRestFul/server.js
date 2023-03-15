@@ -35,7 +35,7 @@ const {ProductDao} = require ('./Dao/factoryDao')
 const { productsMocks } = require('./controller/productsMocks')
 const { noRuta } = require('./controller/noRutas')
 const cookieParser = require ('cookie-parser')
-
+const jwt = require('jsonwebtoken')
 
 const app = express();
 
@@ -59,20 +59,26 @@ app.set('views',  './public/views');
 
 let userName =""
 
+const clavePrivada ="secret password"
+
+const generarToken= (email)=>{
+  const token = jwt.sign({data:email},clavePrivada,{expiresIn:'60m'})
+  return token
+}
+
 const userVerify =  (req,res,next)=>{
   userName= req.session.nombre
   if(userName!=undefined){
-    res.cookie("token",userName)
+      res.cookie("token",generarToken(userName))
   }else{
     res.clearCookie("token")
   }
   console.log("se conecto el usuario: ",userName)
-  userName= req.cookies.token
-  console.log('req.cookie.token: ',userName)
+  userName= req.session.nombre
   next()
 }
 
-app.use("/", userVerify, express.static(__dirname+'/public'))
+app.use("/productos", userVerify, express.static(__dirname+'/public'))
 
 dayjs.extend(customParseFormat)
 
@@ -105,7 +111,7 @@ const modo = args[1] || "FORK"
 //   })
 // }
 httpServer.listen(PORT, () =>{
-  console.log(`Server running on port: ${PORT} ands PID: ${process.pid} modo FORK`)
+  console.log(`Server running on port: ${PORT} ands PID: ${process.pid}`)
 })
 
 //creo ruta a view handlebars con tabla de productos desde Mocks
@@ -223,6 +229,17 @@ const newMessage = async (newMsg) => {
   io.sockets.emit('all messages', allMsg)
 }
 
+const ProductoByCategory= async (category)=>{
+  let allProducts
+  if (category=="Todos"){
+    allProducts = await ProductDao.getAll()  
+    console.log ("category todos ",allProducts)
+  }else{
+    allProducts = await ProductDao.getAll({category:category})
+    console.log ("category otros ",allProducts)
+  }
+  io.sockets.emit('products by category', (allProducts))
+}
 
 io.on('connection', socket => {
     console.log(`nuevo cliente conectado: ${socket.id}`)
@@ -248,5 +265,9 @@ io.on('connection', socket => {
 
     socket.on('modificar producto', newMsg => {
       modificarProducto(idParaModificar,newMsg)
+    })
+
+    socket.on('category', newMsg => {
+      ProductoByCategory(newMsg)
     })
 })

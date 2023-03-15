@@ -22,8 +22,9 @@ const document_Description = document.getElementById("title")
 const document_Price = document.getElementById("price")
 const document_Category = document.getElementById("category")
 const document_Thumbnail = document.getElementById("thumbnail")
-// const comprar_id = document.getElementById(documentID)
 
+
+// const comprar_id = document.getElementById(documentID)
 
 //banner de session de usuario
 const renderSessionUser = async (userName)=>{
@@ -74,8 +75,9 @@ const cleanProducts = () => {
     let response = await fetch('./views/tableProducts.hbs')
     const template = await response.text()
     const templateCompiled = Handlebars.compile(template)
-    const html = templateCompiled({ products })
+    const html = templateCompiled( {products} )
     productSection.innerHTML = html
+    
     
   // boton comprar producto
     const documentID = document.querySelectorAll(".comprar_Id")
@@ -107,6 +109,14 @@ const cleanProducts = () => {
          socket.emit('new modificar producto', Modificar_Id)
        })
      })
+
+     // filtrar productos por categoria
+      const document_Category_Filter = document.getElementById('cars')
+      document_Category_Filter?.addEventListener("change",()=>{
+        const category = document_Category_Filter.value
+        socket.emit('category', category)
+      })
+      // document_Category_Filter.value=category||"Todos"
   }
 
   const modifyProducts = async (productById)=>{
@@ -208,11 +218,17 @@ const cleanProducts = () => {
 
     renderSessionUser(userName)
   })
-  socket.on('all products', (allProduct)  => {    
+  socket.on('all products', (allProduct)  => { 
     products = allProduct
     cleanProducts()
     renderProducts(allProduct)
-  // renderLoginUser(userName)
+    // renderLoginUser(userName)
+  })
+  
+  socket.on('products by category',(byCategory)=>{
+    console.log("allproduct ",byCategory)
+    cleanProducts()
+    renderProducts(byCategory)
   })
   
   socket.on('modify products', (productById)  => {    
