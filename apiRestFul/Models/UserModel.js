@@ -10,6 +10,7 @@ const UserSchema = new Schema({
     phone:{type: String, require:true,max:24},
     email:{type: String, require:true,max:150},
     password:{type: String, require:true,max:150},
+    admin:{type: Boolean},
     cart:[{type:Schema.Types.ObjectId,ref: "carts"}]
 },
 {

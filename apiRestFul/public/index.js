@@ -7,6 +7,7 @@ let messages = []
 let products = []
 
 const loginSession = document.getElementById('loginSession')
+const ingresoProductos = document.getElementById('ingresoProductos')
 const productSection = document.getElementById('products')
 const createProductForm = document.getElementById('createProduct__form')
 const chatDisplay = document.getElementById('chat__display')
@@ -33,11 +34,11 @@ const renderSessionUser = async (userName)=>{
   let response = await fetch('./views/sessionUser.hbs')
   const template = await response.text()
   const templateCompiled= Handlebars.compile(template)
-  const html = templateCompiled({userName})
+  const html = templateCompiled({userName:userName.nombreUsuario})
   loginSession.innerHTML = html
   
-
-  if(userName=="fabianponczko@live.com.ar"){
+console.log({userName})
+  if(userName.admin){
     let responsePagina = await fetch('./views/deleteProducts.hbs')
     const templateDelete = await responsePagina.text()
     const templateCompiledDelete= Handlebars.compile(templateDelete)
@@ -98,7 +99,7 @@ const cleanProducts = () => {
          socket.emit('new delete', {id:Borrar_Id})
        })
      })
-  // boton modificar producto - carga los productos en el form para modificar
+  // Carga los productos en el form para modificar
      const documentModificarID = document.querySelectorAll(".modificar_Id")
      documentModificarID.forEach((item)=>{
        console.log(item.id.split("_").pop())

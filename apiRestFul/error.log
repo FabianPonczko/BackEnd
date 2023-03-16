@@ -500,3 +500,8 @@
 {"level":50,"time":1678908869867,"pid":18052,"hostname":"armcd040579","msg":"error"}
 {"level":50,"time":1678908886810,"pid":14940,"hostname":"armcd040579","msg":"error"}
 {"level":50,"time":1678908960854,"pid":15508,"hostname":"armcd040579","msg":"error"}
+{"level":50,"time":1678925150786,"pid":2996,"hostname":"PcFabian","msg":"el usuario ya existe"}
+{"level":50,"time":1678925300102,"pid":2668,"hostname":"PcFabian","msg":"el usuario ya existe"}
+{"level":50,"time":1678925300214,"pid":2668,"hostname":"PcFabian","msg":"el usuario ya existe"}
+{"level":50,"time":1678925367931,"pid":2668,"hostname":"PcFabian","msg":"el usuario ya existe"}
+{"level":50,"time":1678925926769,"pid":14244,"hostname":"PcFabian","msg":"el usuario ya existe"}

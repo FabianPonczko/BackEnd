@@ -12,47 +12,55 @@
     <title>Document</title>
 </head>
 <body>
-    <div style="display: flex;justify-content: center;margin-top:20px" id='loginSession'>
-    </div>
+    
+    
+    <div style="display: flex;justify-content: center;margin-top:20px" id='loginSession'></div>
+   
+    <div id="ingresoProductos"></div>
+    
     <div class="card m-5" style="background-color : rgb(244, 108, 11); display: flex;flex-direction: column;align-items: center;justify-content: space-evenly;height:300px">
-         <h3>Ingreso de productos</h3>
-            
-            <div >
-                <form id="createProduct__form">
-                    <div class="row">
-                        <div class="col-sm-4 m-1" >
-                            <label class="form-label" for="title">Descripción</label>
-                            <input class="form-control" type="text" id="title"name="title" placeholder="Descripción" required>
-                        </div>
-                        <div class="col-sm-2 m-1">
-                            <label class="form-label" for="price">Precio</label>
-                            <input class="form-control" type="number" id="price" name="price" placeholder="precio" required>
-                        </div>
-                        <div class="col-sm-3 m-1">
-                            <label class="form-label" for="category">Categoria</label>
-                            <input class="form-control" type="text" id="category" name="category" placeholder="categoria" required>
-                        </div>
-                        <div class="col-sm-2 m-1" >
-                            <label class="form-label" for="thubnail">Imagen</label>
-                            <input class="form-control" type="link" id="thumbnail" name="thumbnail" placeholder="url" required>
-                        </div>
-                        <div class="col-sm-4 offset-4 mt-3">
-                            <button class="form-control btn btn-success m-3 " id="btnAgregar" type="submit">Agregar registro</button>
-                            <button class="form-control btn btn-warning m-3 " id="btnModificar" >Modificar registro</button>
-                        </div>
-                </form>
-                    
+        <h3>Ingreso de productos</h3>
+        <div >
+            <form id="createProduct__form">
+                <div class="row">
+                    <div class="col-sm-4 m-1" >
+                        <label class="form-label" for="title">Descripción</label>
+                        <input class="form-control" type="text" id="title"name="title" placeholder="Descripción" required>
+                    </div>
+                    <div class="col-sm-2 m-1">
+                        <label class="form-label" for="price">Precio</label>
+                        <input class="form-control" type="number" id="price" name="price" placeholder="precio" required>
+                    </div>
+                    <div class="col-sm-3 m-1">
+                        <label class="form-label" for="category">Categoria</label>
+                        <!-- <input class="form-control" type="text" id="category" name="category" placeholder="categoria" required> -->
+                        <select class="form-control" name="category" id="category">
+                            <option value="Accesorios">Accesorios</option>
+                            <option value="Pc escritorio">Pc escritorio</option>
+                            <option value="Laptops">Laptos</option>
+                            <option value="Perifericos">Perifericos</option>
+                            <option value="Gamers">Gamers</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 m-1" >
+                        <label class="form-label" for="thubnail">Imagen</label>
+                        <input class="form-control" type="link" id="thumbnail" name="thumbnail" placeholder="url" required>
+                    </div>
+                    <div class="col-sm-4 offset-4 mt-3">
+                        <button class="form-control btn btn-success m-3 " id="btnAgregar" type="submit">Agregar registro</button>
+                        <button class="form-control btn btn-warning m-3 " id="btnModificar" >Modificar registro</button>
+                    </div>
                 </div>
-            </div>
+            </form>
+                
+        </div>
             
-    </div> 
-                <div id="borrarProduct_div">
-                    
-                </div>
-
-        
-    <div  id="products">
+            
     </div>
+
+    <div id="borrarProduct_div"></div>
+
+    <div  id="products"></div>
 
     <div id="chat" style=" background-color: #f0f8ff7d; border-radius: 0.5rem;padding: 1rem;display: flex;flex-direction: column;align-items: center;">
         <h2 id="chat__title">Canal de Chat</h2>

@@ -37,7 +37,7 @@ const registro = async(req,res)=>{
             return console.log({ success: true });
           }
       
-          await UserDao.save({ name, adress, age, phone, email, password :passwordHash});
+          await UserDao.save({ name, adress, age, phone, email, password :passwordHash,admin:false});
       
           console.log({ success: true });
         } catch (error) {
@@ -48,9 +48,11 @@ const registro = async(req,res)=>{
   }
 
 const auth = async(req,res)=>{
+  let nombreUsuario=""
     const {email} =req.query 
     const existUser = await UserDao.getOne({ email :email});
-     req.session.nombre= existUser.name.split(" ").length > 1 ? existUser.name.split(" ")[0]:existUser.name      // nombre solo
+    nombreUsuario = existUser.name.split(" ").length > 1 ? existUser.name.split(" ")[0]:existUser.name      // nombre solo
+    req.session.nombre = {nombreUsuario,email:existUser.email,admin:existUser.admin}
     console.log(existUser.name.split(" ").length)
      res.redirect('/productos')
 }
