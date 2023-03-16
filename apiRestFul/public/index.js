@@ -29,7 +29,7 @@ const document_Thumbnail = document.getElementById("thumbnail")
 
 //banner de session de usuario
 const renderSessionUser = async (userName)=>{
-  // localUserName=userName
+  localUserName=userName
   createProductForm.reset()
   let response = await fetch('./views/sessionUser.hbs')
   const template = await response.text()
@@ -72,14 +72,28 @@ console.log({userName})
 const cleanProducts = () => {
     productSection.innerHTML = ""
   }
-  const renderProducts = async (products) => {
+  const renderProducts = async (products,category) => {
     let response = await fetch('./views/tableProducts.hbs')
     const template = await response.text()
     const templateCompiled = Handlebars.compile(template)
     const html = templateCompiled( {products} )
     productSection.innerHTML = html
     
+    const isVisibleTh = document.getElementsByClassName('isVisible')
+    const btnBorrar_Tabla = document.getElementsByClassName('borrar_Id')
+    const btnModificar_Tabla = document.getElementsByClassName('modificar_Id')
+
+    if(!localUserName.admin){
+      for (let index = 0; index < isVisibleTh.length; index++) {
+        isVisibleTh[index].style.display="none"
+        btnBorrar_Tabla[index].style.display="none"
+        btnModificar_Tabla[index].style.display="none"
+      
+      }
+    }
     
+    
+
   // boton comprar producto
     const documentID = document.querySelectorAll(".comprar_Id")
     documentID.forEach((item)=>{
@@ -112,7 +126,9 @@ const cleanProducts = () => {
      })
 
      // filtrar productos por categoria
-      const document_Category_Filter = document.getElementById('cars')
+      const document_Category_Filter = document.getElementById('categoryId')
+      document_Category_Filter.value=category||"Sin filtro"
+
       document_Category_Filter?.addEventListener("change",()=>{
         const category = document_Category_Filter.value
         // socket.emit('category', category)
@@ -213,7 +229,7 @@ const cleanProducts = () => {
       // location.href="/login"
       location.href="/loginEmail"
     }
-    localUserName!=""?"":localUserName=userName
+    // localUserName!=""?"":localUserName=userName
     console.log("llegan userName:",userName)  
     console.log("llegan localUserName:",localUserName)  
     
@@ -236,14 +252,16 @@ const cleanProducts = () => {
     } )
 
 const productsByCategory =(category)=>{
+  if(category=="Sin filtro")
+    category=""
   console.log("mando category ", category)
   fetch(`/productos/productos/${category}`)
   .then(data=>{
     return data.json()})
     .then(products=>{
       console.log('products by category ',products)
-      cleanProducts()
-      renderProducts(products)
+      // cleanProducts()
+      renderProducts(products,category)
     } )
 }
 
