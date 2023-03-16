@@ -41,7 +41,7 @@ const registro = async(req,res)=>{
       
           console.log({ success: true });
         } catch (error) {
-          console.log(error);
+          console.log("estamos aqui :",error);
       
           console.log({ success: false });
         }

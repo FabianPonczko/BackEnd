@@ -5,7 +5,7 @@ const noRuta = (req,res)=>{
     warn.warn(`Metodo: ${method} de la Ruta: ${url} no corresponde a una ruta valida`)
     
     setTimeout(() => {
-        res.redirect("/")
+        res.redirect("/productos")
     }, 1000);
   }
 

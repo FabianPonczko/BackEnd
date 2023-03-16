@@ -3,7 +3,7 @@ const { Server: HttpServer } = require('http')
 const { Server: SocketIOServer }  = require('socket.io')
 const dayjs = require("dayjs")
 const customParseFormat = require('dayjs/plugin/customParseFormat')
-const {normalizeData}=require('./normalizr/normalizar')
+// const {normalizeData}=require('./normalizr/normalizar')
 const handlebars = require('express-handlebars')
 const {engine} = require('express-handlebars')
 
@@ -20,22 +20,24 @@ const {routerApirandons,routerDestroy,routerInfo,routerLogin, routerProducts} = 
 const session = require ('express-session')
 const sesiones = require('./sessionConfig/session.js')
 
-const cluster = require("cluster")
-const numCluster= require('os').cpus().length
-const {fork} = require('child_process')
+// const cluster = require("cluster")
+// const numCluster= require('os').cpus().length
+// const {fork} = require('child_process')
 
 const {PassportAuth} =require('./middlewares/passportAuth')
 const passport =require('passport')
 
-const {consola,warn,error} = require('./util/logger.js')
+// const {consola,warn,error} = require('./util/logger.js')
 
 const {Messages} =require('./Dao/messages/messages.js')
 const {ProductDao} = require ('./Dao/factoryDao')
 
-const { productsMocks } = require('./controller/productsMocks')
+// const { productsMocks } = require('./controller/productsMocks')
 const { noRuta } = require('./controller/noRutas')
 const cookieParser = require ('cookie-parser')
 const jwt = require('jsonwebtoken')
+const dotenv = require('dotenv')
+dotenv.config()
 
 const app = express();
 
@@ -59,10 +61,10 @@ app.set('views',  './public/views');
 
 let userName =""
 
-const clavePrivada ="secret password"
+// const clavePrivada ="secret password"
 
 const generarToken= (email)=>{
-  const token = jwt.sign({data:email},clavePrivada,{expiresIn:'60m'})
+  const token = jwt.sign({data:email},process.env.SecrectKey,{expiresIn:'60m'})
   return token
 }
 
@@ -85,11 +87,11 @@ dayjs.extend(customParseFormat)
 const httpServer = new HttpServer(app)
 const io = new SocketIOServer(httpServer)
 
-const args = process.argv.slice(3)
+// const args = process.argv.slice(3)
 
-const PORT = args[0] || 8080
+// const PORT = args[0] || 8080
 
-const modo = args[1] || "FORK"
+// const modo = args[1] || "FORK"
 
 // if(modo == "CLUSTER"){
 //   if(cluster.isPrimary){
@@ -110,12 +112,12 @@ const modo = args[1] || "FORK"
 //     console.log(`Server running on port: ${PORT} ands PID: ${process.pid} modo FORK`)
 //   })
 // }
-httpServer.listen(PORT, () =>{
-  console.log(`Server running on port: ${PORT} ands PID: ${process.pid}`)
+httpServer.listen(process.env.PORT, () =>{
+  console.log(`Server running on port: ${process.env.PORT} ands PID: ${process.pid}`)
 })
 
 //creo ruta a view handlebars con tabla de productos desde Mocks
-app.get('/api/productos-test', productsMocks)
+// app.get('/api/productos-test', productsMocks)
 
 //llamo a ruta de login
 app.use('/',routerLogin)
@@ -125,7 +127,7 @@ app.use('/',routerDestroy)
 
 app.use('/', routerInfo)
 
-app.use('/',routerApirandons)
+// app.use('/',routerApirandons)
 
 app.use('/productos', routerProducts)
 
@@ -275,3 +277,6 @@ io.on('connection', socket => {
       ProductoByCategory(newMsg)
     })
 })
+
+
+// "start": "0x server.js",

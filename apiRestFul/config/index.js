@@ -1,6 +1,6 @@
 const dotenv = require('dotenv')
-
 dotenv.config()
+
 const PRODUCTS_FINENAME ="products"
 const CARTS_FILENAME ="carts"
 const USERS_FILENAME ="users"

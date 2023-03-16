@@ -21,7 +21,7 @@ class Container{
           })
         }
       } catch (err) {
-        consola.info(err)
+        consola.info("desde api product =>",err)
         error.error("error" , err)
       }
 
@@ -47,7 +47,7 @@ class Container{
         })
       }
       } catch (err) {
-        consola.info(err)
+        consola.info("desde api=> ",err)
         error.error("error", err)
       }
 
