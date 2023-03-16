@@ -8,4 +8,12 @@ router.get("/productos",async (req,res)=>{
     res.json(products)
 })
 
+router.get("/productos/:category",async (req,res)=>{
+    const category = req.params.category
+    
+    const products = await ProductDao.getAll({category:category})
+    console.log("products :",products)
+    res.json(products)
+})
+
 module.exports = router

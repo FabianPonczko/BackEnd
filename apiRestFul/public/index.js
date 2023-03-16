@@ -115,7 +115,8 @@ const cleanProducts = () => {
       const document_Category_Filter = document.getElementById('cars')
       document_Category_Filter?.addEventListener("change",()=>{
         const category = document_Category_Filter.value
-        socket.emit('category', category)
+        // socket.emit('category', category)
+        productsByCategory(category)
       })
       // document_Category_Filter.value=category||"Todos"
   }
@@ -226,12 +227,25 @@ const cleanProducts = () => {
   //   // renderLoginUser(userName)
   // })
 
+
   fetch('/productos/productos')
-    .then(data=>{
-      return data.json()})
+  .then(data=>{
+    return data.json()})
     .then(products=>{
       renderProducts(products)
     } )
+
+const productsByCategory =(category)=>{
+  console.log("mando category ", category)
+  fetch(`/productos/productos/${category}`)
+  .then(data=>{
+    return data.json()})
+    .then(products=>{
+      console.log('products by category ',products)
+      cleanProducts()
+      renderProducts(products)
+    } )
+}
 
   
   socket.on('products by category',(byCategory)=>{
