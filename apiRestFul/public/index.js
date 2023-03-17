@@ -110,7 +110,9 @@ const cleanProducts = () => {
        const Borrar_Id = item.id.split("_").pop()
        item.addEventListener("click",()=>{
          console.log(`el boton ${Borrar_Id} fue clickeado`)
-         socket.emit('new delete', {id:Borrar_Id})
+         productBorrar(Borrar_Id)
+        //  socket.emit('new delete', {id:Borrar_Id})
+
        })
      })
   // Carga los productos en el form para modificar
@@ -263,6 +265,19 @@ const productsByCategory =(category)=>{
       // cleanProducts()
       renderProducts(products,category)
     } )
+}
+const productBorrar = (id)=>{
+  fetch(`/productos/eliminar/${id}`).then(
+
+    
+    fetch('/productos/productos')
+    .then(data=>{
+      return data.json()})
+      .then(products=>{
+        renderProducts(products)
+      } )
+      )
+
 }
 
   
