@@ -8,10 +8,7 @@ const registro = async(req,res)=>{
   const {url,method} = req
   consola.info(`direccion ${url} , metodo ${method}`)
     res.render('RegisterEmailUser')
-  
-  
-    
-  
+
       try {
           const { name, adress, age, phone, email, password ,password1} = req.query;
           if (!email || !password || !password1){
@@ -48,13 +45,15 @@ const registro = async(req,res)=>{
   }
 
 const auth = async(req,res)=>{
+  console.log("userResponse: ", req.user)
   let nombreUsuario=""
     const {email} =req.query 
     const existUser = await UserDao.getOne({ email :email});
     nombreUsuario = existUser.name.split(" ").length > 1 ? existUser.name.split(" ")[0]:existUser.name      // nombre solo
     req.session.nombre = {nombreUsuario,email:existUser.email,admin:existUser.admin}
-    console.log(existUser.name.split(" ").length)
-     res.redirect('/productos')
+    // console.log(existUser.name.split(" ").length)
+    res.cookie("token",req.user.token) 
+    res.redirect('/productos')
 }
 const loginEmail = async(req,res)=>{
     const {url,method} = req

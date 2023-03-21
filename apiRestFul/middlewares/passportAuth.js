@@ -2,6 +2,12 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const {UserDao} = require('../Dao/factoryDao.js')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+
+const generarToken= (email)=>{
+  const token = jwt.sign({data:email},process.env.SecrectKey,{expiresIn:'60m'})
+  return token
+}
 
 const init = () => {
   passport.serializeUser((user, done) => {
@@ -30,10 +36,12 @@ const init = () => {
           const userResponse = {
             id: user._id,
             email: user.email,
+            admin: user.admin,
             cart: user.cart,
           };
-
+          userResponse.token = generarToken(user.email)
           done(null, userResponse);
+          
         } catch (error) {
           console.log(error);
           done(error);

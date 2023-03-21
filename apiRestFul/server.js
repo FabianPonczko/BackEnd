@@ -63,21 +63,37 @@ let userName =""
 
 // const clavePrivada ="secret password"
 
-const generarToken= (email)=>{
-  const token = jwt.sign({data:email},process.env.SecrectKey,{expiresIn:'60m'})
-  return token
+const decodeToken= (data)=>{
+  try {
+    const datos = jwt.verify(data,process.env.SecrectKey)
+    return datos.data
+  } catch (error) {
+    return {error: "token no corresponde" }
+  } 
+    
+
+    
+
+  
 }
 
 const userVerify =  (req,res,next)=>{
   userName= req.session.nombre
-  if(userName!=undefined){
-      res.cookie("token",generarToken(userName))
+  console.log("userName: ",userName)
+  const emailToken = req.cookies.token
+  console.log("le mando el token: ",emailToken)
+  const token = decodeToken(emailToken)
+  
+  if(userName?.email==token){
+      // res.cookie("token",generarToken(userName))
+      next()
   }else{
-    res.clearCookie("token")
+    // next()
+    res.redirect('/loginEmail')
   }
   console.log("se conecto el usuario: ",userName)
   userName= req.session.nombre
-  next()
+  // next()
 }
 
 app.use("/productos", userVerify, express.static(__dirname+'/public'))
@@ -194,7 +210,7 @@ const newUserConnected = async (socket) => {
    const allProducts = await ProductDao.getAll()
    console.log("mando",userName)
     
-    io.sockets.emit('user', (userName))
+    // io.sockets.emit('user', (userName))
     
     
     io.sockets.emit('all products', (allProducts))
@@ -249,7 +265,7 @@ const ProductoByCategory= async (category)=>{
 
 io.on('connection', socket => {
     console.log(`nuevo cliente conectado: ${socket.id}`)
-    newUserConnected()
+    // newUserConnected()
 
     socket.on('new product', newProd => {
       newProduct(newProd)

@@ -7,17 +7,15 @@ let messages = []
 let products = []
 
 const loginSession = document.getElementById('loginSession')
-const ingresoProductos = document.getElementById('ingresoProductos')
+const ingresoProductosDiv = document.getElementById('ingresoProductos')
 const productSection = document.getElementById('products')
-const createProductForm = document.getElementById('createProduct__form')
+
 const chatDisplay = document.getElementById('chat__display')
 const textMsgForm = document.getElementById('textMsg__form')
 const emailForm = document.getElementById('email__form')
 const deleteFormDiv = document.getElementById('borrarProduct_div')
 
-const btn_agregar = document.getElementById("btnAgregar")
-const btn_modificar = document.getElementById('btnModificar')
-btn_modificar.style.display="none"
+
 
 const document_Description = document.getElementById("title")
 const document_Price = document.getElementById("price")
@@ -29,8 +27,9 @@ const document_Thumbnail = document.getElementById("thumbnail")
 
 //banner de session de usuario
 const renderSessionUser = async (userName)=>{
+  console.log("username;" ,userName.admin)
   localUserName=userName
-  createProductForm.reset()
+  
   let response = await fetch('./views/sessionUser.hbs')
   const template = await response.text()
   const templateCompiled= Handlebars.compile(template)
@@ -39,6 +38,33 @@ const renderSessionUser = async (userName)=>{
   
 console.log({userName})
   if(userName.admin){
+    
+    let paginaIngresoProducts = await fetch('./views/ingresoProducts.hbs')
+    const templateIngresoProducts = await paginaIngresoProducts.text()
+    const templateCompiledIngresoProducts= Handlebars.compile(templateIngresoProducts)
+    const hbsIngresoProducts = templateCompiledIngresoProducts()
+    ingresoProductosDiv.innerHTML = hbsIngresoProducts
+    
+    
+    
+    const btn_agregar = document.getElementById("btnAgregar")
+    const btn_modificar = document.getElementById('btnModificar')
+    btn_modificar.style.display="none"
+    
+    const createProductForm = document.getElementById('createProduct__form')
+    createProductForm.addEventListener('submit', (e) => {
+      console.log("boton agregar")
+      e.preventDefault()
+      // if (e.key="Enter"){
+      //   console.log("dentro del if",e.key)
+      //   return 
+      // }
+      console.log("boton agregar despues")
+      const formData = new FormData(createProductForm)
+      const formValues = Object.fromEntries(formData)
+      createProductForm.reset()
+      formValues.title!==""?socket.emit('new product', formValues):""
+    })
     let responsePagina = await fetch('./views/deleteProducts.hbs')
     const templateDelete = await responsePagina.text()
     const templateCompiledDelete= Handlebars.compile(templateDelete)
@@ -151,19 +177,7 @@ const cleanProducts = () => {
   }
 
     
-  createProductForm.addEventListener('submit', (e) => {
-    console.log("boton agregar")
-    e.preventDefault()
-    // if (e.key="Enter"){
-    //   console.log("dentro del if",e.key)
-    //   return 
-    // }
-    console.log("boton agregar despues")
-    const formData = new FormData(createProductForm)
-    const formValues = Object.fromEntries(formData)
-    createProductForm.reset()
-    formValues.title!==""?socket.emit('new product', formValues):""
-  })
+  
   
    
   const cleanChat = () => {
@@ -250,12 +264,13 @@ const cleanProducts = () => {
   .then(data=>{
     return data.json()})
     .then(products=>{
-      renderProducts(products)
+      renderProducts(products.products)
+      renderSessionUser(products.user)
     } )
 
 const productsByCategory =(category)=>{
   if(category=="Sin filtro")
-    category=""
+    category="Sin filtro"
   console.log("mando category ", category)
   fetch(`/productos/productos/${category}`)
   .then(data=>{

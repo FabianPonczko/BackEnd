@@ -4,13 +4,15 @@ const {ProductDao} = require('../Dao/factoryDao')
 
 
 router.get("/productos",async (req,res)=>{
+    const user= req.session.nombre
     const products = await ProductDao.getAll()
-    res.json(products)
+    res.json({products:products,user:user})
 })
 
 router.get("/productos/:category",async (req,res)=>{
     const category = req.params.category
-    const products = await ProductDao.getAll({category:category})
+    console.log("cattegory ", category)
+    const products = category=="Sin filtro"? await ProductDao.getAll(): await ProductDao.getAll({category:category})
     console.log("products :",products)
     res.json(products)
 })
