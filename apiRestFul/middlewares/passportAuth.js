@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const generarToken= (email)=>{
-  const token = jwt.sign({data:email},process.env.SecrectKey,{expiresIn:'60m'})
+  const token = jwt.sign({data:email},process.env.SecrectKey,{expiresIn:process.env.TiempoToken})
   return token
 }
 
@@ -43,7 +43,7 @@ const init = () => {
           done(null, userResponse);
           
         } catch (error) {
-          console.log(error);
+          console.log("este: ",error);
           done(error);
         }
       }

@@ -71,17 +71,13 @@ const decodeToken= (data)=>{
     return {error: "token no corresponde" }
   } 
     
-
-    
-
-  
 }
 
 const userVerify =  (req,res,next)=>{
   userName= req.session.nombre
-  console.log("userName: ",userName)
+  // console.log("userName: ",userName)
   const emailToken = req.cookies.token
-  console.log("le mando el token: ",emailToken)
+  // console.log("le mando el token: ",emailToken)
   const token = decodeToken(emailToken)
   
   if(userName?.email==token){
@@ -89,10 +85,11 @@ const userVerify =  (req,res,next)=>{
       next()
   }else{
     // next()
+    res.clearCookie("token")
     res.redirect('/loginEmail')
   }
-  console.log("se conecto el usuario: ",userName)
-  userName= req.session.nombre
+  // console.log("se conecto el usuario: ",userName)
+  // userName= req.session.nombre
   // next()
 }
 
@@ -268,7 +265,7 @@ io.on('connection', socket => {
     // newUserConnected()
 
     socket.on('new product', newProd => {
-      newProduct(newProd)
+      // newProduct(newProd)
 
     })
     socket.on('new msg', newMsg => {
@@ -276,7 +273,7 @@ io.on('connection', socket => {
     })
 
     socket.on('new delete', newMsg => {
-      newDeleteProduct(newMsg)
+      // newDeleteProduct(newMsg)
     })
     
     let idParaModificar =""
@@ -286,11 +283,11 @@ io.on('connection', socket => {
     })
 
     socket.on('modificar producto', newMsg => {
-      modificarProducto(idParaModificar,newMsg)
+      // modificarProducto(idParaModificar,newMsg)
     })
 
     socket.on('category', newMsg => {
-      ProductoByCategory(newMsg)
+      // ProductoByCategory(newMsg)
     })
 })
 

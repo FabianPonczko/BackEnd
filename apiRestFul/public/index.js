@@ -36,7 +36,7 @@ const renderSessionUser = async (userName)=>{
   const html = templateCompiled({userName:userName.nombreUsuario})
   loginSession.innerHTML = html
   
-console.log({userName})
+// console.log({userName})
   if(userName.admin){
     
     let paginaIngresoProducts = await fetch('./views/ingresoProducts.hbs')
@@ -52,19 +52,20 @@ console.log({userName})
     btn_modificar.style.display="none"
     
     const createProductForm = document.getElementById('createProduct__form')
+    
+    //nuevo producto 
     createProductForm.addEventListener('submit', (e) => {
       console.log("boton agregar")
       e.preventDefault()
-      // if (e.key="Enter"){
-      //   console.log("dentro del if",e.key)
-      //   return 
-      // }
-      console.log("boton agregar despues")
       const formData = new FormData(createProductForm)
       const formValues = Object.fromEntries(formData)
       createProductForm.reset()
-      formValues.title!==""?socket.emit('new product', formValues):""
+      newProduct(formValues)
+      
+         listarProducts()
+      // formValues.title!==""?socket.emit('new product', formValues):""
     })
+
     let responsePagina = await fetch('./views/deleteProducts.hbs')
     const templateDelete = await responsePagina.text()
     const templateCompiledDelete= Handlebars.compile(templateDelete)
@@ -72,16 +73,23 @@ console.log({userName})
     deleteFormDiv.innerHTML = hbsDelete
     
     const deleteForm = document.getElementById('borrarProduct__form')      
+    
+    //delete
     deleteForm.addEventListener('submit', (e) => {
         e.preventDefault()
         const deleteFormData = new FormData(deleteForm)
         const deleteIdValues = Object.fromEntries(deleteFormData)
-        console.log(deleteIdValues)
+        console.log(deleteIdValues.id)
         deleteForm.reset()
-        socket.emit('new delete', deleteIdValues)
+         productBorrar(deleteIdValues.id)
+        //  cleanProducts()
+         listarProducts()
+
+        // socket.emit('new delete', deleteIdValues)
       })
 
       btn_modificar.addEventListener('click',(e)=>{
+        
         e.preventDefault()
         const dataProduct = new FormData(createProductForm)
         const dates = Object.fromEntries(dataProduct)
@@ -89,9 +97,27 @@ console.log({userName})
         console.log("los nuevos datos: ",dates)
         btn_agregar.style.display="block"
         btn_modificar.style.display="none"
-       dates.title!=""?socket.emit('modificar producto',(dates)):""
+      //  dates.title!=""?socket.emit('modificar producto',(dates)):""
       })
-  }
+
+        // Carga los productos en el form para modificar
+        const documentModificarID = document.querySelectorAll(".modificar_Id")
+        documentModificarID.forEach((item)=>{
+          console.log(item.id.split("_").pop())
+          const Modificar_Id = item.id.split("_").pop()
+          item.addEventListener("click",()=>{
+            console.log(`el boton de modificar ${Modificar_Id} fue clickeado`)
+            const productToModificate = productById(Modificar_Id)
+            console.log("productToModificate: ",productToModificate)
+            modifyProducts(productToModificate)
+          //  socket.emit('new modificar producto', Modificar_Id)
+          })
+        })
+
+
+        
+
+  }//final de admin
 }
 
 
@@ -114,7 +140,6 @@ const cleanProducts = () => {
         isVisibleTh[index].style.display="none"
         btnBorrar_Tabla[index].style.display="none"
         btnModificar_Tabla[index].style.display="none"
-      
       }
     }
     
@@ -129,6 +154,7 @@ const cleanProducts = () => {
         console.log(`el boton ${button_Id} fue clickeado`)
       })
     })
+  
   // boton borrar producto
      const documentBorrarID = document.querySelectorAll(".borrar_Id")
      documentBorrarID.forEach((item)=>{
@@ -137,34 +163,26 @@ const cleanProducts = () => {
        item.addEventListener("click",()=>{
          console.log(`el boton ${Borrar_Id} fue clickeado`)
          productBorrar(Borrar_Id)
+        //  cleanProducts()
+         listarProducts()
         //  socket.emit('new delete', {id:Borrar_Id})
 
        })
      })
-  // Carga los productos en el form para modificar
-     const documentModificarID = document.querySelectorAll(".modificar_Id")
-     documentModificarID.forEach((item)=>{
-       console.log(item.id.split("_").pop())
-       const Modificar_Id = item.id.split("_").pop()
-       item.addEventListener("click",()=>{
-         console.log(`el boton de modificar ${Modificar_Id} fue clickeado`)
-         
-         socket.emit('new modificar producto', Modificar_Id)
-       })
-     })
+  
 
      // filtrar productos por categoria
       const document_Category_Filter = document.getElementById('categoryId')
       document_Category_Filter.value=category||"Sin filtro"
 
-      document_Category_Filter?.addEventListener("change",()=>{
+      document_Category_Filter.addEventListener("change",()=>{
         const category = document_Category_Filter.value
+        console.log("click categoryId",category)
         // socket.emit('category', category)
         productsByCategory(category)
       })
       // document_Category_Filter.value=category||"Todos"
   }
-
   const modifyProducts = async (productById)=>{
     createProductForm.scrollIntoView(0,0)
     btn_modificar.style.display="block"
@@ -175,6 +193,7 @@ const cleanProducts = () => {
     document_Category.value = productById.category
     document_Thumbnail.value = productById.thumbnail
   }
+  
 
     
   
@@ -259,42 +278,65 @@ const cleanProducts = () => {
   //   // renderLoginUser(userName)
   // })
 
-
+const listarProducts=async ()=>{
   fetch('/productos/productos')
   .then(data=>{
     return data.json()})
     .then(products=>{
       renderProducts(products.products)
       renderSessionUser(products.user)
-    } )
+    })
+  }
+  listarProducts()
 
-const productsByCategory =(category)=>{
+const newProduct = async(product)=>{
+  await fetch('/productos/productos', {
+    method: "POST",
+    body: JSON.stringify(product),
+    headers: {"Content-type": "application/json; charset=UTF-8"}})
+    .then(
+      await fetch('/productos/productos').then(
+        async data=>{
+          return  await data.json()}).then(
+            async products=>{
+              await renderProducts(products.products)
+      })
+  )
+}
+
+const productsByCategory = async (category)=>{
   if(category=="Sin filtro")
     category="Sin filtro"
-  console.log("mando category ", category)
-  fetch(`/productos/productos/${category}`)
-  .then(data=>{
-    return data.json()})
-    .then(products=>{
-      console.log('products by category ',products)
+  await fetch(`/productos/category/${category}`)
+    .then(data=>{
+      return data.json()})
+        .then(products=>{
       // cleanProducts()
-      renderProducts(products,category)
+        renderProducts(products,category)
     } )
 }
-const productBorrar = (id)=>{
-  fetch(`/productos/eliminar/${id}`).then(
-
-    
+const productBorrar = async(id)=>{
+    fetch(`/productos/eliminar/${id}`, {
+      method: "DELETE",
+    }
+    ).then(
     fetch('/productos/productos')
+      .then(async data=>{
+        return await data.json()})
+          .then( async products=>{
+          await renderProducts(products.products)
+      } )
+      )
+}
+
+const productById = (id)=>{
+  fetch(`/productos/productos/${id}`)
     .then(data=>{
       return data.json()})
       .then(products=>{
-        renderProducts(products)
+        modifyProducts(products)
       } )
-      )
-
 }
-
   
   socket.on('products by category',(byCategory)=>{
     console.log("allproduct ",byCategory)
