@@ -98,6 +98,7 @@ const renderSessionUser = async (userName)=>{
         createProductForm.reset()
         console.log("los nuevos datos: ",dates)
         btn_agregar.style.display="block"
+        btn_agregar.disabled=false
         btn_modificar.style.display="none"
         modifyProduct(idProductModify,dates)
         idProductModify=""
@@ -127,6 +128,7 @@ const modifyProducts = (productById)=>{
   btn_modificar.style.display="block"
   const btn_agregar = document.getElementById("btnAgregar")
   btn_agregar.style.display="none"
+  btn_agregar.disabled = true
   // console.log("productById.thumbnail: ", productById.thumbnail)
   idProductModify=productById.id
   document_Description.value = productById.title
