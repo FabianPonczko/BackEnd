@@ -13,17 +13,19 @@ router.get("/productos",async (req,res)=>{
 router.post("/productos",async (req,res)=>{
     console.log("entraron nuevos productos")
     const product= req.body
-    const productSave = await ProductDao.save(product)
-    res.json(productSave)
+    await ProductDao.save(product)
+    const products = await ProductDao.getAll()
+    res.json({products:products})
 })
 
 router.put("/productos/:id",async (req,res)=>{
     const id = req.params.id
     const newProduct = req.body
-    console.log("busco el id: PUT productos/:id ", id)
-    const product = await ProductDao.updateById(id,newProduct)
-    // console.log("los productos encontrados son: ", products)
-    res.json(product)
+    // console.log("busco el id: PUT productos/:id ", id)
+     await ProductDao.updateById(id,newProduct)
+    const products = await ProductDao.getAll()
+    res.json({products:products})
+    
 })
 
 router.get("/productos/:id",async (req,res)=>{
@@ -45,9 +47,11 @@ router.get("/category/:category",async (req,res)=>{
 router.delete("/eliminar/:id",async (req,res)=>{
     const id = req.params.id
     console.log("pido el id para borrar, ",id)
-    const products = await ProductDao.DeleteById(id)
+    await ProductDao.DeleteById(id)
     // console.log("products :",products)
     // res.json(products)
+    const products = await ProductDao.getAll()
+    res.json({products:products})
 })
 
 

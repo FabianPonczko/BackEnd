@@ -64,7 +64,7 @@ const renderSessionUser = async (userName)=>{
       createProductForm.reset()
       newProduct(formValues)
       
-      listProducts()
+      // listProducts()
       // formValues.title!==""?socket.emit('new product', formValues):""
     })
 
@@ -85,7 +85,7 @@ const renderSessionUser = async (userName)=>{
         deleteForm.reset()
          productBorrar(deleteIdValues.id)
         //  cleanProducts()
-         listProducts()
+        //  listProducts()
 
         // socket.emit('new delete', deleteIdValues)
       })
@@ -106,21 +106,15 @@ const renderSessionUser = async (userName)=>{
       //  dates.title!=""?socket.emit('modificar producto',(dates)):""
       })
 
-        // Carga los productos en el form para modificar
-        const documentModificarID = document.querySelectorAll(".modificar_Id")
-        documentModificarID.forEach((item)=>{
-          // console.log(item.id.split("_").pop())
-          const Modificar_Id = item.id.split("_").pop()
-          item.addEventListener("click",()=>{
-            productById(Modificar_Id)
-          })
-        })
-
-       
-
-  }//final de admin
-}
-
+      
+      
+      
+      
+      
+    }//final de admin
+  }
+  
+  // Carga los productos en el form para modificar
 const modifyProducts = (productById)=>{
   const createProductForm = document.getElementById('createProduct__form')
   const document_Description = document.getElementById("title")
@@ -147,7 +141,7 @@ const cleanProducts = () => {
     productSection.innerHTML = ""
   }
   const renderProducts = async (products,category) => {
-    productSection.innerHTML = ""
+    // productSection.innerHTML = ""
     let response = await fetch('./views/tableProducts.hbs')
     const template = await response.text()
     const templateCompiled = Handlebars.compile(template)
@@ -183,16 +177,25 @@ const cleanProducts = () => {
      documentBorrarID.forEach((item)=>{
       //  console.log(item.id.split("_").pop())
        const Borrar_Id = item.id.split("_").pop()
-       item.addEventListener("click",async ()=>{
+       item.addEventListener("click",()=>{
          console.log(`el boton ${Borrar_Id} fue clickeado`)
-         await productBorrar(Borrar_Id)
+         productBorrar(Borrar_Id)
         //  cleanProducts()
-         listProducts()
+        //  listProducts()
         //  socket.emit('new delete', {id:Borrar_Id})
 
        })
      })
-  
+     
+    //boton modificar productos
+     const documentModificarID = document.querySelectorAll(".modificar_Id")
+     documentModificarID.forEach((item)=>{
+       // console.log(item.id.split("_").pop())
+       const Modificar_Id = item.id.split("_").pop()
+       item.addEventListener("click",()=>{
+         productById(Modificar_Id)
+       })
+     })
 
      // filtrar productos por categoria
       const document_Category_Filter = document.getElementById('categoryId')
@@ -305,14 +308,11 @@ const newProduct = (product)=>{
     method: "POST",
     body: JSON.stringify(product),
     headers: {"Content-type": "application/json; charset=UTF-8"}})
-      .then(
-        fetch('/productos/productos')
-          .then(data=>{
-            return data.json()})
-              .then(products=>{
-                renderProducts(products.products)
-              })
-      )
+      .then(data=>{
+        return data.json()})
+          .then(products=>{
+            renderProducts(products.products)
+        })
 }
 
 const modifyProduct = (id,product)=>{
@@ -320,9 +320,12 @@ const modifyProduct = (id,product)=>{
     method: "PUT",
     body: JSON.stringify(product),
     headers: {"Content-type": "application/json; charset=UTF-8"}})
-      .then(
-          cleanProducts(),
-          listProducts()
+      .then(data=>{
+        return data.json()})
+          .then(products=>{
+            renderProducts(products.products)
+        }
+         
       )
 }
 
@@ -339,16 +342,12 @@ const productsByCategory = (category)=>{
 }
 const productBorrar = (id)=>{
   fetch(`/productos/eliminar/${id}`, {
-    method: "DELETE",
-    })
-    .then(
-      fetch('/productos/productos')
-        .then(data=>{
-          return data.json()})
-            .then(products=>{
-              renderProducts(products.products)
-            })
-    )
+    method: "DELETE",})
+      .then(data=>{
+        return data.json()})
+          .then(products=>{
+            renderProducts(products.products)
+        })
 }
 
 const productById = (id)=>{
