@@ -5,6 +5,7 @@ let users = []
 let localUserName={}
 let messages = []
 let products = []
+let idProductModify=""
 
 const loginSession = document.getElementById('loginSession')
 const ingresoProductosDiv = document.getElementById('ingresoProductos')
@@ -16,11 +17,11 @@ const emailForm = document.getElementById('email__form')
 const deleteFormDiv = document.getElementById('borrarProduct_div')
 
 
-
 const document_Description = document.getElementById("title")
 const document_Price = document.getElementById("price")
 const document_Category = document.getElementById("category")
-const document_Thumbnail = document.getElementById("thumbnail")
+const document_Thumbnail = document.getElementById("thumbnail") 
+
 
 
 // const comprar_id = document.getElementById(documentID)
@@ -37,8 +38,9 @@ const renderSessionUser = async (userName)=>{
   loginSession.innerHTML = html
   
 // console.log({userName})
-  if(userName.admin){
-    
+  if(userName.admin){ 
+
+
     let paginaIngresoProducts = await fetch('./views/ingresoProducts.hbs')
     const templateIngresoProducts = await paginaIngresoProducts.text()
     const templateCompiledIngresoProducts= Handlebars.compile(templateIngresoProducts)
@@ -62,7 +64,7 @@ const renderSessionUser = async (userName)=>{
       createProductForm.reset()
       newProduct(formValues)
       
-         listarProducts()
+      listProducts()
       // formValues.title!==""?socket.emit('new product', formValues):""
     })
 
@@ -83,13 +85,13 @@ const renderSessionUser = async (userName)=>{
         deleteForm.reset()
          productBorrar(deleteIdValues.id)
         //  cleanProducts()
-         listarProducts()
+         listProducts()
 
         // socket.emit('new delete', deleteIdValues)
       })
 
+      //modificar producto
       btn_modificar.addEventListener('click',(e)=>{
-        
         e.preventDefault()
         const dataProduct = new FormData(createProductForm)
         const dates = Object.fromEntries(dataProduct)
@@ -97,27 +99,47 @@ const renderSessionUser = async (userName)=>{
         console.log("los nuevos datos: ",dates)
         btn_agregar.style.display="block"
         btn_modificar.style.display="none"
+        modifyProduct(idProductModify,dates)
+        idProductModify=""
+        
+
       //  dates.title!=""?socket.emit('modificar producto',(dates)):""
       })
 
         // Carga los productos en el form para modificar
         const documentModificarID = document.querySelectorAll(".modificar_Id")
         documentModificarID.forEach((item)=>{
-          console.log(item.id.split("_").pop())
+          // console.log(item.id.split("_").pop())
           const Modificar_Id = item.id.split("_").pop()
           item.addEventListener("click",()=>{
-            console.log(`el boton de modificar ${Modificar_Id} fue clickeado`)
-            const productToModificate = productById(Modificar_Id)
-            console.log("productToModificate: ",productToModificate)
-            modifyProducts(productToModificate)
-          //  socket.emit('new modificar producto', Modificar_Id)
+            productById(Modificar_Id)
           })
         })
 
-
-        
+       
 
   }//final de admin
+}
+
+const modifyProducts = (productById)=>{
+  const createProductForm = document.getElementById('createProduct__form')
+  const document_Description = document.getElementById("title")
+  const document_Price = document.getElementById("price")
+  const document_Category = document.getElementById("category")
+  const document_Thumbnail = document.getElementById("thumbnail") 
+  console.log("llegan: ",productById)
+  createProductForm.scrollIntoView(0,0)
+  const btn_modificar = document.getElementById('btnModificar')
+  btn_modificar.style.display="block"
+  const btn_agregar = document.getElementById("btnAgregar")
+  btn_agregar.style.display="none"
+  // console.log("productById.thumbnail: ", productById.thumbnail)
+  idProductModify=productById.id
+  document_Description.value = productById.title
+  document_Price.value = productById.price
+  document_Category.value = productById.category
+  document_Thumbnail.value = productById.thumbnail
+
 }
 
 
@@ -125,6 +147,7 @@ const cleanProducts = () => {
     productSection.innerHTML = ""
   }
   const renderProducts = async (products,category) => {
+    productSection.innerHTML = ""
     let response = await fetch('./views/tableProducts.hbs')
     const template = await response.text()
     const templateCompiled = Handlebars.compile(template)
@@ -160,11 +183,11 @@ const cleanProducts = () => {
      documentBorrarID.forEach((item)=>{
       //  console.log(item.id.split("_").pop())
        const Borrar_Id = item.id.split("_").pop()
-       item.addEventListener("click",()=>{
+       item.addEventListener("click",async ()=>{
          console.log(`el boton ${Borrar_Id} fue clickeado`)
-         productBorrar(Borrar_Id)
+         await productBorrar(Borrar_Id)
         //  cleanProducts()
-         listarProducts()
+         listProducts()
         //  socket.emit('new delete', {id:Borrar_Id})
 
        })
@@ -183,20 +206,8 @@ const cleanProducts = () => {
       })
       // document_Category_Filter.value=category||"Todos"
   }
-  const modifyProducts = async (productById)=>{
-    createProductForm.scrollIntoView(0,0)
-    btn_modificar.style.display="block"
-    btn_agregar.style.display="none"
-    console.log("productById.thumbnail: ", productById.thumbnail)
-    document_Description.value = productById.title
-    document_Price.value = productById.price
-    document_Category.value = productById.category
-    document_Thumbnail.value = productById.thumbnail
-  }
-  
 
-    
-  
+
   
    
   const cleanChat = () => {
@@ -278,64 +289,77 @@ const cleanProducts = () => {
   //   // renderLoginUser(userName)
   // })
 
-const listarProducts=async ()=>{
+const listProducts= ()=>{
   fetch('/productos/productos')
-  .then(data=>{
-    return data.json()})
-    .then(products=>{
-      renderProducts(products.products)
-      renderSessionUser(products.user)
-    })
-  }
-  listarProducts()
-
-const newProduct = async(product)=>{
-  await fetch('/productos/productos', {
-    method: "POST",
-    body: JSON.stringify(product),
-    headers: {"Content-type": "application/json; charset=UTF-8"}})
-    .then(
-      await fetch('/productos/productos').then(
-        async data=>{
-          return  await data.json()}).then(
-            async products=>{
-              await renderProducts(products.products)
-      })
-  )
-}
-
-const productsByCategory = async (category)=>{
-  if(category=="Sin filtro")
-    category="Sin filtro"
-  await fetch(`/productos/category/${category}`)
     .then(data=>{
       return data.json()})
         .then(products=>{
-      // cleanProducts()
-        renderProducts(products,category)
+          renderProducts(products.products)
+          renderSessionUser(products.user)
+    })
+  }
+  listProducts()
+
+const newProduct = (product)=>{
+  fetch('/productos/productos', {
+    method: "POST",
+    body: JSON.stringify(product),
+    headers: {"Content-type": "application/json; charset=UTF-8"}})
+      .then(
+        fetch('/productos/productos')
+          .then(data=>{
+            return data.json()})
+              .then(products=>{
+                renderProducts(products.products)
+              })
+      )
+}
+
+const modifyProduct = (id,product)=>{
+  fetch(`/productos/productos/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(product),
+    headers: {"Content-type": "application/json; charset=UTF-8"}})
+      .then(
+          cleanProducts(),
+          listProducts()
+      )
+}
+
+const productsByCategory = (category)=>{
+  if(category=="Sin filtro")
+    category="Sin filtro"
+  fetch(`/productos/category/${category}`)
+    .then(data=>{
+      return data.json()})
+        .then(products=>{
+          cleanProducts()
+          renderProducts(products,category)
     } )
 }
-const productBorrar = async(id)=>{
-    fetch(`/productos/eliminar/${id}`, {
-      method: "DELETE",
-    }
-    ).then(
-    fetch('/productos/productos')
-      .then(async data=>{
-        return await data.json()})
-          .then( async products=>{
-          await renderProducts(products.products)
-      } )
-      )
+const productBorrar = (id)=>{
+  fetch(`/productos/eliminar/${id}`, {
+    method: "DELETE",
+    })
+    .then(
+      fetch('/productos/productos')
+        .then(data=>{
+          return data.json()})
+            .then(products=>{
+              renderProducts(products.products)
+            })
+    )
 }
 
 const productById = (id)=>{
   fetch(`/productos/productos/${id}`)
     .then(data=>{
-      return data.json()})
+      return data.json()
+    })
       .then(products=>{
+        console.log("products devuelto por fetch: ",products)
         modifyProducts(products)
-      } )
+      })
 }
   
   socket.on('products by category',(byCategory)=>{

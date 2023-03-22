@@ -25,17 +25,17 @@ class MongoDbContainer{
       }
 
     async getById(id) {
-        const response = this.model.findById(id)
+        const response = await this.model.findById(id)
         return response
     }
     async updateById(id,newData) {
-        const response = this.model.findByIdAndUpdate(id,newData,{
+        const response = await this.model.findByIdAndUpdate(id,newData,{
             new:true
         })
         return response
     }
     async DeleteById(id) {
-        const response = this.model.findByIdAndDelete(id)
+        const response = await this.model.findByIdAndDelete(id)
         return  response
     }
     

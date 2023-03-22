@@ -4,7 +4,7 @@ const {ProductDao} = require('../Dao/factoryDao')
 
 
 router.get("/productos",async (req,res)=>{
-    console.log("pidiendo productos por get")
+    console.log("pidiendo productos/products por get")
     const user= req.session.nombre
     const products = await ProductDao.getAll()
     res.json({products:products,user:user})
@@ -13,15 +13,24 @@ router.get("/productos",async (req,res)=>{
 router.post("/productos",async (req,res)=>{
     console.log("entraron nuevos productos")
     const product= req.body
-    await ProductDao.save(product)
-    
+    const productSave = await ProductDao.save(product)
+    res.json(productSave)
+})
+
+router.put("/productos/:id",async (req,res)=>{
+    const id = req.params.id
+    const newProduct = req.body
+    console.log("busco el id: PUT productos/:id ", id)
+    const product = await ProductDao.updateById(id,newProduct)
+    // console.log("los productos encontrados son: ", products)
+    res.json(product)
 })
 
 router.get("/productos/:id",async (req,res)=>{
     const id = req.params.id
-    console.log("busco el id: ", id)
+    console.log("desde get productos/:id busco el id: ", id)
     const products = await ProductDao.getById(id)
-    console.log("los productos encontrados son: ", products)
+    console.log("desde get los productos encontrados son: ", products)
     res.json(products)
 })
 
