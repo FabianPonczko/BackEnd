@@ -13438,3 +13438,16 @@
 {"level":40,"time":1679502411821,"pid":492,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /productos/1 no corresponde a una ruta valida"}
 {"level":40,"time":1679502420046,"pid":492,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /productos/1 no corresponde a una ruta valida"}
 {"level":40,"time":1679502420051,"pid":492,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /productos/2 no corresponde a una ruta valida"}
+{"level":40,"time":1679502493022,"pid":15892,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /productos/1 no corresponde a una ruta valida"}
+{"level":40,"time":1679502748769,"pid":11960,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: / no corresponde a una ruta valida"}
+{"level":40,"time":1679502803718,"pid":11960,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /productos/3 no corresponde a una ruta valida"}
+{"level":40,"time":1679502817255,"pid":11960,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /productos/3 no corresponde a una ruta valida"}
+{"level":40,"time":1679502832432,"pid":11960,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /productos/3 no corresponde a una ruta valida"}
+{"level":40,"time":1679502839592,"pid":11960,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /productos/3 no corresponde a una ruta valida"}
+{"level":40,"time":1679510287350,"pid":14020,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /productos/mensajes no corresponde a una ruta valida"}
+{"level":40,"time":1679511289476,"pid":15600,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /favicon.ico no corresponde a una ruta valida"}
+{"level":40,"time":1679511476870,"pid":14096,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /favicon.ico no corresponde a una ruta valida"}
+{"level":40,"time":1679512715859,"pid":17128,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /favicon.ico no corresponde a una ruta valida"}
+{"level":40,"time":1679512753164,"pid":596,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /favicon.ico no corresponde a una ruta valida"}
+{"level":40,"time":1679512791858,"pid":18024,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /favicon.ico no corresponde a una ruta valida"}
+{"level":40,"time":1679512832727,"pid":7240,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /favicon.ico no corresponde a una ruta valida"}

@@ -3,7 +3,7 @@
 
 // const UsersMongo =require('./Users/UsersMongo.js')
 
-const {CartMongo,ProductMongo,UsersMongo} = require('./index.js')
+const {CartMongo,ProductMongo,UsersMongo,ChatMongo} = require('./index.js')
 
 
 // const SELECTED_DATABASE = "mongo"
@@ -18,7 +18,8 @@ const getSelectedDaos = ()=>{
             return{
                 UserDao:  UsersMongo.getinstanciaUserMongo(),
                 ProductDao : ProductMongo.getinstanciaProductMongo(),
-                CartDao : CartMongo.getinstanciaCartsMongo()
+                CartDao : CartMongo.getinstanciaCartsMongo(),
+                ChatDao: ChatMongo.getinstanciaChatsMongo()
             }
         }
         case 'filesystem':{
@@ -28,6 +29,6 @@ const getSelectedDaos = ()=>{
         }
     }
 }
-const {UserDao,ProductDao,CartDao} = getSelectedDaos()
+const {UserDao,ProductDao,CartDao,ChatDao} = getSelectedDaos()
 
-module.exports = {UserDao,ProductDao,CartDao}
+module.exports = {UserDao,ProductDao,CartDao,ChatDao}

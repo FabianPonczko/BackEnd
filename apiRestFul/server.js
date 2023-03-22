@@ -7,22 +7,10 @@ const customParseFormat = require('dayjs/plugin/customParseFormat')
 const handlebars = require('express-handlebars')
 const {engine} = require('express-handlebars')
 
-// const routerLogin = require('./routes/login')
-// const routerDestroy = require('./routes/destroy')
-// const routerInfo = require('./routes/info.js')
-// const routerApirandons = require('./routes/apiRandom.js')
-// const routerAxios = require('./routes/axios.js')
-// const {productos}= require('./Dao/products/products.js')
-
-const {routerApirandons,routerDestroy,routerInfo,routerLogin, routerProducts} = require ('./routes/index.js')
-
+const {routerApirandons,routerDestroy,routerInfo,routerLogin, routerProducts,routerChats} = require ('./routes/index.js')
 
 const session = require ('express-session')
 const sesiones = require('./sessionConfig/session.js')
-
-// const cluster = require("cluster")
-// const numCluster= require('os').cpus().length
-// const {fork} = require('child_process')
 
 const {PassportAuth} =require('./middlewares/passportAuth')
 const passport =require('passport')
@@ -143,6 +131,8 @@ app.use('/', routerInfo)
 // app.use('/',routerApirandons)
 
 app.use('/productos', routerProducts)
+
+app.use('/',routerChats)
 
 
 

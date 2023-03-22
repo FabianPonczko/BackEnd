@@ -64,8 +64,6 @@ const renderSessionUser = async (userName)=>{
       createProductForm.reset()
       newProduct(formValues)
       
-      // listProducts()
-      // formValues.title!==""?socket.emit('new product', formValues):""
     })
 
     let responsePagina = await fetch('./views/deleteProducts.hbs')
@@ -84,10 +82,7 @@ const renderSessionUser = async (userName)=>{
         console.log(deleteIdValues.id)
         deleteForm.reset()
          productBorrar(deleteIdValues.id)
-        //  cleanProducts()
-        //  listProducts()
-
-        // socket.emit('new delete', deleteIdValues)
+  
       })
 
       //modificar producto
@@ -103,8 +98,6 @@ const renderSessionUser = async (userName)=>{
         modifyProduct(idProductModify,dates)
         idProductModify=""
         
-
-      //  dates.title!=""?socket.emit('modificar producto',(dates)):""
       })
 
       
@@ -116,27 +109,26 @@ const renderSessionUser = async (userName)=>{
   }
   
   // Carga los productos en el form para modificar
-const modifyProducts = (productById)=>{
-  const createProductForm = document.getElementById('createProduct__form')
-  const document_Description = document.getElementById("title")
-  const document_Price = document.getElementById("price")
-  const document_Category = document.getElementById("category")
-  const document_Thumbnail = document.getElementById("thumbnail") 
-  console.log("llegan: ",productById)
-  createProductForm.scrollIntoView(0,0)
-  const btn_modificar = document.getElementById('btnModificar')
-  btn_modificar.style.display="block"
-  const btn_agregar = document.getElementById("btnAgregar")
-  btn_agregar.style.display="none"
-  btn_agregar.disabled = true
-  // console.log("productById.thumbnail: ", productById.thumbnail)
-  idProductModify=productById.id
-  document_Description.value = productById.title
-  document_Price.value = productById.price
-  document_Category.value = productById.category
-  document_Thumbnail.value = productById.thumbnail
+    const modifyProducts = (productById)=>{
+      const createProductForm = document.getElementById('createProduct__form')
+      const document_Description = document.getElementById("title")
+      const document_Price = document.getElementById("price")
+      const document_Category = document.getElementById("category")
+      const document_Thumbnail = document.getElementById("thumbnail") 
+      console.log("llegan: ",productById)
+      createProductForm.scrollIntoView(0,0)
+      const btn_modificar = document.getElementById('btnModificar')
+      btn_modificar.style.display="block"
+      const btn_agregar = document.getElementById("btnAgregar")
+      btn_agregar.style.display="none"
+      btn_agregar.disabled = true
+      idProductModify=productById.id
+      document_Description.value = productById.title
+      document_Price.value = productById.price
+      document_Category.value = productById.category
+      document_Thumbnail.value = productById.thumbnail
 
-}
+    }
 
 
 const cleanProducts = () => {
@@ -182,9 +174,6 @@ const cleanProducts = () => {
        item.addEventListener("click",()=>{
          console.log(`el boton ${Borrar_Id} fue clickeado`)
          productBorrar(Borrar_Id)
-        //  cleanProducts()
-        //  listProducts()
-        //  socket.emit('new delete', {id:Borrar_Id})
 
        })
      })
@@ -206,7 +195,6 @@ const cleanProducts = () => {
       document_Category_Filter.addEventListener("change",()=>{
         const category = document_Category_Filter.value
         console.log("click categoryId",category)
-        // socket.emit('category', category)
         productsByCategory(category)
       })
       // document_Category_Filter.value=category||"Todos"
@@ -271,9 +259,25 @@ const cleanProducts = () => {
     e.preventDefault()
     const formData = new FormData(textMsgForm)
     const formValues = Object.fromEntries(formData)
-    socket.emit('new msg', formValues)
+    const chat = (formValues)
+    messageSave(chat)
+    // socket.emit('new msg', formValues)
   })
   
+
+  const messageSave =async (chat)=>{
+    fetch('/mensajes',{
+      method:"POST",
+      body: JSON.stringify(chat),
+      headers: {"Content-type": "application/json; charset=UTF-8"}
+    })
+    .then(data=>{
+      return data.json()})
+        .then(menssages=>{
+          console.log("menssages: ", menssages)
+    })
+  }
+
   socket.on('user', userName  => {    
     console.log("llegan",userName)  
     if(userName==null){
@@ -332,15 +336,12 @@ const modifyProduct = (id,product)=>{
 }
 
 const productsByCategory = (category)=>{
-  if(category=="Sin filtro")
-    category="Sin filtro"
   fetch(`/productos/category/${category}`)
     .then(data=>{
       return data.json()})
         .then(products=>{
-          cleanProducts()
           renderProducts(products,category)
-    } )
+      })
 }
 const productBorrar = (id)=>{
   fetch(`/productos/eliminar/${id}`, {

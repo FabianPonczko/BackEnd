@@ -40,7 +40,7 @@ router.get("/category/:category",async (req,res)=>{
     const category = req.params.category
     console.log("cattegory ", category)
     const products = category=="Sin filtro"? await ProductDao.getAll(): await ProductDao.getAll({category:category})
-    console.log("products :",products)
+    // console.log("products :",products)
     res.json(products)
 })
 
