@@ -423,16 +423,20 @@ const productById = (id)=>{
     cleanChat()
     
     if (localUserName.admin){
-       chatDisplay.style.display="flex"
+     chatDisplay.style.display="flex"
       for (msgData of allMsg){
           renderMsg(msgData)
         }
     }else{
+      console.log("mensajes : " ,allMsg.length)
       for (msgData of allMsg){
         if (msgData.userEmail==localUserName.email|| msgData.to==localUserName.email){
           renderMsg(msgData)
         }else{
         }  
+      }
+      if (allMsg[allMsg.length-1].to ==localUserName.email){
+        chatDisplay.style.display="flex"
       }
     }
      
