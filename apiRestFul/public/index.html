@@ -25,16 +25,16 @@
 
     <div  id="products"></div>
 
-    <div id="chat" style=" background-color: #f0f8ff7d; border-radius: 0.5rem;padding: 1rem;display: flex;flex-direction: column;align-items: center;">
+    <div class="m-5 text-center card" id="chat" style=" background-color: #f0f8ff7d; border-radius: 0.5rem;padding: 1rem;display: flex;flex-direction: column;align-items: center;">
         <h2 id="chat__title">Canal de Chat</h2>
-        <form id="email__form">
+            <form id="email__form"></form>
+        <div class="m-5 text-center card" id="chat__display" style=" height: 20rem;min-width: 90%;background-color: #b6cfef;border-radius: 0.5rem;display: flex;flex-direction: column;padding: 1rem 2rem;overflow-y: scroll;"></div>
+        <form id="textMsg__form" style=" width: auto; display: flex; margin: 0.3rem;align-self: center;">
+            <input type="text" name="toUserEmail" placeholder="User Email" id="btnUserEmail" >
+            <textarea class="form-control" rows="1" type="text" name="messages" placeholder="Mensaje" id="textMsg__inp"></textarea>
+            <button class="btn btn-success"  type="submit" id="textMsg__submit">Enviar</button>
         </form>
-        <div id="chat__display" style=" height: 20rem;min-width: 40rem;background-color: #fcfcfc;border-radius: 0.5rem;display: flex;flex-direction: column;padding: 1rem 2rem;overflow-y: scroll;">
-        </div>
-        <form id="textMsg__form" style=" width: 50%;display: flex; margin: 0.3rem;">
-          <input type="text" name="messages" placeholder="Mensaje" id="textMsg__inp">
-          <button type="submit" id="textMsg__submit">Enviar</button>
-        </form>
+        <button class="btn btn-primary" id="loadChat">Cargar chat</button>
 
     </div>
 

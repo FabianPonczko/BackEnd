@@ -10,6 +10,7 @@ const ChatSchema = new Schema(
         createAt:{type: String, require:true,max:100},
         userEmail:{type: String, require:true,max:100},
         isAdmin:{type: String, require:true,max:100},
+        to:{type: String, require:true,max:100},
     },
     {
         virtuals:true

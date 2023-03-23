@@ -10,13 +10,16 @@ let idProductModify=""
 const loginSession = document.getElementById('loginSession')
 const ingresoProductosDiv = document.getElementById('ingresoProductos')
 const productSection = document.getElementById('products')
-
+const chatCard = document.getElementById('chat')
+chatCard.style.display="none"
 const chatDisplay = document.getElementById('chat__display')
+chatDisplay.style.display="none"
 const textMsgForm = document.getElementById('textMsg__form')
+const btn_UserEmail = document.getElementById('btnUserEmail')
+const btn_LoadChat = document.getElementById('loadChat')
+btn_UserEmail.style.display="none"
 const emailForm = document.getElementById('email__form')
 const deleteFormDiv = document.getElementById('borrarProduct_div')
-
-
 const document_Description = document.getElementById("title")
 const document_Price = document.getElementById("price")
 const document_Category = document.getElementById("category")
@@ -36,6 +39,9 @@ const renderSessionUser = async (userName)=>{
   const templateCompiled= Handlebars.compile(template)
   const html = templateCompiled({userName:userName.nombreUsuario})
   loginSession.innerHTML = html
+
+  
+  localUserName.admin? btn_UserEmail.style.display="block":btn_UserEmail.style.display="none"
   
 // console.log({userName})
   if(userName.admin){ 
@@ -52,6 +58,7 @@ const renderSessionUser = async (userName)=>{
     const btn_agregar = document.getElementById("btnAgregar")
     const btn_modificar = document.getElementById('btnModificar')
     btn_modificar.style.display="none"
+    
     
     const createProductForm = document.getElementById('createProduct__form')
     
@@ -106,7 +113,9 @@ const renderSessionUser = async (userName)=>{
       
       
     }//final de admin
+    chatCard.style.display="flex"
   }
+
   
   // Carga los productos en el form para modificar
     const modifyProducts = (productById)=>{
@@ -218,19 +227,19 @@ const cleanProducts = () => {
   }
 
   const renderMsg =  async (msgData) => {
-      
+    chatDisplay.style.display="flex"
     const {messages,userEmail,createAt,isAdmin} = msgData
     const classMsg =  (localUserName.email == msgData.userEmail ) ? "chat__msg":"chat__msg__own"
     const chatMsg = document.createElement("div")
     const chatOwner = document.createElement("p")
     const ChatText = document.createElement("p")
+    const chatcreateAt = document.createElement("p")
     const chatEmail = document.createElement("p")
-    const chatNombre = document.createElement("p")
-    const chatApellido = document.createElement("p")
-    const chatEdad = document.createElement("p")
-    const chatAlias = document.createElement("p")
-    const chatAvatar = document.createElement("p")
-    const chatText = document.createElement("p")
+    const chatMessages = document.createElement("p")
+    // const chatEdad = document.createElement("p")
+    // const chatAlias = document.createElement("p")
+    // const chatAvatar = document.createElement("p")
+    // const chatText = document.createElement("p")
     const chatDate = document.createElement("p")
 
     chatMsg.classList.add(classMsg)
@@ -239,20 +248,24 @@ const cleanProducts = () => {
     chatDate.classList.add('chat__date')
     chatMsg.appendChild(chatOwner)
     chatMsg.appendChild(chatEmail)
-    chatMsg.appendChild(chatNombre)
-    chatMsg.appendChild(chatApellido)
+    chatMsg.appendChild(chatMessages)
+    chatMsg.appendChild(chatcreateAt)
     // chatMsg.appendChild(chatEdad)
     // chatMsg.appendChild(chatAlias)
     // chatMsg.appendChild(chatAvatar)
     // chatMsg.appendChild(chatText)
-    chatEmail.innerHTML = await isAdmin=="true"? `Admin: ${userEmail}`:`User: ${userEmail}`
-    chatNombre.innerHTML=messages
-    chatApellido.innerHTML=createAt
+    chatEmail.innerHTML = await isAdmin=="true"? `System:`:`User: ${userEmail}`
+    chatMessages.innerHTML=messages
+    chatcreateAt.innerHTML=createAt
+    chatcreateAt.style.color="grey"
+    chatcreateAt.style.margin="10px"
     // chatEdad.innerHTML=edad
     // chatAlias.innerHTML=alias
     // chatAvatar.innerHTML=avatar
     // chatText.innerHTML=text
     chatDisplay.appendChild(chatMsg)
+    chatDisplay.scrollTo(0, chatDisplay.scrollHeight)
+
   }
   
   //enviar mensaje
@@ -262,12 +275,20 @@ const cleanProducts = () => {
     const formData = new FormData(textMsgForm)
     const formValues = Object.fromEntries(formData)
     textMsgForm.reset()
-    const chat = ({...formValues,userEmail:localUserName.email,isAdmin:localUserName.admin})
+    const msgTo = !localUserName.admin ? "System" : formValues.toUserEmail
+    console.log("msgTo, ", msgTo)
+    const chat = ({...formValues,userEmail:localUserName.email,isAdmin:localUserName.admin, to: msgTo})
     // console.log("chat", chat)
     // messageSave(chat)
+    chatDisplay.style.display="flex"
     socket.emit('new msg', chat)
   })
   
+  //cargar mensajes
+  btn_LoadChat.addEventListener("click",()=>{
+    chatDisplay.style.display="flex"
+    socket.emit("all msg")
+  })
 
   const messageSave =async (chat)=>{
     await fetch('/mensajes',{
@@ -312,6 +333,7 @@ const listProducts= ()=>{
     })
   }
   listProducts()
+  
 
 const newProduct = (product)=>{
   fetch('/productos/productos', {
@@ -390,13 +412,22 @@ const productById = (id)=>{
   // }) 
 
   socket.on('all messages', allMsg => {
+    console.log("llegando ", allMsg)
     
     cleanChat()
     
-    for (msgData of allMsg){
-      renderMsg(msgData)
-     }
-     chatDisplay.scrollTo(0, chatDisplay.scrollHeight)
+    if (localUserName.admin){
+      for (msgData of allMsg){
+          renderMsg(msgData)
+        }
+    }else{
+      for (msgData of allMsg){
+        if (msgData.userEmail==localUserName.email|| msgData.to==localUserName.email){
+          renderMsg(msgData)
+        }  
+      }
+    }
+     
     })
 
 

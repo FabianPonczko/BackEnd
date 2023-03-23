@@ -141,70 +141,70 @@ app.use('/',routerChats)
 app.get('*',noRuta)
 
 
-const newProduct = async (newProduct) => {
-  // await productos.products.save(newProduct)
-  await ProductDao.save(newProduct)
-  // const allProduct = await productos.products.getAll()
-  const allProduct = await ProductDao.getAll()
-  io.sockets.emit('all products', allProduct)
-}
+// const newProduct = async (newProduct) => {
+//   // await productos.products.save(newProduct)
+//   await ProductDao.save(newProduct)
+//   // const allProduct = await productos.products.getAll()
+//   const allProduct = await ProductDao.getAll()
+//   io.sockets.emit('all products', allProduct)
+// }
 
-const newModifyProduct = async (id) => {
-  console.log("llegando modificar producto id: ",id)
-  const productById = await ProductDao.getById(id)
-  io.sockets.emit('modify products', productById)
+// const newModifyProduct = async (id) => {
+//   console.log("llegando modificar producto id: ",id)
+//   const productById = await ProductDao.getById(id)
+//   io.sockets.emit('modify products', productById)
 
-} 
-const modificarProducto = async (id,data)=>{
-  console.log('modificando')
-  await ProductDao.updateById(id,data)
-  const allProduct = await ProductDao.getAll()
-  io.sockets.emit('all products', allProduct)
-}
+// } 
+// const modificarProducto = async (id,data)=>{
+//   console.log('modificando')
+//   await ProductDao.updateById(id,data)
+//   const allProduct = await ProductDao.getAll()
+//   io.sockets.emit('all products', allProduct)
+// }
 
-const newDeleteProduct = async (id) => {
-  console.log("llego para borrar: ", id)
-  try {
-    await ProductDao.DeleteById(id.id)
-  } catch (error) {
-    console.log("error: ",error)
-  }
-  const allProduct = await ProductDao.getAll()
-  io.sockets.emit('all products', allProduct)
-}
+// const newDeleteProduct = async (id) => {
+//   console.log("llego para borrar: ", id)
+//   try {
+//     await ProductDao.DeleteById(id.id)
+//   } catch (error) {
+//     console.log("error: ",error)
+//   }
+//   const allProduct = await ProductDao.getAll()
+//   io.sockets.emit('all products', allProduct)
+// }
 
-const newUserConnected = async (socket) => {
+// const newUserConnected = async (socket) => {
       
-       const allMsg = await Messages.getAll()
+//        const allMsg = await Messages.getAll()
   
-  //  const authorData =[]
-  //  for (ele of allMsg){
-  //     authorData.push(
-  //       {author:{
-  //         id:ele.id,
-  //         nombre:ele.nombre,
-  //         apellido:ele.apellido,
-  //         edad:ele.edad,
-  //         alias:ele.alias,
-  //         avatar:ele.avatar,
-  //       },
-  //       text:ele.text
-  //       }
-  //     )
-  //  }
+//   //  const authorData =[]
+//   //  for (ele of allMsg){
+//   //     authorData.push(
+//   //       {author:{
+//   //         id:ele.id,
+//   //         nombre:ele.nombre,
+//   //         apellido:ele.apellido,
+//   //         edad:ele.edad,
+//   //         alias:ele.alias,
+//   //         avatar:ele.avatar,
+//   //       },
+//   //       text:ele.text
+//   //       }
+//   //     )
+//   //  }
    
     
-   const allProducts = await ProductDao.getAll()
-   console.log("mando",userName)
+//    const allProducts = await ProductDao.getAll()
+//    console.log("mando",userName)
     
-    // io.sockets.emit('user', (userName))
+//     // io.sockets.emit('user', (userName))
     
     
-    io.sockets.emit('all products', (allProducts))
+//     io.sockets.emit('all products', (allProducts))
     
-    // const mensajeNormalizer = normalizeData({id:"mensajes",authorData})
-    io.sockets.emit('all messages', allMsg)
-}
+//     // const mensajeNormalizer = normalizeData({id:"mensajes",authorData})
+//     io.sockets.emit('all messages', allMsg)
+// }
 
 const newMessage = async (newMsg,socket) => {
   //  console.log("socket ", newMsg)
@@ -222,7 +222,13 @@ const newMessage = async (newMsg,socket) => {
    
   // const menssageByUser = (messages,createdAt,{userEmail:userEmail.email})
   // newMsg.isAdmin? io.sockets.emit('all messages', allMsg): socket.emit('all messages', allMsg)
+  // io.sockets.emit('all messages', {...allMsg,userEmail:newMsg.userEmail})
   io.sockets.emit('all messages', allMsg)
+}
+
+const allMessages = async (socket)=>{
+  const allMsg = await ChatDao.getAll()
+  socket.emit('all messages', allMsg)
 }
 
 const ProductoByCategory= async (category)=>{
@@ -241,31 +247,34 @@ io.on('connection', socket => {
     console.log(`nuevo cliente conectado: ${socket.id}`)
     // newUserConnected()
 
-    socket.on('new product', newProd => {
-      // newProduct(newProd)
+    // socket.on('new product', newProd => {
+    //   // newProduct(newProd)
 
-    })
+    // })
     socket.on('new msg', newMsg => {
       newMessage(newMsg,socket)
     })
 
-    socket.on('new delete', newMsg => {
-      // newDeleteProduct(newMsg)
+    socket.on('all msg',_ => {
+      allMessages(socket)
     })
+    // socket.on('new delete', newMsg => {
+    //   // newDeleteProduct(newMsg)
+    // })
     
-    let idParaModificar =""
-    socket.on('new modificar producto', newMsg => {
-      idParaModificar=newMsg
-      newModifyProduct(newMsg)
-    })
+    // let idParaModificar =""
+    // socket.on('new modificar producto', newMsg => {
+    //   idParaModificar=newMsg
+    //   newModifyProduct(newMsg)
+    // })
 
-    socket.on('modificar producto', newMsg => {
-      // modificarProducto(idParaModificar,newMsg)
-    })
+    // socket.on('modificar producto', newMsg => {
+    //   // modificarProducto(idParaModificar,newMsg)
+    // })
 
-    socket.on('category', newMsg => {
-      // ProductoByCategory(newMsg)
-    })
+    // socket.on('category', newMsg => {
+    //   // ProductoByCategory(newMsg)
+    // })
 })
 
 
