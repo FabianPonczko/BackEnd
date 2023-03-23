@@ -212,7 +212,6 @@ const newMessage = async (newMsg,socket) => {
     const dateFormated = dayjs(date).format('DD/MM/YYYY hh:mm:ss')
     const chatMsg = ({...newMsg, createAt:`${dateFormated} hs`})
     await ChatDao.save(chatMsg)
-
   // try {
   //   await Messages.save( {id:email,nombre,apellido,edad,alias,avatar,text:textMsg})
   // } catch (error) {
@@ -223,6 +222,8 @@ const newMessage = async (newMsg,socket) => {
   // const menssageByUser = (messages,createdAt,{userEmail:userEmail.email})
   // newMsg.isAdmin? io.sockets.emit('all messages', allMsg): socket.emit('all messages', allMsg)
   // io.sockets.emit('all messages', {...allMsg,userEmail:newMsg.userEmail})
+  
+  
   io.sockets.emit('all messages', allMsg)
 }
 

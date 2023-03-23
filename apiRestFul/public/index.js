@@ -33,7 +33,7 @@ const document_Thumbnail = document.getElementById("thumbnail")
 const renderSessionUser = async (userName)=>{
   console.log("username;" ,userName.admin)
   localUserName=userName
-  console.log("username, ",userName ,"localUserName, ",localUserName )
+  console.log("localUserName, ",localUserName )
   let response = await fetch('./views/sessionUser.hbs')
   const template = await response.text()
   const templateCompiled= Handlebars.compile(template)
@@ -227,7 +227,13 @@ const cleanProducts = () => {
   }
 
   const renderMsg =  async (msgData) => {
-    chatDisplay.style.display="flex"
+    if((msgData.isAdmin=="true" && msgData.to == localUserName.email)||
+    (msgData.isAdmin=="false"&&msgData.to=="System"&& msgData.userEmail==localUserName.email))
+    {
+    //  chatDisplay.style.display="flex"
+    }
+    
+    // chatDisplay.style.display="flex"
     const {messages,userEmail,createAt,isAdmin} = msgData
     const classMsg =  (localUserName.email == msgData.userEmail ) ? "chat__msg":"chat__msg__own"
     const chatMsg = document.createElement("div")
@@ -417,6 +423,7 @@ const productById = (id)=>{
     cleanChat()
     
     if (localUserName.admin){
+       chatDisplay.style.display="flex"
       for (msgData of allMsg){
           renderMsg(msgData)
         }
@@ -424,6 +431,7 @@ const productById = (id)=>{
       for (msgData of allMsg){
         if (msgData.userEmail==localUserName.email|| msgData.to==localUserName.email){
           renderMsg(msgData)
+        }else{
         }  
       }
     }
