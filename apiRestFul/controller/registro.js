@@ -50,7 +50,7 @@ const auth = async(req,res)=>{
     const {email} =req.query 
     const existUser = await UserDao.getOne({ email :email});
     nombreUsuario = existUser.name.split(" ").length > 1 ? existUser.name.split(" ")[0]:existUser.name      // nombre solo
-    req.session.nombre = {nombreUsuario,email:existUser.email,admin:existUser.admin}
+    req.session.nombre = {id:existUser._id,nombreUsuario,email:existUser.email,admin:existUser.admin}
     // console.log(existUser.name.split(" ").length)
     res.cookie("token",req.user.token) 
     res.redirect('/productos')

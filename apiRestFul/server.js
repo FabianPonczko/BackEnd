@@ -18,7 +18,7 @@ const passport =require('passport')
 // const {consola,warn,error} = require('./util/logger.js')
 
 const {Messages} =require('./Dao/messages/messages.js')
-const {ProductDao} = require ('./Dao/factoryDao')
+const {ProductDao, ChatDao, UserDao} = require ('./Dao/factoryDao')
 
 // const { productsMocks } = require('./controller/productsMocks')
 const { noRuta } = require('./controller/noRutas')
@@ -206,35 +206,22 @@ const newUserConnected = async (socket) => {
     io.sockets.emit('all messages', allMsg)
 }
 
-const newMessage = async (newMsg) => {
-  const date = new Date()
-  const dateFormated = dayjs(date).format('DD/MM/YYYY hh:mm:ss')
-  const {email,nombre,apellido,edad,alias,avatar,textMsg} = newMsg
+const newMessage = async (newMsg,socket) => {
+  //  console.log("socket ", newMsg)
+    const date = new Date()
+    const dateFormated = dayjs(date).format('DD/MM/YYYY hh:mm:ss')
+    const chatMsg = ({...newMsg, createAt:`${dateFormated} hs`})
+    await ChatDao.save(chatMsg)
 
-  try {
-    await Messages.save( {id:email,nombre,apellido,edad,alias,avatar,text:textMsg})
-  } catch (error) {
-    console.log('error en Messages.save',error)
-  }
-  const allMsg = await Messages.getAll()
+  // try {
+  //   await Messages.save( {id:email,nombre,apellido,edad,alias,avatar,text:textMsg})
+  // } catch (error) {
+  //   console.log('error en Messages.save',error)
+  // }
+  const allMsg = await ChatDao.getAll()
    
-  //aca normalizo el mensaje y luego enviar al front
-  //   const authorData =[]
-  //   for (ele of allMsg){
-  //     authorData.push(
-  //       {author:{
-  //         id:ele.id,
-  //         nombre:ele.nombre,
-  //         apellido:ele.apellido,
-  //         edad:ele.edad,
-  //         alias:ele.alias,
-  //         avatar:ele.avatar,
-  //       },
-  //       text:ele.text
-  //       }
-  //     )
-  //   }
-  // const mensajeNormalizer = normalizeData({id:"id",authorData})//id:"mensajes",authorData
+  // const menssageByUser = (messages,createdAt,{userEmail:userEmail.email})
+  // newMsg.isAdmin? io.sockets.emit('all messages', allMsg): socket.emit('all messages', allMsg)
   io.sockets.emit('all messages', allMsg)
 }
 
@@ -259,7 +246,7 @@ io.on('connection', socket => {
 
     })
     socket.on('new msg', newMsg => {
-      newMessage(newMsg)
+      newMessage(newMsg,socket)
     })
 
     socket.on('new delete', newMsg => {

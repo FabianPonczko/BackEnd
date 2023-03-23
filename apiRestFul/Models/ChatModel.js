@@ -7,7 +7,9 @@ const ChatSchema = new Schema(
     {
         timeStamp:{type: String, require:true,max:100},
         messages:{type: String, require:true,max:250},
-        user:[{type:Schema.Types.ObjectId,ref: "users"}]
+        createAt:{type: String, require:true,max:100},
+        userEmail:{type: String, require:true,max:100},
+        isAdmin:{type: String, require:true,max:100},
     },
     {
         virtuals:true

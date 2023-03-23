@@ -30,7 +30,7 @@ const document_Thumbnail = document.getElementById("thumbnail")
 const renderSessionUser = async (userName)=>{
   console.log("username;" ,userName.admin)
   localUserName=userName
-  
+  console.log("username, ",userName ,"localUserName, ",localUserName )
   let response = await fetch('./views/sessionUser.hbs')
   const template = await response.text()
   const templateCompiled= Handlebars.compile(template)
@@ -217,9 +217,10 @@ const cleanProducts = () => {
       return foundData.id
   }
 
-  const renderMsg = (msgData) => {
-    const {id,nombre,apellido,edad,alias,avatar,text} = msgData
-    const classMsg =  "chat__msg"
+  const renderMsg =  async (msgData) => {
+      
+    const {messages,userEmail,createAt,isAdmin} = msgData
+    const classMsg =  (localUserName.email == msgData.userEmail ) ? "chat__msg":"chat__msg__own"
     const chatMsg = document.createElement("div")
     const chatOwner = document.createElement("p")
     const ChatText = document.createElement("p")
@@ -240,33 +241,36 @@ const cleanProducts = () => {
     chatMsg.appendChild(chatEmail)
     chatMsg.appendChild(chatNombre)
     chatMsg.appendChild(chatApellido)
-    chatMsg.appendChild(chatEdad)
-    chatMsg.appendChild(chatAlias)
-    chatMsg.appendChild(chatAvatar)
-    chatMsg.appendChild(chatText)
-
-    chatEmail.innerHTML = id
-    chatNombre.innerHTML=nombre
-    chatApellido.innerHTML=apellido
-    chatEdad.innerHTML=edad
-    chatAlias.innerHTML=alias
-    chatAvatar.innerHTML=avatar
-    chatText.innerHTML=text
+    // chatMsg.appendChild(chatEdad)
+    // chatMsg.appendChild(chatAlias)
+    // chatMsg.appendChild(chatAvatar)
+    // chatMsg.appendChild(chatText)
+    chatEmail.innerHTML = await isAdmin=="true"? `Admin: ${userEmail}`:`User: ${userEmail}`
+    chatNombre.innerHTML=messages
+    chatApellido.innerHTML=createAt
+    // chatEdad.innerHTML=edad
+    // chatAlias.innerHTML=alias
+    // chatAvatar.innerHTML=avatar
+    // chatText.innerHTML=text
     chatDisplay.appendChild(chatMsg)
   }
-
+  
+  //enviar mensaje
   textMsgForm.addEventListener('submit', (e) => {
+    // console.log("localUser, " , localUserName.email)
     e.preventDefault()
     const formData = new FormData(textMsgForm)
     const formValues = Object.fromEntries(formData)
-    const chat = (formValues)
-    messageSave(chat)
-    // socket.emit('new msg', formValues)
+    textMsgForm.reset()
+    const chat = ({...formValues,userEmail:localUserName.email,isAdmin:localUserName.admin})
+    // console.log("chat", chat)
+    // messageSave(chat)
+    socket.emit('new msg', chat)
   })
   
 
   const messageSave =async (chat)=>{
-    fetch('/mensajes',{
+    await fetch('/mensajes',{
       method:"POST",
       body: JSON.stringify(chat),
       headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -274,7 +278,7 @@ const cleanProducts = () => {
     .then(data=>{
       return data.json()})
         .then(menssages=>{
-          console.log("menssages: ", menssages)
+          // console.log("menssages: ", menssages)
     })
   }
 
@@ -379,19 +383,16 @@ const productById = (id)=>{
  
   //llegan los mensajes normalizados
 
-  const author = new normalizr.schema.Entity('author',{idAttribute: 'id'})//{idAttribute: 'email'}
+  // const author = new normalizr.schema.Entity('author',{idAttribute: 'id'})//{idAttribute: 'email'}
 
-  const mensajes = new normalizr.schema.Entity('mensajes',{
-      mensajes : author
-  }) 
+  // const mensajes = new normalizr.schema.Entity('mensajes',{
+  //     mensajes : author
+  // }) 
 
   socket.on('all messages', allMsg => {
-    messages = allMsg
-    //desnormalizo los mensajes para mostrarlos en el dom
-    console.log(allMsg)
-    // const allMsgDesnormalized = normalizr.denormalize(allMsg.result,mensajes, allMsg.entities)
+    
     cleanChat()
-    //  for (msgData of allMsgDesnormalized.authorData){
+    
     for (msgData of allMsg){
       renderMsg(msgData)
      }

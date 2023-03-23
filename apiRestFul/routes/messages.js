@@ -14,8 +14,8 @@ router.post('/mensajes/',async (req,res)=>{
     console.log("message de body: ",message)
     const date = new Date()
     const dateFormated = dayjs(date).format('DD/MM/YYYY hh:mm:ss')
-    // const chat =(m)
-    const userMessages = await ChatDao.save(message)
+    const chatMsg = ({...message, createAt:`${dateFormated} hs`})
+    const userMessages = await ChatDao.save(chatMsg)
     res.json(userMessages)
 })
 
