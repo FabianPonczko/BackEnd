@@ -31,19 +31,13 @@ module.exports =  class CartMongo extends MongoDbContainer{
         return response
     }
     async save(id){
-        console.log("id",id)
         const cartById = await this.getByObjectId({products:id.products})
-        console.log(" caertById ",cartById)
         if(cartById.length>0){
             const id = cartById[0]._id
-            console.log(cartById[0].quantity)
              return await this.updateById(id,{quantity:cartById[0].quantity+1})
-            
-        }else{
-            quantity=1
-        }
+        }     
         
-        const newCart = ({...id, quantity:quantity})
+        const newCart = ({...id, quantity:1})
         const response = await this.model.create(newCart)
         return response
     }
