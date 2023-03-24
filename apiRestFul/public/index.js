@@ -27,9 +27,7 @@ const document_Thumbnail = document.getElementById("thumbnail")
 
 //banner de session de usuario
 const renderSessionUser = async (userName)=>{
-  console.log("username;" ,userName.admin)
   localUserName=userName
-  console.log("localUserName, ",localUserName )
   let response = await fetch('./views/sessionUser.hbs')
   const template = await response.text()
   const templateCompiled= Handlebars.compile(template)
@@ -70,7 +68,7 @@ const renderSessionUser = async (userName)=>{
     
     const deleteForm = document.getElementById('borrarProduct__form')      
     
-    //delete
+    //delete producto
     deleteForm.addEventListener('submit', (e) => {
         e.preventDefault()
         const deleteFormData = new FormData(deleteForm)
@@ -127,7 +125,6 @@ const cleanProducts = () => {
     productSection.innerHTML = ""
   }
   const renderProducts = async (products,category) => {
-    // productSection.innerHTML = ""
     let response = await fetch('./views/tableProducts.hbs')
     const template = await response.text()
     const templateCompiled = Handlebars.compile(template)
@@ -150,9 +147,10 @@ const cleanProducts = () => {
     const documentID = document.querySelectorAll(".comprar_Id")
     documentID.forEach((item)=>{
       // console.log(item.id.split("_").pop())
-      const button_Id = item.id.split("_").pop()
+      const product_id = item.id.split("_").pop()
       item.addEventListener("click",()=>{
-        console.log(`el boton ${button_Id} fue clickeado`)
+        console.log(`el boton ${product_id} fue clickeado`)
+        comprarProduct(product_id)
       })
     })
   
@@ -202,7 +200,7 @@ const cleanProducts = () => {
     if(foundData.id)
       return foundData.id
   }
-
+  
   const renderMsg =  async (msgData) => {
     if((msgData.isAdmin=="true" && msgData.to == localUserName.email)||
     (msgData.isAdmin=="false"&&msgData.to=="System"&& msgData.userEmail==localUserName.email)) {
@@ -283,6 +281,17 @@ const listProducts= ()=>{
   }
   listProducts()
   
+  const comprarProduct=(product_id)=>{
+    fetch('/carrito', {
+      method: "POST",
+      body: JSON.stringify({products:product_id}),
+      headers: {"Content-type": "application/json; charset=UTF-8"}})
+        .then(data=>{
+          return data.json()})
+            .then(cart=>{
+              // renderProducts(cart)
+          })
+  }
 
 const newProduct = (product)=>{
   fetch('/productos/productos', {
