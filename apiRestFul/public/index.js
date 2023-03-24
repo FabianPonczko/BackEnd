@@ -25,10 +25,6 @@ const document_Price = document.getElementById("price")
 const document_Category = document.getElementById("category")
 const document_Thumbnail = document.getElementById("thumbnail") 
 
-
-
-// const comprar_id = document.getElementById(documentID)
-
 //banner de session de usuario
 const renderSessionUser = async (userName)=>{
   console.log("username;" ,userName.admin)
@@ -39,26 +35,19 @@ const renderSessionUser = async (userName)=>{
   const templateCompiled= Handlebars.compile(template)
   const html = templateCompiled({userName:userName.nombreUsuario})
   loginSession.innerHTML = html
-
   
   localUserName.admin? btn_UserEmail.style.display="block":btn_UserEmail.style.display="none"
   
-// console.log({userName})
   if(userName.admin){ 
-
-
     let paginaIngresoProducts = await fetch('./views/ingresoProducts.hbs')
     const templateIngresoProducts = await paginaIngresoProducts.text()
     const templateCompiledIngresoProducts= Handlebars.compile(templateIngresoProducts)
     const hbsIngresoProducts = templateCompiledIngresoProducts()
     ingresoProductosDiv.innerHTML = hbsIngresoProducts
     
-    
-    
     const btn_agregar = document.getElementById("btnAgregar")
     const btn_modificar = document.getElementById('btnModificar')
     btn_modificar.style.display="none"
-    
     
     const createProductForm = document.getElementById('createProduct__form')
     
@@ -108,15 +97,10 @@ const renderSessionUser = async (userName)=>{
       })
 
       
-      
-      
-      
-      
     }//final de admin
     chatCard.style.display="flex"
   }
 
-  
   // Carga los productos en el form para modificar
     const modifyProducts = (productById)=>{
       const createProductForm = document.getElementById('createProduct__form')
@@ -138,7 +122,6 @@ const renderSessionUser = async (userName)=>{
       document_Thumbnail.value = productById.thumbnail
 
     }
-
 
 const cleanProducts = () => {
     productSection.innerHTML = ""
@@ -163,8 +146,6 @@ const cleanProducts = () => {
       }
     }
     
-    
-
   // boton comprar producto
     const documentID = document.querySelectorAll(".comprar_Id")
     documentID.forEach((item)=>{
@@ -206,12 +187,8 @@ const cleanProducts = () => {
         console.log("click categoryId",category)
         productsByCategory(category)
       })
-      // document_Category_Filter.value=category||"Todos"
   }
 
-
-  
-   
   const cleanChat = () => {
     chatDisplay.innerHTML = ""
   }
@@ -228,12 +205,9 @@ const cleanProducts = () => {
 
   const renderMsg =  async (msgData) => {
     if((msgData.isAdmin=="true" && msgData.to == localUserName.email)||
-    (msgData.isAdmin=="false"&&msgData.to=="System"&& msgData.userEmail==localUserName.email))
-    {
-    //  chatDisplay.style.display="flex"
+    (msgData.isAdmin=="false"&&msgData.to=="System"&& msgData.userEmail==localUserName.email)) {
     }
     
-    // chatDisplay.style.display="flex"
     const {messages,userEmail,createAt,isAdmin} = msgData
     const classMsg =  (localUserName.email == msgData.userEmail ) ? "chat__msg":"chat__msg__own"
     const chatMsg = document.createElement("div")
@@ -242,12 +216,7 @@ const cleanProducts = () => {
     const chatcreateAt = document.createElement("p")
     const chatEmail = document.createElement("p")
     const chatMessages = document.createElement("p")
-    // const chatEdad = document.createElement("p")
-    // const chatAlias = document.createElement("p")
-    // const chatAvatar = document.createElement("p")
-    // const chatText = document.createElement("p")
     const chatDate = document.createElement("p")
-
     chatMsg.classList.add(classMsg)
     ChatText.classList.add(classMsg)
     chatOwner.classList.add('chat__owner')
@@ -256,27 +225,17 @@ const cleanProducts = () => {
     chatMsg.appendChild(chatEmail)
     chatMsg.appendChild(chatMessages)
     chatMsg.appendChild(chatcreateAt)
-    // chatMsg.appendChild(chatEdad)
-    // chatMsg.appendChild(chatAlias)
-    // chatMsg.appendChild(chatAvatar)
-    // chatMsg.appendChild(chatText)
-    chatEmail.innerHTML = await isAdmin=="true"? `System:`:`User: ${userEmail}`
-    chatMessages.innerHTML=messages
+    chatEmail.innerHTML = await isAdmin=="true"? `System: to ${msgData.to}`:`User: ${userEmail}`
+    chatMessages.innerHTML=`<span style="color:blue">Msg: </span> <br/> ${messages}`
     chatcreateAt.innerHTML=createAt
     chatcreateAt.style.color="grey"
     chatcreateAt.style.margin="10px"
-    // chatEdad.innerHTML=edad
-    // chatAlias.innerHTML=alias
-    // chatAvatar.innerHTML=avatar
-    // chatText.innerHTML=text
     chatDisplay.appendChild(chatMsg)
     chatDisplay.scrollTo(0, chatDisplay.scrollHeight)
-
   }
   
   //enviar mensaje
   textMsgForm.addEventListener('submit', (e) => {
-    // console.log("localUser, " , localUserName.email)
     e.preventDefault()
     const formData = new FormData(textMsgForm)
     const formValues = Object.fromEntries(formData)
@@ -284,8 +243,6 @@ const cleanProducts = () => {
     const msgTo = !localUserName.admin ? "System" : formValues.toUserEmail
     console.log("msgTo, ", msgTo)
     const chat = ({...formValues,userEmail:localUserName.email,isAdmin:localUserName.admin, to: msgTo})
-    // console.log("chat", chat)
-    // messageSave(chat)
     chatDisplay.style.display="flex"
     socket.emit('new msg', chat)
   })
@@ -305,29 +262,15 @@ const cleanProducts = () => {
     .then(data=>{
       return data.json()})
         .then(menssages=>{
-          // console.log("menssages: ", menssages)
     })
   }
 
   socket.on('user', userName  => {    
-    console.log("llegan",userName)  
     if(userName==null){
-      // location.href="/login"
       location.href="/loginEmail"
     }
-    // localUserName!=""?"":localUserName=userName
-    console.log("llegan userName:",userName)  
-    console.log("llegan localUserName:",localUserName)  
-    
-
     renderSessionUser(userName)
   })
-  // socket.on('all products', (allProduct)  => { 
-  //   products = allProduct
-  //   cleanProducts()
-  //   renderProducts(allProduct)
-  //   // renderLoginUser(userName)
-  // })
 
 const listProducts= ()=>{
   fetch('/productos/productos')
@@ -391,37 +334,22 @@ const productById = (id)=>{
       return data.json()
     })
       .then(products=>{
-        console.log("products devuelto por fetch: ",products)
         modifyProducts(products)
       })
 }
   
   socket.on('products by category',(byCategory)=>{
-    console.log("allproduct ",byCategory)
     cleanProducts()
     renderProducts(byCategory)
   })
   
   socket.on('modify products', (productById)  => {    
     products = productById
-    console.log("productById",productById)
     modifyProducts(productById)
-  // renderLoginUser(userName)
   })
- 
-  //llegan los mensajes normalizados
-
-  // const author = new normalizr.schema.Entity('author',{idAttribute: 'id'})//{idAttribute: 'email'}
-
-  // const mensajes = new normalizr.schema.Entity('mensajes',{
-  //     mensajes : author
-  // }) 
 
   socket.on('all messages', allMsg => {
-    console.log("llegando ", allMsg)
-    
     cleanChat()
-    
     if (localUserName.admin){
      chatDisplay.style.display="flex"
       for (msgData of allMsg){
@@ -439,7 +367,6 @@ const productById = (id)=>{
         chatDisplay.style.display="flex"
       }
     }
-     
     })
 
 
