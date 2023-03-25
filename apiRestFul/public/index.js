@@ -28,6 +28,7 @@ const document_Thumbnail = document.getElementById("thumbnail")
 //banner de session de usuario
 const renderSessionUser = async (userName)=>{
   localUserName=userName
+  console.log("localuserName", localUserName)
   let response = await fetch('./views/sessionUser.hbs')
   const template = await response.text()
   const templateCompiled= Handlebars.compile(template)
@@ -284,7 +285,7 @@ const listProducts= ()=>{
   const comprarProduct=(product_id)=>{
     fetch('/carrito', {
       method: "POST",
-      body: JSON.stringify({products:product_id}),
+      body: JSON.stringify({products:product_id,user:localUserName.id}),
       headers: {"Content-type": "application/json; charset=UTF-8"}})
         .then(data=>{
           return data.json()})

@@ -8,7 +8,8 @@ const CartSchema = new Schema(
         timeStamp:{type: String, require:true,max:100},
         title:{type: String, require:true,max:100},
         products: {type:Schema.Types.ObjectId,ref: "products"},
-        quantity:{type:Number}
+        quantity:{type:Number},
+        user:{type: String, require:true,max:100},
     },
     {
         virtuals:true

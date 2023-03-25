@@ -18,5 +18,15 @@ module.exports =  class UsersMongo extends MongoDbContainer {
       }
       return instancia
     }
+    async getAll(option) {
+      let response
+       if(option){
+           response = await this.model.find(option).populate("carts")
+      }else{
+           response = await this.model.find().populate("carts")
+      }
+      return response
+   }
+  
   }
 
