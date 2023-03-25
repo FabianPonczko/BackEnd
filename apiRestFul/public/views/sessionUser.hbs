@@ -1,6 +1,14 @@
     {{#if userName }}
 <div >
-    <h3>Bienvenido {{userName}} <button onclick="location.href='/destroy'">Desconectar</button> </h3>
+    <button type="button" class="btn position-absolute start-0" onclick="location.href='/userCart'">
+  cart
+  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    {{userCartQuantity}}+
+    
+    <span class="visually-hidden">unread messages</span>
+  </span>
+</button>
+    <h3>Bienvenido {{userName}}  <button class="btn position-absolute top-0 end-0" onclick="location.href='/destroy'">Desconectar</button> </h3>
 </div>
     {{/if}}
 

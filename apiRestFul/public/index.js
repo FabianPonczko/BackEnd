@@ -26,13 +26,13 @@ const document_Category = document.getElementById("category")
 const document_Thumbnail = document.getElementById("thumbnail") 
 
 //banner de session de usuario
-const renderSessionUser = async (userName)=>{
+const renderSessionUser = async (userName,userCartQuantity)=>{
   localUserName=userName
-  console.log("localuserName", localUserName)
+  console.log("localuserName", localUserName,userCartQuantity)
   let response = await fetch('./views/sessionUser.hbs')
   const template = await response.text()
   const templateCompiled= Handlebars.compile(template)
-  const html = templateCompiled({userName:userName.nombreUsuario})
+  const html = templateCompiled({userName:userName.nombreUsuario,userCartQuantity:userCartQuantity})
   loginSession.innerHTML = html
   
   localUserName.admin? btn_UserEmail.style.display="block":btn_UserEmail.style.display="none"
@@ -147,6 +147,7 @@ const cleanProducts = () => {
   // boton comprar producto
     const documentID = document.querySelectorAll(".comprar_Id")
     documentID.forEach((item)=>{
+      console.log("item",item)
       // console.log(item.id.split("_").pop())
       const product_id = item.id.split("_").pop()
       item.addEventListener("click",()=>{
@@ -158,7 +159,7 @@ const cleanProducts = () => {
   // boton borrar producto
      const documentBorrarID = document.querySelectorAll(".borrar_Id")
      documentBorrarID.forEach((item)=>{
-      //  console.log(item.id.split("_").pop())
+       console.log(item.id.split("_").pop())
        const Borrar_Id = item.id.split("_").pop()
        item.addEventListener("click",()=>{
          console.log(`el boton ${Borrar_Id} fue clickeado`)
@@ -275,9 +276,10 @@ const listProducts= ()=>{
   fetch('/productos/productos')
     .then(data=>{
       return data.json()})
-        .then(products=>{
-          renderProducts(products.products)
-          renderSessionUser(products.user)
+        .then(data=>{
+          renderProducts(data.products)
+          renderSessionUser(data.user,data.userCartQuantity)
+          // res.json({products:products,user:user,userCartQuantity:quantity})
     })
   }
   listProducts()

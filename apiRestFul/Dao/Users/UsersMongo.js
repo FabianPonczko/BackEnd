@@ -21,12 +21,17 @@ module.exports =  class UsersMongo extends MongoDbContainer {
     async getAll(option) {
       let response
        if(option){
-           response = await this.model.find(option).populate("carts")
+           response = await this.model.find(option).populate("carts").lean()
       }else{
-           response = await this.model.find().populate("carts")
+          response = await this.model.find().populate({path:"carts",populate: {path:'products'}}).lean()
+          // response = await this.model.find().populate("carts")
       }
       return response
    }
+   async getById(id) {
+    const response = await this.model.findById(id).populate({path:"carts",populate: {path:'products'}}).lean()
+    return response
+}
   
   }
 

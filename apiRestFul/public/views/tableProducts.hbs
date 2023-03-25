@@ -15,7 +15,7 @@
       
       
   </div>
-<div class="m-5 text-center card" >
+<div class="m-5 text-center card" style="background-color:rgba(201, 206, 218, 0.607)" >
   <h1>Tabla de productos</h3>
   
 
@@ -36,14 +36,14 @@
     <tbody>
       {{#each products}}
       <tr>
-        <th class="isVisible" scope="row">{{this.id}}</th>
+        <th class="isVisible" scope="row">{{this._id}}</th>
         <td>{{this.title}}</td>
         <td>{{this.price}}</td>
         <td><img width="50px" height= "50px" src={{this.thumbnail}} /></td>
         <td>{{this.category}}</td>
-        <td><button class="comprar_Id btn btn-success" id="comprar_{{this.id}}">🛒</button></td>
-        <td><button class="modificar_Id btn btn-warning" id="modificar_{{this.id}}" >Modificar</button></td>
-        <td><button class="borrar_Id btn btn-danger" id="borrar_{{this.id}}" >Eliminar</button></td>
+        <td><button class="comprar_Id btn btn-success" id="comprar_{{this._id}}">🛒</button></td>
+        <td><button class="modificar_Id btn btn-warning" id="modificar_{{this._id}}" >Modificar</button></td>
+        <td><button class="borrar_Id btn btn-danger" id="borrar_{{this._id}}" >Eliminar</button></td>
         <td></td>
         </tr>
       {{/each}}

@@ -1,13 +1,17 @@
 const express = require('express')
 const router = express.Router()
-const {ProductDao} = require('../Dao/factoryDao')
+const {ProductDao, UserDao} = require('../Dao/factoryDao')
 
 
 router.get("/productos",async (req,res)=>{
     console.log("pidiendo productos/products por get")
     const user= req.session.nombre
     const products = await ProductDao.getAll()
-    res.json({products:products,user:user})
+    console.log("productos" , products)
+    const carts = await UserDao.getAll()
+    console.log("carts ", carts.length)
+    const quantity = carts.length
+    res.json({products:products,user:user,userCartQuantity:quantity})
 })
 
 router.post("/productos",async (req,res)=>{

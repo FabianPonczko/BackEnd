@@ -31,12 +31,19 @@ module.exports =  class CartMongo extends MongoDbContainer{
         return response
     }
     async save(id){
-        console.log("1",id)
+        // console.log("1",id)
         const cartById = await this.getByObjectId({user:id.user})
-        console.log("cartById ",cartById)
+        // console.log("cartById ",cartById)
         
-        for(item of cartById){
+        
+        for(const item of cartById){
             
+            if(String(item.products) == String(id.products)){
+                // console.log("igual",item._id)
+                const response = await this.updateById(item._id,{quantity:item.quantity+1})
+                // console.log("response ",response)
+                return response
+            }
         }
         // if(cartById.length>0&&cartById[0].products==id.products){
         //       const id = cartById[0]._id
@@ -44,7 +51,7 @@ module.exports =  class CartMongo extends MongoDbContainer{
         //       return response
         // }
               
-        console.log("111",id.products)
+        // console.log("111",id.products)
         const newCart = ({...id, quantity:1})
         // // console.log(newCart)
         const response = await this.model.create(newCart)

@@ -5,7 +5,7 @@ const dayjs = require("dayjs")
 const customParseFormat = require('dayjs/plugin/customParseFormat')
 const handlebars = require('express-handlebars')
 const {engine} = require('express-handlebars')
-const {routerCarts,routerDestroy,routerInfo,routerLogin, routerProducts,routerChats} = require ('./routes/index.js')
+const {routerCarts,routerDestroy,routerInfo,routerLogin, routerProducts,routerChats,routerUserCart} = require ('./routes/index.js')
 const session = require ('express-session')
 const sesiones = require('./sessionConfig/session.js')
 const {PassportAuth} =require('./middlewares/passportAuth')
@@ -77,6 +77,8 @@ app.use('/',routerDestroy)
 app.use('/', routerInfo)
 
 app.use('/',routerCarts)
+
+app.use('/',routerUserCart)
 
 app.use('/productos', routerProducts)
 

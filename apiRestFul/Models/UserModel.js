@@ -11,7 +11,7 @@ const UserSchema = new Schema({
     email:{type: String, require:true,max:150},
     password:{type: String, require:true,max:150},
     admin:{type: Boolean},
-    carts:[{type:Schema.Types.ObjectId,ref: "carts"},]
+    carts:[{type:Schema.Types.ObjectId,ref: "carts"}]
 },
 {
     virtuals:true

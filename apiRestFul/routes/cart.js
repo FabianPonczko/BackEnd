@@ -20,6 +20,8 @@ router.get('/carrito', async(req,res)=>{
 router.post("/carrito",async (req,res)=>{
     const productId= req.body //id del producto y id del usuario
     const respuesta = await CartDao.save(productId)
+    console.log("resp: ",respuesta)//devuelve el carrito creado
+
     // console.log("2",respuesta)//_id id del carrito
     
     // const userCart = await UserDao.getById(productId.user)
@@ -27,8 +29,34 @@ router.post("/carrito",async (req,res)=>{
 
     // const cart = userCart.carts
 
-
-    // await UserDao.updateById(respuesta.user,{cart:respuesta._id})
+    const userCart = await UserDao.getById(respuesta.user)
+    console.log("usuario encontrado ",userCart)//el usuario encontrado
+    let newCarts=userCart.carts
+    console.log("newcard",newCarts)
+    console.log(newCarts.length)
+    if(!newCarts.length>0){
+        return await UserDao.updateById(respuesta.user,{carts:respuesta._id})     
+    }
+    
+      for (const item of newCarts){
+         console.log("item ",item  ,"type ", typeof item , "respuesta ", respuesta ,"type ", typeof respuesta )
+         
+          if(String(item.products._id) === String(respuesta.products)){
+                console.log("igual")
+              return await UserDao.updateById(respuesta.user,item.products.id)     
+            }
+        // else{
+        //     //  newCarts.push(respuesta._id)
+        //     console.log("no igual")
+        //     const copyCarts = newCarts
+        //     copyCarts.push(respuesta._id)
+        //     return  await UserDao.updateById(respuesta.user,{carts:copyCarts})
+        //  }
+      }
+            const copyCarts = newCarts
+            copyCarts.push(respuesta._id)
+            return  await UserDao.updateById(respuesta.user,{carts:copyCarts})
+            // await UserDao.updateById(respuesta.user,{carts:respuesta._id})
     
     const carts = await CartDao.getAll()
     res.json(carts)

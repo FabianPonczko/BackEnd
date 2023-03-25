@@ -1,0 +1,38 @@
+
+<div class="m-5 text-center card" >
+  <h1>Carrito de compra</h3>
+  
+
+  <table class="table table-hover">
+    <thead>
+      {{#if products}}
+
+      <tr>
+        <th hidden scope="col" >ID</th>
+        <th scope="col">Titulo</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Minuatura</th>
+        <th scope="col">Cantidad</th>
+        {{!-- <th class="modificar_Id" scope="col">Modificar</th> --}}
+        <th class="borrar_Id" scope="col">Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {{#each products}}
+      <tr>
+        <th hidden scope="row">{{this._id}}</th>
+        <td>{{this.products.title}}</td>
+        <td>{{this.products.price}}</td>
+        <td><img width="50px" height= "50px" src={{this.products.thumbnail}} /></td>
+        <td>{{this.quantity}}</td>
+        <td><button class="borrar_Id btn btn-danger" id="borrar_{{this.id}}" >Eliminar</button></td>
+        <td></td>
+        </tr>
+      {{/each}}
+       {{else}}
+          <p id="products_empty" style="color:red">Carrito vacio</p>
+      {{/if}}
+    </tbody>
+  </table>
+</div>

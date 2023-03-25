@@ -9,9 +9,9 @@ class MongoDbContainer{
     async getAll(option) {
        let response
         if(option){
-            response = await this.model.find(option) 
+            response = await this.model.find(option).lean()
        }else{
-            response = await this.model.find()
+            response = await this.model.find().lean()
        }
        return response
     }

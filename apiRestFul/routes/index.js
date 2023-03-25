@@ -5,6 +5,7 @@ const routerApirandons = require('./apiRandom.js')
 const routerProducts = require('./products.js')
 const routerChats= require('./messages.js')
 const routerCarts = require('./cart.js')
+const routerUserCart = require('./userCart.js')
 
 module.exports = {
     routerLogin,
@@ -13,5 +14,6 @@ module.exports = {
     routerInfo,
     routerProducts,
     routerChats,
-    routerCarts
+    routerCarts,
+    routerUserCart
 }
