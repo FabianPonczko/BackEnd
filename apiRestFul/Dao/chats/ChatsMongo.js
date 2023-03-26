@@ -1,4 +1,4 @@
-const { MongoDbContainer } = require("../../Containers/MongoDbContainer");
+const { MongoDbContainer } = require("./../../containers/MongoDbContainer");
 const { ChatModels } = require("../../Models/ChatModel");
 
 let instancia = null

@@ -16918,3 +16918,6 @@
 {"level":40,"time":1679808417802,"pid":12484,"hostname":"PcFabian","msg":"falta usuario o password"}
 {"level":40,"time":1679808417981,"pid":12484,"hostname":"PcFabian","msg":"Metodo: GET de la Ruta: /favicon.ico no corresponde a una ruta valida"}
 {"level":40,"time":1679808441931,"pid":12484,"hostname":"PcFabian","msg":"Metodo: GET de la Ruta: /favicon.ico no corresponde a una ruta valida"}
+{"level":40,"time":1679814274878,"pid":1252,"hostname":"PcFabian","msg":"Metodo: GET de la Ruta: / no corresponde a una ruta valida"}
+{"level":40,"time":1679814276289,"pid":1252,"hostname":"PcFabian","msg":"Metodo: GET de la Ruta: /favicon.ico no corresponde a una ruta valida"}
+{"level":40,"time":1679814282143,"pid":1252,"hostname":"PcFabian","msg":"Metodo: GET de la Ruta: /favicon.ico no corresponde a una ruta valida"}
