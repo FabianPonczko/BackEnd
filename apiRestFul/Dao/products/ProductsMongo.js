@@ -1,5 +1,5 @@
 const {MongoDbContainer}  = require ('./../../containers/MongoDbContainer')
-const {ProductModels} = require('../../Models/ProductModel.js')
+const {ProductModels} = require('./../../Models/ProductModel.js')
 
 let instancia=null
 

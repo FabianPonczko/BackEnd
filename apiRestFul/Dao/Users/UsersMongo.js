@@ -1,6 +1,6 @@
 
 const {MongoDbContainer} = require('./../../containers/MongoDbContainer')
-const {UserModel} = require('../../models/UserModel.js')
+const {UserModel} = require('./../../Models/UserModel')
 
 let instancia = null
 module.exports =  class UsersMongo extends MongoDbContainer {
