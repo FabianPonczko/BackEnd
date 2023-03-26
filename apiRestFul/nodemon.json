@@ -1,6 +1,0 @@
-{
-    "ignore":["./sessiones"],
-    "events":{
-        "start":"cls"
-    }
-}
