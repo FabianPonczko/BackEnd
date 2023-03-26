@@ -1,5 +1,5 @@
 const {consola,warn,error} = require('../util/logger.js')
-const {UserDao} = require('../Dao/factoryDao.js')
+const {UserDao} = require('./../Dao/factoryDao.js')
 const bcrypt = require('bcrypt');
 const session = require ('express-session')
 const {emailNuevoUsuario} = require('./../services/nodemailer')
