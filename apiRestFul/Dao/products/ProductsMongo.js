@@ -18,8 +18,13 @@ module.exports =  class ProductMongo extends MongoDbContainer {
         }
         return instancia
     }
-    async getAll() {
-        const response = await this.model.find().lean()
+    async getAll(option) {
+        let response
+         if(option){
+             response = await this.model.find(option).lean()
+        }else{
+             response = await this.model.find().lean()
+        }
         return response
-    }
+     }
 }

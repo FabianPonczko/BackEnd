@@ -28,9 +28,18 @@
         <td>{{this.quantity}}</td>
         <td><button class="borrarCart_Id btn btn-danger" id="borrarCart_{{this._id}}" >Eliminar</button></td>
         <td></td>
-        </tr>
+      </tr>
       {{/each}}
-        
+      
+      <table>
+        <td>
+          <button class="btn btn-success">Continuar</button>
+        </td>
+        <td>
+          <button class="btn btn-warning" id="backToProduct">Salir</button>
+        </td>
+      </table>
+      
 
        {{else}}
           <p id="products_empty" style="color:red">Carrito vacio</p>

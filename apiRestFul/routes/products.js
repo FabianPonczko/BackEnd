@@ -1,4 +1,5 @@
 const express = require('express')
+const { PROTOCOL } = require('sqlite3')
 const router = express.Router()
 const {ProductDao, UserDao} = require('../Dao/factoryDao')
 
@@ -42,7 +43,8 @@ router.get("/productos/:id",async (req,res)=>{
 router.get("/category/:category",async (req,res)=>{
     const category = req.params.category
     console.log("cattegory ", category)
-    const products = category=="Sin filtro"? await ProductDao.getAll(): await ProductDao.getAll({category:category})
+    const products = category == "Sin filtro" ? await ProductDao.getAll(): await ProductDao.getAll({category:category})
+    console.log("pro CAT: ",products)
     res.json(products)
 })
 

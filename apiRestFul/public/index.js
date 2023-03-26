@@ -39,6 +39,8 @@ const renderSessionUser = async (userName,userCartQuantity)=>{
   cartBoton.addEventListener("click",()=>{
     productCartList(localUserName.id)
   })
+ 
+
   
   localUserName.admin? btn_UserEmail.style.display="block":btn_UserEmail.style.display="none"
   
@@ -207,8 +209,12 @@ const cleanProducts = () => {
     const templateCompiled= Handlebars.compile(template)
     const html = templateCompiled({products})
     productSection.innerHTML = html
-    }  
-   
+
+    const backToProduct = document.getElementById('backToProduct')
+    backToProduct.addEventListener('click',()=>{
+      listProducts()
+    })
+  }  
 
 
 // boton borrar product in cart
