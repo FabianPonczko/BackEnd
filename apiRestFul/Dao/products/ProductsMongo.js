@@ -27,4 +27,16 @@ module.exports =  class ProductMongo extends MongoDbContainer {
         }
         return response
      }
+     async getById(id) {
+        try {
+            const response = await this.model.findById(id)
+            if (!response){
+                return {producto:"no encontrado"}    
+            }
+            return response
+        } catch (error) {
+            return {error}
+        }
+        
+    }
 }

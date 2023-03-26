@@ -2,7 +2,7 @@ const {consola,warn,error} = require('../util/logger.js')
 const {UserDao} = require('../Dao/factoryDao.js')
 const bcrypt = require('bcrypt');
 const session = require ('express-session')
-
+const {emailNuevoUsuario} = require('./../services/nodemailer')
 
 const registro = async(req,res)=>{
   const {url,method} = req
@@ -37,6 +37,9 @@ const registro = async(req,res)=>{
           await UserDao.save({ name, adress, age, phone, email, password :passwordHash,admin:false});
       
           console.log({ success: true });
+
+          emailNuevoUsuario(email, name, adress, age, phone)
+          
         } catch (error) {
           console.log("estamos aqui :",error);
       

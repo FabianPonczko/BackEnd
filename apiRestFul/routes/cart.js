@@ -13,18 +13,12 @@ router.post("/carrito",async (req,res)=>{
     const productId= req.body //id del producto y id del usuario
     const respuesta = await CartDao.save(productId)
     const userCart = await UserDao.getById(respuesta.user)
-    console.log("usuario encontrado ",userCart)//el usuario encontrado
     let newCarts=userCart.carts
-    console.log("newcard",newCarts)
-    console.log(newCarts.length)
     if(!newCarts.length>0){
         return await UserDao.updateById(respuesta.user,{carts:respuesta._id})     
     }
       for (const item of newCarts){
-         console.log("item ",item  ,"type ", typeof item , "respuesta ", respuesta ,"type ", typeof respuesta )
-         
           if(String(item.products._id) === String(respuesta.products)){
-                console.log("igual")
               return await UserDao.updateById(respuesta.user,item.products.id)     
             }
       }

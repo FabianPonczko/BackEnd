@@ -28,7 +28,6 @@ const document_Thumbnail = document.getElementById("thumbnail")
 //banner de session de usuario
 const renderSessionUser = async (userName,userCartQuantity)=>{
   localUserName=userName
-  console.log("localuserName", localUserName,userCartQuantity)
   let response = await fetch('./views/sessionUser.hbs')
   const template = await response.text()
   const templateCompiled= Handlebars.compile(template)
@@ -59,7 +58,6 @@ const renderSessionUser = async (userName,userCartQuantity)=>{
     
     //nuevo producto 
     createProductForm.addEventListener('submit', (e) => {
-      console.log("boton agregar")
       e.preventDefault()
       const formData = new FormData(createProductForm)
       const formValues = Object.fromEntries(formData)
@@ -81,7 +79,6 @@ const renderSessionUser = async (userName,userCartQuantity)=>{
         e.preventDefault()
         const deleteFormData = new FormData(deleteForm)
         const deleteIdValues = Object.fromEntries(deleteFormData)
-        console.log(deleteIdValues.id)
         deleteForm.reset()
          productBorrar(deleteIdValues.id)
   
@@ -93,7 +90,6 @@ const renderSessionUser = async (userName,userCartQuantity)=>{
         const dataProduct = new FormData(createProductForm)
         const dates = Object.fromEntries(dataProduct)
         createProductForm.reset()
-        console.log("los nuevos datos: ",dates)
         btn_agregar.style.display="block"
         btn_agregar.disabled=false
         btn_modificar.style.display="none"
@@ -101,12 +97,10 @@ const renderSessionUser = async (userName,userCartQuantity)=>{
         idProductModify=""
         
       })
-
       
     }//final de admin
     chatCard.style.display="flex"
   }
-  
   
 
   // Carga los productos en el form para modificar
@@ -116,7 +110,6 @@ const renderSessionUser = async (userName,userCartQuantity)=>{
       const document_Price = document.getElementById("price")
       const document_Category = document.getElementById("category")
       const document_Thumbnail = document.getElementById("thumbnail") 
-      console.log("llegan: ",productById)
       createProductForm.scrollIntoView(0,0)
       const btn_modificar = document.getElementById('btnModificar')
       btn_modificar.style.display="block"
@@ -156,11 +149,8 @@ const cleanProducts = () => {
   // boton comprar producto
     const documentID = document.querySelectorAll(".comprar_Id")
     documentID.forEach((item)=>{
-      console.log("item",item)
-      // console.log(item.id.split("_").pop())
       const product_id = item.id.split("_").pop()
       item.addEventListener("click",()=>{
-        console.log(`el boton ${product_id} fue clickeado`)
         comprarProduct(product_id)
       })
     })
@@ -168,10 +158,8 @@ const cleanProducts = () => {
   // boton borrar producto    
      const documentBorrarID = document.querySelectorAll(".borrar_Id")
      documentBorrarID.forEach((item)=>{
-       console.log(item.id.split("_").pop())
        const Borrar_Id = item.id.split("_").pop()
        item.addEventListener("click",()=>{
-         console.log(`el boton ${Borrar_Id} fue clickeado`)
          productBorrar(Borrar_Id)
 
        })
@@ -180,7 +168,6 @@ const cleanProducts = () => {
     //boton modificar productos
      const documentModificarID = document.querySelectorAll(".modificar_Id")
      documentModificarID.forEach((item)=>{
-       // console.log(item.id.split("_").pop())
        const Modificar_Id = item.id.split("_").pop()
        item.addEventListener("click",()=>{
          productById(Modificar_Id)
@@ -190,16 +177,11 @@ const cleanProducts = () => {
      // filtrar productos por categoria
       const document_Category_Filter = document.getElementById('categoryId')
       document_Category_Filter.value=category||"Sin filtro"
-
       document_Category_Filter.addEventListener("change",()=>{
         const category = document_Category_Filter.value
-        console.log("click categoryId",category)
         productsByCategory(category)
       })
 
-      
-    
-     
   }
 
 
@@ -214,21 +196,20 @@ const cleanProducts = () => {
     backToProduct.addEventListener('click',()=>{
       listProducts()
     })
+    // boton borrar product in cart
+    const documentBorrarCartID = document.querySelectorAll(".borrarCart_Id")
+    console.log("cart",documentBorrarCartID)
+    documentBorrarCartID.forEach((item)=>{
+    const Borrar_Id = item.id.split("_").pop()
+    item.addEventListener("click",()=>{
+      productCartBorrar(Borrar_Id)
+      productCartList(localUserName.id)
+    })
+    })
   }  
 
 
-// boton borrar product in cart
-const documentBorrarCartID = document.querySelectorAll(".borrarCart_Id")
-console.log("cart",documentBorrarCartID)
-documentBorrarCartID.forEach((item)=>{
-  console.log(item.id.split("_").pop())
-  const Borrar_Id = item.id.split("_").pop()
-  item.addEventListener("click",()=>{
-    console.log(`el boton borrarCart ${Borrar_Id} fue clickeado`)
-    productCartBorrar(Borrar_Id)
 
-  })
-})
 
 
   const cleanChat = () => {
@@ -237,10 +218,8 @@ documentBorrarCartID.forEach((item)=>{
 
   const getNameBySocketId = (socketId) => {
     const foundData = messages.find( element => element.id === socketId )
-    console.log("foundData",foundData)
     if(foundData === undefined)
       return 'Desconectado'
-    
     if(foundData.id)
       return foundData.id
   }
@@ -249,7 +228,6 @@ documentBorrarCartID.forEach((item)=>{
     if((msgData.isAdmin=="true" && msgData.to == localUserName.email)||
     (msgData.isAdmin=="false"&&msgData.to=="System"&& msgData.userEmail==localUserName.email)) {
     }
-    
     const {messages,userEmail,createAt,isAdmin} = msgData
     const classMsg =  (localUserName.email == msgData.userEmail ) ? "chat__msg":"chat__msg__own"
     const chatMsg = document.createElement("div")
@@ -283,7 +261,6 @@ documentBorrarCartID.forEach((item)=>{
     const formValues = Object.fromEntries(formData)
     textMsgForm.reset()
     const msgTo = !localUserName.admin ? "System" : formValues.toUserEmail
-    console.log("msgTo, ", msgTo)
     const chat = ({...formValues,userEmail:localUserName.email,isAdmin:localUserName.admin, to: msgTo})
     chatDisplay.style.display="flex"
     socket.emit('new msg', chat)
@@ -301,29 +278,25 @@ documentBorrarCartID.forEach((item)=>{
       body: JSON.stringify(chat),
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
-    .then(data=>{
-      return data.json()})
-        .then(menssages=>{
-    })
   }
 
-  socket.on('user', userName  => {    
-    if(userName==null){
-      location.href="/loginEmail"
+  // socket.on('user', userName  => {    
+  //   if(userName==null){
+  //     location.href="/loginEmail"
+  //   }
+  //   renderSessionUser(userName)
+  // })
+
+  const listProducts= ()=>{
+    fetch('/productos/productos')
+      .then(data=>{
+        return data.json()})
+          .then(data=>{
+            renderProducts(data.products)
+            renderSessionUser(data.user,data.userCartQuantity)
+      })
     }
-    renderSessionUser(userName)
-  })
 
-const listProducts= ()=>{
-  fetch('/productos/productos')
-    .then(data=>{
-      return data.json()})
-        .then(data=>{
-          renderProducts(data.products)
-          renderSessionUser(data.user,data.userCartQuantity)
-          // res.json({products:products,user:user,userCartQuantity:quantity})
-    })
-  }
   listProducts()
   
   const comprarProduct=(product_id)=>{
@@ -334,95 +307,94 @@ const listProducts= ()=>{
         .then(data=>{
           return data.json()})
             .then(cart=>{
-              // renderProducts(cart)
-              
           })
           listProducts()
   }
 
-const newProduct = (product)=>{
-  fetch('/productos/productos', {
-    method: "POST",
-    body: JSON.stringify(product),
-    headers: {"Content-type": "application/json; charset=UTF-8"}})
-      .then(data=>{
-        return data.json()})
-          .then(products=>{
-            renderProducts(products.products)
-        })
-}
+  const newProduct = (product)=>{
+    fetch('/productos/productos', {
+      method: "POST",
+      body: JSON.stringify(product),
+      headers: {"Content-type": "application/json; charset=UTF-8"}})
+        .then(data=>{
+          return data.json()})
+            .then(products=>{
+              renderProducts(products.products)
+          })
+  }
 
-const modifyProduct = (id,product)=>{
-  fetch(`/productos/productos/${id}`, {
-    method: "PUT",
-    body: JSON.stringify(product),
-    headers: {"Content-type": "application/json; charset=UTF-8"}})
-      .then(data=>{
-        return data.json()})
-          .then(products=>{
-            renderProducts(products.products)
-        }
-         
-      )
-}
-
-const productsByCategory = (category)=>{
-  fetch(`/productos/category/${category}`)
-    .then(data=>{
-      return data.json()})
-        .then(products=>{
-          renderProducts(products,category)
-      })
-}
-const productBorrar = (id)=>{
-  fetch(`/productos/eliminar/${id}`, {
-    method: "DELETE",})
-      .then(data=>{
-        return data.json()})
-          .then(products=>{
-            renderProducts(products.products)
-        })
-}
-
-const productById = (id)=>{
-  fetch(`/productos/productos/${id}`)
-    .then(data=>{
-      return data.json()
-    })
-      .then(products=>{
-        modifyProducts(products)
-      })
-}
-
-const productCartList = (id) => {
-  fetch(`/user/${id}`)
-    .then(data=>{
-      return data.json()
-    })
-      .then(products=>{
-        renderCart(products.carts)
-      })
-}
-
-
-const productCartBorrar = (id)=>{
-  fetch(`/carrito/${id}`, {
-    method: "DELETE",})
-      .then(
-        fetch('/userCart')
+  const modifyProduct = (id,product)=>{
+    fetch(`/productos/productos/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(product),
+      headers: {"Content-type": "application/json; charset=UTF-8"}})
+        .then(data=>{
+          return data.json()})
+            .then(products=>{
+              renderProducts(products.products)
+          }
+          
         )
-}
+  }
+
+  const productsByCategory = (category)=>{
+    fetch(`/productos/category/${category}`)
+      .then(data=>{
+        return data.json()})
+          .then(products=>{
+            renderProducts(products,category)
+        })
+  }
+
+  const productBorrar = (id)=>{
+    fetch(`/productos/eliminar/${id}`, {
+      method: "DELETE",})
+        .then(data=>{
+          return data.json()})
+            .then(products=>{
+              renderProducts(products.products)
+          })
+  }
+
+  const productById = (id)=>{
+    fetch(`/productos/productos/${id}`)
+      .then(data=>{
+        return data.json()
+      })
+        .then(products=>{
+          modifyProducts(products)
+        })
+  }
+
+  const productCartList = (id) => {
+    fetch(`/user/${id}`)
+      .then(data=>{
+        return data.json()
+      })
+        .then(products=>{
+          renderCart(products.carts)
+        })
+  }
+
+
+  const productCartBorrar = (id)=>{
+    fetch(`/carrito/${id}`, {
+      method: "DELETE",})
+        // .then(
+        //   fetch('/userCart')
+        //   )
+  }
 
   
-  socket.on('products by category',(byCategory)=>{
-    cleanProducts()
-    renderProducts(byCategory)
-  })
+  // socket.on('products by category',(byCategory)=>{
+  //   cleanProducts()
+  //   renderProducts(byCategory)
+  // })
   
-  socket.on('modify products', (productById)  => {    
-    products = productById
-    modifyProducts(productById)
-  })
+  // socket.on('modify products', (productById)  => {    
+  //   products = productById
+  //   modifyProducts(productById)
+  // })
 
   socket.on('all messages', allMsg => {
     cleanChat()
@@ -432,7 +404,6 @@ const productCartBorrar = (id)=>{
           renderMsg(msgData)
         }
     }else{
-      console.log("mensajes : " ,allMsg.length)
       for (msgData of allMsg){
         if (msgData.userEmail==localUserName.email|| msgData.to==localUserName.email){
           renderMsg(msgData)

@@ -13,9 +13,7 @@ router.get('/user', async(req,res)=>{
 
 router.get("/user/:id",async (req,res)=>{
     const id = req.params.id
-    console.log("desde get productos/:id busco el id: ", id)
     const products = await UserDao.getById(id)
-    console.log("desde get los productos encontrados son: ", products)
     res.json(products)
 })
 

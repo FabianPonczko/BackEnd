@@ -25,8 +25,12 @@ class MongoDbContainer{
       }
 
     async getById(id) {
-        const response = await this.model.findById(id)
-        return response
+        try {
+            const response = await this.model.findById(id)
+            return response
+        } catch (error) {
+            return {error}
+        }
     }
     async updateById(id,newData) {
         const response = await this.model.findByIdAndUpdate(id,newData,{
@@ -35,8 +39,12 @@ class MongoDbContainer{
         return response
     }
     async DeleteById(id) {
-        const response = await this.model.findByIdAndDelete(id)
-        return  response
+        try {
+            const response = await this.model.findByIdAndDelete(id)
+            return  response
+        } catch (error) {
+            return {error}
+        }
     }
     
 }
