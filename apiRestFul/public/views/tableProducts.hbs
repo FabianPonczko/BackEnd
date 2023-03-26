@@ -1,0 +1,55 @@
+<div class="m-5 text-center card" >
+  <h2>Filtro</h2>
+    
+      <div class="col-md-4 m-4">
+        <label for="category">Categoria:</label>
+          <select name="categorias" id="categoryId">
+            <option value="Sin filtro">Sin filtro</option>
+            <option value="Accesorios">Accesorios</option>
+            <option value="Pc escritorio">Pc escritorio</option>
+            <option value="Laptops">Laptos</option>
+            <option value="Perifericos">Perifericos</option>
+            <option value="Gamers">Gamers</option>
+          </select>
+      </div>
+      
+      
+  </div>
+<div class="m-5 text-center card" >
+  <h1>Tabla de productos</h3>
+  
+
+  <table class="table table-hover">
+    <thead>
+      {{#if products}}
+      <tr>
+        <th class="isVisible" scope="col" >ID</th>
+        <th scope="col">Titulo</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Minuatura</th>
+        <th scope="col">Categoria</th>
+        <th scope="col">Comprar</th>
+        <th class="modificar_Id" scope="col">Modificar</th>
+        <th class="borrar_Id" scope="col">Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each products}}
+      <tr>
+        <th class="isVisible" scope="row">{{this._id}}</th>
+        <td>{{this.title}}</td>
+        <td>{{this.price}}</td>
+        <td><img width="50px" height= "50px" src={{this.thumbnail}} /></td>
+        <td>{{this.category}}</td>
+        <td><button class="comprar_Id btn btn-success" id="comprar_{{this._id}}">🛒</button></td>
+        <td><button class="modificar_Id btn btn-warning" id="modificar_{{this._id}}" >Modificar</button></td>
+        <td><button class="borrar_Id btn btn-danger" id="borrar_{{this._id}}" >Eliminar</button></td>
+        <td></td>
+        </tr>
+      {{/each}}
+       {{else}}
+          <p id="products_empty" style="color:red">No posee productos ingresados</p>
+      {{/if}}
+    </tbody>
+  </table>
+</div>

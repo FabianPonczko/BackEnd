@@ -1,0 +1,21 @@
+.chat__msg{
+    background-color: rgb(229, 210, 123);
+    margin:5px;
+    border-radius: 10px;
+    border-style: inset;
+    border-color: white;
+    width: auto;
+    align-self: flex-end;
+    /* text-align: center; */
+}
+
+.chat__msg__own{
+    background-color: rgb(214, 179, 245);
+    margin:5px;
+    border-radius: 10px;
+    border-style: inset;
+    border-color: white;
+    width: auto;
+    align-self: flex-start;
+    /* text-align: center; */
+}
