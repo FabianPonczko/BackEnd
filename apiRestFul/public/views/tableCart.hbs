@@ -26,10 +26,12 @@
         <td>{{this.products.price}}</td>
         <td><img width="50px" height= "50px" src={{this.products.thumbnail}} /></td>
         <td>{{this.quantity}}</td>
-        <td><button class="borrar_Id btn btn-danger" id="borrar_{{this.id}}" >Eliminar</button></td>
+        <td><button class="borrarCart_Id btn btn-danger" id="borrarCart_{{this._id}}" >Eliminar</button></td>
         <td></td>
         </tr>
       {{/each}}
+        
+
        {{else}}
           <p id="products_empty" style="color:red">Carrito vacio</p>
       {{/if}}

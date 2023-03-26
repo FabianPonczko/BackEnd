@@ -4,14 +4,14 @@ const {ProductDao, UserDao} = require('../Dao/factoryDao')
 
 
 router.get("/productos",async (req,res)=>{
-    console.log("pidiendo productos/products por get")
     const user= req.session.nombre
     const products = await ProductDao.getAll()
-    console.log("productos" , products)
-    const carts = await UserDao.getAll()
-    console.log("carts ", carts.length)
-    const quantity = carts.length
-    res.json({products:products,user:user,userCartQuantity:quantity})
+    const {carts} = await UserDao.getById(user.id)
+    let sumQuantity = 0
+    carts.forEach(element => {
+        sumQuantity += element.quantity
+        });
+    res.json({products:products,user:user,userCartQuantity:sumQuantity})
 })
 
 router.post("/productos",async (req,res)=>{
@@ -25,7 +25,6 @@ router.post("/productos",async (req,res)=>{
 router.put("/productos/:id",async (req,res)=>{
     const id = req.params.id
     const newProduct = req.body
-    // console.log("busco el id: PUT productos/:id ", id)
      await ProductDao.updateById(id,newProduct)
     const products = await ProductDao.getAll()
     res.json({products:products})
@@ -44,7 +43,6 @@ router.get("/category/:category",async (req,res)=>{
     const category = req.params.category
     console.log("cattegory ", category)
     const products = category=="Sin filtro"? await ProductDao.getAll(): await ProductDao.getAll({category:category})
-    // console.log("products :",products)
     res.json(products)
 })
 
@@ -52,8 +50,6 @@ router.delete("/eliminar/:id",async (req,res)=>{
     const id = req.params.id
     console.log("pido el id para borrar, ",id)
     await ProductDao.DeleteById(id)
-    // console.log("products :",products)
-    // res.json(products)
     const products = await ProductDao.getAll()
     res.json({products:products})
 })

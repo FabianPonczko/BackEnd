@@ -35,6 +35,11 @@ const renderSessionUser = async (userName,userCartQuantity)=>{
   const html = templateCompiled({userName:userName.nombreUsuario,userCartQuantity:userCartQuantity})
   loginSession.innerHTML = html
   
+  const cartBoton = document.getElementById('botonCart')
+  cartBoton.addEventListener("click",()=>{
+    productCartList(localUserName.id)
+  })
+  
   localUserName.admin? btn_UserEmail.style.display="block":btn_UserEmail.style.display="none"
   
   if(userName.admin){ 
@@ -99,6 +104,8 @@ const renderSessionUser = async (userName,userCartQuantity)=>{
     }//final de admin
     chatCard.style.display="flex"
   }
+  
+  
 
   // Carga los productos en el form para modificar
     const modifyProducts = (productById)=>{
@@ -156,7 +163,7 @@ const cleanProducts = () => {
       })
     })
   
-  // boton borrar producto
+  // boton borrar producto    
      const documentBorrarID = document.querySelectorAll(".borrar_Id")
      documentBorrarID.forEach((item)=>{
        console.log(item.id.split("_").pop())
@@ -187,7 +194,36 @@ const cleanProducts = () => {
         console.log("click categoryId",category)
         productsByCategory(category)
       })
+
+      
+    
+     
   }
+
+
+  const renderCart = async (products)=>{
+    let response = await fetch('./views/tableCart.hbs')
+    const template = await response.text()
+    const templateCompiled= Handlebars.compile(template)
+    const html = templateCompiled({products})
+    productSection.innerHTML = html
+    }  
+   
+
+
+// boton borrar product in cart
+const documentBorrarCartID = document.querySelectorAll(".borrarCart_Id")
+console.log("cart",documentBorrarCartID)
+documentBorrarCartID.forEach((item)=>{
+  console.log(item.id.split("_").pop())
+  const Borrar_Id = item.id.split("_").pop()
+  item.addEventListener("click",()=>{
+    console.log(`el boton borrarCart ${Borrar_Id} fue clickeado`)
+    productCartBorrar(Borrar_Id)
+
+  })
+})
+
 
   const cleanChat = () => {
     chatDisplay.innerHTML = ""
@@ -293,7 +329,9 @@ const listProducts= ()=>{
           return data.json()})
             .then(cart=>{
               // renderProducts(cart)
+              
           })
+          listProducts()
   }
 
 const newProduct = (product)=>{
@@ -349,6 +387,26 @@ const productById = (id)=>{
         modifyProducts(products)
       })
 }
+
+const productCartList = (id) => {
+  fetch(`/user/${id}`)
+    .then(data=>{
+      return data.json()
+    })
+      .then(products=>{
+        renderCart(products.carts)
+      })
+}
+
+
+const productCartBorrar = (id)=>{
+  fetch(`/carrito/${id}`, {
+    method: "DELETE",})
+      .then(
+        fetch('/userCart')
+        )
+}
+
   
   socket.on('products by category',(byCategory)=>{
     cleanProducts()
