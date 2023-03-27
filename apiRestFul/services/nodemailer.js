@@ -13,7 +13,7 @@ const transporter = createTransport({
 const emailNuevoUsuario=async(email, name,adress,age,phone)=>{
     const mailOptions ={
         from:"servidor node",
-        to: process.env.newUserToEmail,
+        to: process.env.newUserAndOrderEmail,
         subject:"nuevo registro",
         html:`
         <h1 style="color:blue;">Nuevo usuario registrado</h1>
@@ -41,7 +41,7 @@ const emailNuevoOrder=async(datosUser,total,email)=>{
     
     const mailOptions ={
         from:"servidor node",
-        to: `${email}`,
+        to: `${process.env.newUserAndOrderEmail}`,
         subject:"Nueva compra",
         html:`<h1 style="color:blue;">Productos comprados</h1> 
         ${data}

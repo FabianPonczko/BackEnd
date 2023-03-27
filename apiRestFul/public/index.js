@@ -315,9 +315,7 @@ const renderSessionUser = async (userName,userCartQuantity)=>{
   const sendEmailProducts = (localUserName)=>{
     const date = new Date()
     Swal.fire({
-      title: 'Procesando orden de compra',
-      html:`Eviar a <b> ${localUserName.email} </b> la orden generada`+
-      `` ,
+      title: 'Procesar orden de compra?',
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'Aceptar',
