@@ -15,6 +15,7 @@ route.get('/info', (req,res)=>{
         <h3> * Mongo_DB_Name=segundaEntrega </h3>
         <h3> * SecrectKey=secret password  (JWT) </h3> 
         <h3> * TiempoToken=60m (JWT)</h3>
+        <h3> * Duracion session de mongo 3600s
         <h3> * newUserToEmail=backendponczko@gmail.com (Email de correo para nuevos usuarios)</h3>
         <h3> * usuario administrador: "admin@admin"  password : "admin" </h3>
         <h3> (EL USUARIO "admin@admin" TIENE OPCION DE REALIZAR CRUD SOBRE LOS PRODUCTOS) </h3>
