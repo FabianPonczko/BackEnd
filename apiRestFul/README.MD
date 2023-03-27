@@ -12,7 +12,7 @@
 * SecrectKey=secret password
 * TiempoToken=60m
 * newUserToEmail=backendponczko@gmail.com
-* Duracion session de mongo 3600s
+* Duracion session de mongo 3600s 
 * usuario administrador: "admin@admin"  password : "admin"
 (ESTE USUARIO TIENE OPCION DE REALIZAR CRUD SOBRE LOS PRODUCTOS)
 
