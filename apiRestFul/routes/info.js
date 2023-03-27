@@ -18,7 +18,7 @@ route.get('/info', (req,res)=>{
         <h3> * newUserToEmail=backendponczko@gmail.com (Email de correo para nuevos usuarios)</h3>
         <h3> * usuario administrador: "admin@admin"  password : "admin" </h3>
         <h3> (EL USUARIO "admin@admin" TIENE OPCION DE REALIZAR CRUD SOBRE LOS PRODUCTOS) </h3>
-        <h3> Projecto desplegado en railway: <b style="color:yelow"> https://backend-ponczko.up.railway.app/</b> </h3>
+        <h3> Projecto desplegado en railway: <b style="color:yellow"> https://backend-ponczko.up.railway.app/</b> </h3>
         <h4 style="color:tomato"> * localhost:8080/info  (link a este archivo) </h4>
         </div>  `
         )
