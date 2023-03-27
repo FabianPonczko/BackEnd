@@ -43,7 +43,6 @@ const init = () => {
           done(null, userResponse);
           
         } catch (error) {
-          console.log("este: ",error);
           done(error);
         }
       }

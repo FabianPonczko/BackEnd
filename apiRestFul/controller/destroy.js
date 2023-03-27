@@ -8,7 +8,6 @@ const destroy = async (req,res)=>{
     
     res.render('logout.hbs',{userName:userName?.nombreUsuario})
     console.log("se elimino session ", userName)
-    // res.setHeader('Content-Type', 'text/html');
     res.clearCookie("token")
 
 }

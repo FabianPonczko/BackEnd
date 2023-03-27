@@ -13,7 +13,7 @@ const transporter = createTransport({
 const emailNuevoUsuario=async(email, name,adress,age,phone)=>{
     const mailOptions ={
         from:"servidor node",
-        to:'backendponczko@gmail.com',
+        to: process.env.newUserToEmail,
         subject:"nuevo registro",
         html:`
         <h1 style="color:blue;">Nuevo usuario registrado</h1>
@@ -33,4 +33,27 @@ const emailNuevoUsuario=async(email, name,adress,age,phone)=>{
     }
 }
 
-module.exports ={emailNuevoUsuario}
+const emailNuevoOrder=async(datosUser,total,email)=>{
+    const data = datosUser.map(element =>{
+            return `<h3>Articulo:  ${element.products.title}, valor:  $${element.products.price}, Cantidad: ${element.quantity} </h3>
+             `
+    })
+    
+    const mailOptions ={
+        from:"servidor node",
+        to: `${email}`,
+        subject:"Nueva compra",
+        html:`<h1 style="color:blue;">Productos comprados</h1> 
+        ${data}
+        <h1>Total: $${total}</h1>`
+    }
+
+    try {
+        const info= await transporter.sendMail(mailOptions)
+        console.log(info)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+module.exports ={emailNuevoUsuario,emailNuevoOrder}

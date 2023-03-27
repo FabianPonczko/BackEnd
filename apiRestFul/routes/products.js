@@ -3,16 +3,15 @@ const { PROTOCOL } = require('sqlite3')
 const router = express.Router()
 const {ProductDao, UserDao} = require('../Dao/factoryDao')
 
-
 router.get("/productos",async (req,res)=>{
     const user= req.session.nombre
-    const products = await ProductDao.getAll()
     const {carts} = await UserDao.getById(user.id)
+    const products = await ProductDao.getAll()        
     let sumQuantity = 0
-    await carts.forEach(element => {
-        sumQuantity += element.quantity
-        });
-    res.json({products:products,user:user,userCartQuantity:sumQuantity})
+        carts.forEach(element => {
+                sumQuantity += element.quantity
+            });
+        res.json({products:products,user:user,userCartQuantity:sumQuantity})    
 })
 
 router.post("/productos",async (req,res)=>{

@@ -6,10 +6,8 @@ const CartCollection= "carts"
 const CartSchema = new Schema(
     {
         timeStamp:{type: String, require:true,max:100},
-        // title:{type: String, require:true,max:100},
-        // price:{type: Number, require:true},
-        // thumbnail:{type: String, require:true,max:150},
         quantity:{type:Number},
+        total:{type:Number},
         products: {type:Schema.Types.ObjectId,ref: "products"},
         user:{type: String, require:true,max:100},
     },

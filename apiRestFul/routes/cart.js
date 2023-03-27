@@ -3,6 +3,7 @@ const router = express.Router()
 const {CartDao,UserDao,ProductDao} = require('../Dao/factoryDao')
 const dayjs = require("dayjs")
 const mongoose = require('mongoose')
+const Swal = require('sweetalert2')
 
 router.get('/carrito', async(req,res)=>{
     const charts = await CartDao.getAll()
@@ -13,7 +14,7 @@ router.post("/carrito",async (req,res)=>{
     const productId= req.body //id del producto y id del usuario
     const respuesta = await CartDao.save(productId)
     const userCart = await UserDao.getById(respuesta.user)
-    let newCarts=userCart.carts
+    const newCarts=userCart.carts
     if(!newCarts.length>0){
         return await UserDao.updateById(respuesta.user,{carts:respuesta._id})     
     }
@@ -25,7 +26,7 @@ router.post("/carrito",async (req,res)=>{
             const copyCarts = newCarts
             copyCarts.push(respuesta._id)
             return  await UserDao.updateById(respuesta.user,{carts:copyCarts})
-})
+        })
 
 router.put('/carrito/:id', async(req,res)=>{
     const id = req.params.id

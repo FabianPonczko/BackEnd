@@ -24,7 +24,6 @@ module.exports =  class UsersMongo extends MongoDbContainer {
            response = await this.model.find(option).populate("carts").lean()
       }else{
           response = await this.model.find().populate({path:"carts",populate: {path:'products'}}).lean()
-          // response = await this.model.find().populate("carts")
       }
       return response
    }

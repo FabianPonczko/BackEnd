@@ -6,7 +6,6 @@ const {emailNuevoUsuario} = require('./../services/nodemailer')
 
 const registro = async(req,res)=>{
   const {url,method} = req
-  consola.info(`direccion ${url} , metodo ${method}`)
     res.render('RegisterEmailUser')
 
       try {
@@ -41,14 +40,11 @@ const registro = async(req,res)=>{
           emailNuevoUsuario(email, name, adress, age, phone)
           
         } catch (error) {
-          console.log("estamos aqui :",error);
-      
           console.log({ success: false });
         }
   }
 
 const auth = async(req,res)=>{
-  console.log("userResponse: ", req.user)
   let nombreUsuario=""
     const {email} =req.query 
     const existUser = await UserDao.getOne({ email :email});

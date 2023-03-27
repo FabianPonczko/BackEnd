@@ -1,6 +1,5 @@
 
 const socket = io()
-
 let users = []
 let localUserName={}
 let messages = []
@@ -28,6 +27,7 @@ const document_Thumbnail = document.getElementById("thumbnail")
 //banner de session de usuario
 const renderSessionUser = async (userName,userCartQuantity)=>{
   localUserName=userName
+  console.log(localUserName)
   let response = await fetch('./views/sessionUser.hbs')
   const template = await response.text()
   const templateCompiled= Handlebars.compile(template)
@@ -37,10 +37,12 @@ const renderSessionUser = async (userName,userCartQuantity)=>{
   const cartBoton = document.getElementById('botonCart')
   cartBoton.addEventListener("click",()=>{
     productCartList(localUserName.id)
+    setInterval(() => {
+      cartBoton.style.display="none"
+    }, 500);
   })
- 
 
-  
+  //boton email to 
   localUserName.admin? btn_UserEmail.style.display="block":btn_UserEmail.style.display="none"
   
   if(userName.admin){ 
@@ -82,21 +84,21 @@ const renderSessionUser = async (userName,userCartQuantity)=>{
         deleteForm.reset()
          productBorrar(deleteIdValues.id)
   
-      })
+    })
 
-      //modificar producto
-      btn_modificar.addEventListener('click',(e)=>{
-        e.preventDefault()
-        const dataProduct = new FormData(createProductForm)
-        const dates = Object.fromEntries(dataProduct)
-        createProductForm.reset()
-        btn_agregar.style.display="block"
-        btn_agregar.disabled=false
-        btn_modificar.style.display="none"
-        modifyProduct(idProductModify,dates)
-        idProductModify=""
-        
-      })
+    //modificar producto
+    btn_modificar.addEventListener('click',(e)=>{
+      e.preventDefault()
+      const dataProduct = new FormData(createProductForm)
+      const dates = Object.fromEntries(dataProduct)
+      createProductForm.reset()
+      btn_agregar.style.display="block"
+      btn_agregar.disabled=false
+      btn_modificar.style.display="none"
+      modifyProduct(idProductModify,dates)
+      idProductModify=""
+      
+    })
       
     }//final de admin
     chatCard.style.display="flex"
@@ -104,27 +106,27 @@ const renderSessionUser = async (userName,userCartQuantity)=>{
   
 
   // Carga los productos en el form para modificar
-    const modifyProducts = (productById)=>{
-      const createProductForm = document.getElementById('createProduct__form')
-      const document_Description = document.getElementById("title")
-      const document_Price = document.getElementById("price")
-      const document_Category = document.getElementById("category")
-      const document_Thumbnail = document.getElementById("thumbnail") 
-      createProductForm.scrollIntoView(0,0)
-      const btn_modificar = document.getElementById('btnModificar')
-      btn_modificar.style.display="block"
-      const btn_agregar = document.getElementById("btnAgregar")
-      btn_agregar.style.display="none"
-      btn_agregar.disabled = true
-      idProductModify=productById.id
-      document_Description.value = productById.title
-      document_Price.value = productById.price
-      document_Category.value = productById.category
-      document_Thumbnail.value = productById.thumbnail
+  const modifyProducts = (productById)=>{
+    const createProductForm = document.getElementById('createProduct__form')
+    const document_Description = document.getElementById("title")
+    const document_Price = document.getElementById("price")
+    const document_Category = document.getElementById("category")
+    const document_Thumbnail = document.getElementById("thumbnail") 
+    createProductForm.scrollIntoView(0,0)
+    const btn_modificar = document.getElementById('btnModificar')
+    btn_modificar.style.display="block"
+    const btn_agregar = document.getElementById("btnAgregar")
+    btn_agregar.style.display="none"
+    btn_agregar.disabled = true
+    idProductModify=productById.id
+    document_Description.value = productById.title
+    document_Price.value = productById.price
+    document_Category.value = productById.category
+    document_Thumbnail.value = productById.thumbnail
 
-    }
+  }
 
-const cleanProducts = () => {
+  const cleanProducts = () => {
     productSection.innerHTML = ""
   }
   const renderProducts = async (products,category) => {
@@ -147,43 +149,40 @@ const cleanProducts = () => {
     }
     
   // boton comprar producto
-    const documentID = document.querySelectorAll(".comprar_Id")
+  const documentID = document.querySelectorAll(".comprar_Id")
     documentID.forEach((item)=>{
       const product_id = item.id.split("_").pop()
       item.addEventListener("click",()=>{
         comprarProduct(product_id)
       })
-    })
+  })
   
   // boton borrar producto    
-     const documentBorrarID = document.querySelectorAll(".borrar_Id")
-     documentBorrarID.forEach((item)=>{
-       const Borrar_Id = item.id.split("_").pop()
-       item.addEventListener("click",()=>{
-         productBorrar(Borrar_Id)
-
-       })
-     })
-     
-    //boton modificar productos
-     const documentModificarID = document.querySelectorAll(".modificar_Id")
-     documentModificarID.forEach((item)=>{
-       const Modificar_Id = item.id.split("_").pop()
-       item.addEventListener("click",()=>{
-         productById(Modificar_Id)
-       })
-     })
-
-     // filtrar productos por categoria
-      const document_Category_Filter = document.getElementById('categoryId')
-      document_Category_Filter.value=category||"Sin filtro"
-      document_Category_Filter.addEventListener("change",()=>{
-        const category = document_Category_Filter.value
-        productsByCategory(category)
+  const documentBorrarID = document.querySelectorAll(".borrar_Id")
+    documentBorrarID.forEach((item)=>{
+      const Borrar_Id = item.id.split("_").pop()
+      item.addEventListener("click",()=>{
+        productBorrar(Borrar_Id)
       })
+    })  
+     
+  //boton modificar productos
+  const documentModificarID = document.querySelectorAll(".modificar_Id")
+    documentModificarID.forEach((item)=>{
+      const Modificar_Id = item.id.split("_").pop()
+      item.addEventListener("click",()=>{
+        productById(Modificar_Id)
+    })
+  })
 
+  // filtrar productos por categoria
+  const document_Category_Filter = document.getElementById('categoryId')
+  document_Category_Filter.value=category||"Sin filtro"
+    document_Category_Filter.addEventListener("change",()=>{
+      const category = document_Category_Filter.value
+      productsByCategory(category)
+    })
   }
-
 
   const renderCart = async (products)=>{
     let response = await fetch('./views/tableCart.hbs')
@@ -196,22 +195,42 @@ const cleanProducts = () => {
     backToProduct.addEventListener('click',()=>{
       listProducts()
     })
-    // boton borrar product in cart
-    const documentBorrarCartID = document.querySelectorAll(".borrarCart_Id")
-    console.log("cart",documentBorrarCartID)
-    documentBorrarCartID.forEach((item)=>{
+
+    const toOrder = document.getElementById('toOrder')
+      toOrder.addEventListener('click',()=>{
+        orderList(localUserName.id)
+      })
+
+  // boton borrar product in cart
+  const documentBorrarCartID = document.querySelectorAll(".borrarCart_Id")
+  console.log("cart",documentBorrarCartID)
+  documentBorrarCartID.forEach((item)=>{
     const Borrar_Id = item.id.split("_").pop()
     item.addEventListener("click",()=>{
       productCartBorrar(Borrar_Id)
       productCartList(localUserName.id)
     })
-    })
+  })
   }  
 
+  const renderOrder = async (products)=>{
+    console.log(products)
+    let response = await fetch('./views/orderCart.hbs')
+    const template = await response.text()
+    const templateCompiled= Handlebars.compile(template)
+    const html = templateCompiled({products})
+    productSection.innerHTML = html
+    const btnOrderBack = document.getElementById('orderBack')
+    btnOrderBack.addEventListener('click',()=>{
+      listProducts()
+    })
+    const btnOrderSend = document.getElementById('orderSend')
+    btnOrderSend.addEventListener('click',()=>{
+      sendEmailProducts(localUserName)
+    })
 
-
-
-
+  }
+    
   const cleanChat = () => {
     chatDisplay.innerHTML = ""
   }
@@ -280,18 +299,56 @@ const cleanProducts = () => {
     })
   }
 
-  // socket.on('user', userName  => {    
-  //   if(userName==null){
-  //     location.href="/loginEmail"
-  //   }
-  //   renderSessionUser(userName)
-  // })
+  
+    const toOrder = document.getElementById('toOrder')
+  
+  const orderList = (id)=>{
+    fetch(`/user/${id}`)
+    .then(data=>{
+      return data.json()})
+      .then(products=>{
+        console.log(products)
+         renderOrder(products)
+      })
+  }
 
-  const listProducts= ()=>{
-    fetch('/productos/productos')
+  const sendEmailProducts = (localUserName)=>{
+    const date = new Date()
+    Swal.fire({
+      title: 'Generacion de orden de pedido',
+      html:`Se enviará a <b> ${localUserName.email} </b> la orden generada`+
+      `` ,
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Enviar',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`/order/${localUserName.id}`)
+        .then(
+          Swal.fire('Orden enviada con Exito!', '', 'success'),
+          setTimeout(() => {
+            fetch(`/user/carts/${localUserName.id}`,{
+              method:"DELETE"})
+          }, 500),
+          listProducts(),
+          listProducts()
+        )
+
+      } else if (result.isDenied) {
+        Swal.fire('Orden cancelada', '', 'info')
+
+      }
+    })
+
+  }
+  
+  const listProducts= async ()=>{
+    await fetch('/productos/productos')
       .then(data=>{
         return data.json()})
           .then(data=>{
+            // console.log(data)
             renderProducts(data.products)
             renderSessionUser(data.user,data.userCartQuantity)
       })
@@ -299,15 +356,22 @@ const cleanProducts = () => {
 
   listProducts()
   
-  const comprarProduct=(product_id)=>{
-    fetch('/carrito', {
+  const comprarProduct=  (product_id)=>{
+     fetch('/carrito', {
       method: "POST",
       body: JSON.stringify({products:product_id,user:localUserName.id}),
       headers: {"Content-type": "application/json; charset=UTF-8"}})
         .then(data=>{
           return data.json()})
             .then(cart=>{
-          })
+            })
+            Swal.fire({
+              icon: 'success',
+              title: 'Producto agregado al carrito',
+              showConfirmButton: false,
+              timer: 1000
+            })
+          listProducts()
           listProducts()
   }
 
@@ -332,9 +396,7 @@ const cleanProducts = () => {
           return data.json()})
             .then(products=>{
               renderProducts(products.products)
-          }
-          
-        )
+            })
   }
 
   const productsByCategory = (category)=>{
@@ -352,7 +414,14 @@ const cleanProducts = () => {
         .then(data=>{
           return data.json()})
             .then(products=>{
+              Swal.fire({
+                icon: 'warning',
+                title: 'Producto eliminado',
+                showConfirmButton: false,
+                timer: 1000
+              })
               renderProducts(products.products)
+              renderSessionUser(data.user,data.userCartQuantity)
           })
   }
 
@@ -369,32 +438,26 @@ const cleanProducts = () => {
   const productCartList = (id) => {
     fetch(`/user/${id}`)
       .then(data=>{
-        return data.json()
-      })
+        return data.json()})
         .then(products=>{
-          renderCart(products.carts)
+          renderCart(products.products.carts)
         })
   }
-
 
   const productCartBorrar = (id)=>{
     fetch(`/carrito/${id}`, {
       method: "DELETE",})
-        // .then(
-        //   fetch('/userCart')
-        //   )
+        .then(products=>{
+          Swal.fire({
+            icon: 'warning',
+            title: 'Producto eliminado del carrito',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        })
   }
 
   
-  // socket.on('products by category',(byCategory)=>{
-  //   cleanProducts()
-  //   renderProducts(byCategory)
-  // })
-  
-  // socket.on('modify products', (productById)  => {    
-  //   products = productById
-  //   modifyProducts(productById)
-  // })
 
   socket.on('all messages', allMsg => {
     cleanChat()
@@ -414,7 +477,7 @@ const cleanProducts = () => {
         chatDisplay.style.display="flex"
       }
     }
-    })
+  })
 
 
     

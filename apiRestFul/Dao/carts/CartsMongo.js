@@ -19,10 +19,17 @@ module.exports =  class CartMongo extends MongoDbContainer{
         }
         return instancia
     }
-    async getAll() {
-        const response = await this.model.find().populate("products")
+
+    async getAll(option) {
+        let response
+         if(option){
+             response = await this.model.find(option).lean()
+        }else{
+             response = await this.model.find().populate("products").lean()
+        }
         return response
-    }
+     }
+
     async getById(id) {
         const response = await this.model.findById(id)
         return response

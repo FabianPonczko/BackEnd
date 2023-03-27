@@ -5,8 +5,6 @@ const userCart = async(req,res)=>{
     const {carts} = await UserDao.getById(userName.id)
 
     console.log(carts)
-
-
     
     res.render('tableCart',{products:carts})
 }
