@@ -8,4 +8,6 @@ const userCart = async(req,res)=>{
     
     res.render('tableCart',{products:carts})
 }
+
+
 module.exports = {userCart}

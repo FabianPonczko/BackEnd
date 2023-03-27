@@ -47,10 +47,13 @@ const init = () => {
         }
       }
     )
-  );
+  )
 
-};
+}
+
 const PassportAuth ={
     init
 }
+
+
 module.exports = {PassportAuth} 

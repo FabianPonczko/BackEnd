@@ -4,4 +4,5 @@ const {destroy} = require ('./../controller/destroy.js')
 
 router.get('/destroy',destroy)
 
+
 module.exports = router

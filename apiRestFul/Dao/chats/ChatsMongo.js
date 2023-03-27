@@ -11,6 +11,7 @@ let instancia = null
             schema: ChatModels.ChatSchema
         })
     }
+    
     static getinstanciaChatsMongo = ()=>{
         if (!instancia){
             instancia = new ChatMongo()

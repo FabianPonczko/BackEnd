@@ -11,6 +11,7 @@ module.exports =  class UsersMongo extends MongoDbContainer {
         schema: UserModel.UserSchema
       });
     }
+
     static getinstanciaUserMongo=()=>{
       if (!instancia){
         instancia = new UsersMongo()
@@ -18,6 +19,7 @@ module.exports =  class UsersMongo extends MongoDbContainer {
       }
       return instancia
     }
+
     async getAll(option) {
       let response
        if(option){
@@ -26,11 +28,12 @@ module.exports =  class UsersMongo extends MongoDbContainer {
           response = await this.model.find().populate({path:"carts",populate: {path:'products'}}).lean()
       }
       return response
-   }
-   async getById(id) {
-    const response = await this.model.findById(id).populate({path:"carts",populate: {path:'products'}}).lean()
-    return response
-}
+    }
+
+    async getById(id) {
+      const response = await this.model.findById(id).populate({path:"carts",populate: {path:'products'}}).lean()
+      return response
+    }
   
-  }
+}
 

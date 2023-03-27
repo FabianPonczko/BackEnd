@@ -1,13 +1,9 @@
 
  const {MongoDBService} = require('./../services/MongoDBService/index.js')
-
-// const UsersMongo =require('./Users/UsersMongo.js')
-
 const {CartMongo,ProductMongo,UsersMongo,ChatMongo} = require('./index.js')
 
-
 // const SELECTED_DATABASE = "mongo"
-const SELECTED_DATABASE = process.argv[ 2 ]  // || 'mongo'
+const SELECTED_DATABASE = process.argv[ 2 ] 
 
 // -------------------------------------------------------------
 

@@ -1,4 +1,3 @@
-// import { Schema } from 'mongoose'
 const {Schema} = require('mongoose')
 
 const UserCollection= "users"
@@ -25,5 +24,8 @@ UserSchema.set("toJSON",{
         return response
     }
 })
+
 const UserModel = {UserCollection,UserSchema}
+
+
 module.exports.UserModel = {UserCollection,UserSchema}

@@ -1,4 +1,3 @@
-// import { Schema } from 'mongoose'
 const {Schema} = require('mongoose')
 
 const CartCollection= "carts"
@@ -15,6 +14,7 @@ const CartSchema = new Schema(
         virtuals:true
     }
 )
+
 CartSchema.set("toJSON",{
     transform:(_,response)=>{
         response.id=response._id
@@ -23,5 +23,8 @@ CartSchema.set("toJSON",{
         return response
     }
 })
+
 const CartModels = {CartCollection,CartSchema}
+
+
 module.exports.CartModels = {CartCollection,CartSchema}

@@ -65,7 +65,6 @@ const renderSessionUser = async (userName,userCartQuantity)=>{
       const formValues = Object.fromEntries(formData)
       createProductForm.reset()
       newProduct(formValues)
-      
     })
 
     let responsePagina = await fetch('./views/deleteProducts.hbs')
@@ -83,7 +82,6 @@ const renderSessionUser = async (userName,userCartQuantity)=>{
         const deleteIdValues = Object.fromEntries(deleteFormData)
         deleteForm.reset()
          productBorrar(deleteIdValues.id)
-  
     })
 
     //modificar producto
@@ -97,14 +95,12 @@ const renderSessionUser = async (userName,userCartQuantity)=>{
       btn_modificar.style.display="none"
       modifyProduct(idProductModify,dates)
       idProductModify=""
-      
     })
       
     }//final de admin
     chatCard.style.display="flex"
   }
   
-
   // Carga los productos en el form para modificar
   const modifyProducts = (productById)=>{
     const createProductForm = document.getElementById('createProduct__form')
@@ -123,12 +119,12 @@ const renderSessionUser = async (userName,userCartQuantity)=>{
     document_Price.value = productById.price
     document_Category.value = productById.category
     document_Thumbnail.value = productById.thumbnail
-
   }
 
   const cleanProducts = () => {
     productSection.innerHTML = ""
   }
+  
   const renderProducts = async (products,category) => {
     let response = await fetch('./views/tableProducts.hbs')
     const template = await response.text()
@@ -299,8 +295,7 @@ const renderSessionUser = async (userName,userCartQuantity)=>{
     })
   }
 
-  
-    const toOrder = document.getElementById('toOrder')
+  const toOrder = document.getElementById('toOrder')
   
   const orderList = (id)=>{
     fetch(`/user/${id}`)
@@ -332,13 +327,10 @@ const renderSessionUser = async (userName,userCartQuantity)=>{
           listProducts(),
           listProducts()
         )
-
       } else if (result.isDenied) {
         Swal.fire('Orden cancelada', '', 'info')
-
       }
     })
-
   }
   
   const listProducts= async ()=>{

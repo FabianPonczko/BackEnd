@@ -1,4 +1,3 @@
-// import { Schema } from 'mongoose'
 const {Schema} = require('mongoose')
 
 const ChatCollection= "chats"
@@ -16,6 +15,7 @@ const ChatSchema = new Schema(
         virtuals:true
     }
 )
+
 ChatSchema.set("toJSON",{
     transform:(_,response)=>{
         response.id=response._id
@@ -24,5 +24,8 @@ ChatSchema.set("toJSON",{
         return response
     }
 })
+
 const ChatModels = {ChatCollection,ChatSchema}
+
+
 module.exports.ChatModels = {ChatCollection,ChatSchema}

@@ -9,4 +9,5 @@ router.get('/loginEmail',loginEmail)
 
 router.get('/register',registro)
 
+
 module.exports = router
