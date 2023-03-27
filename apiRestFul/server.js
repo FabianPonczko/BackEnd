@@ -74,17 +74,17 @@ app.use('/',routerLogin)
 //llamo a la ruta para borrar la session luego redirecciono a login
 app.use('/',routerDestroy)
 
-app.use('/', routerInfo)
+app.use('/',userVerify, routerInfo)
 
-app.use('/',routerCarts)
+app.use('/',userVerify,routerCarts)
 
-app.use('/',routerUserCart)
+app.use('/',userVerify,routerUserCart)
 
-app.use('/productos', routerProducts)
+app.use('/productos',userVerify, routerProducts)
 
-app.use('/',routerChats)
+app.use('/',userVerify,routerChats)
 
-app.use('/',routerOrder)
+app.use('/',userVerify,routerOrder)
 
 app.get('*',noRuta)
 
