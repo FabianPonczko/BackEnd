@@ -10,7 +10,6 @@ const session = require ('express-session')
 const sesiones = require('./sessionConfig/session.js')
 const {PassportAuth} =require('./middlewares/passportAuth')
 const passport =require('passport')
-const {Messages} =require('./Dao/messages/messages.js')
 const {ProductDao, ChatDao, UserDao} = require ('./Dao/factoryDao')
 const { noRuta } = require('./controller/noRutas')
 const cookieParser = require ('cookie-parser')
@@ -103,17 +102,6 @@ const allMessages = async (socket)=>{
   socket.emit('all messages', allMsg)
 }
 
-const ProductoByCategory= async (category)=>{
-  let allProducts
-  if (category=="Todos"){
-    allProducts = await ProductDao.getAll()  
-    console.log ("category todos ",allProducts)
-  }else{
-    allProducts = await ProductDao.getAll({category:category})
-    console.log ("category otros ",allProducts)
-  }
-  io.sockets.emit('products by category', (allProducts))
-}
 
 io.on('connection', socket => {
     socket.on('new msg', newMsg => {
