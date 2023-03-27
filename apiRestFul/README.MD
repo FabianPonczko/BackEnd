@@ -16,4 +16,6 @@
 * usuario administrador: "admin@admin"  password : "admin"
 (ESTE USUARIO TIENE OPCION DE REALIZAR CRUD SOBRE LOS PRODUCTOS)
 
+## Projecto desplegado en railway: https://backend-ponczko.up.railway.app/
+
 * localhost:8080/info  (link a este archivo)
