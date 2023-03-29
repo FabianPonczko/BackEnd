@@ -17484,3 +17484,31 @@
 {"level":40,"time":1679884276804,"pid":16092,"hostname":"PcFabian","msg":"Metodo: GET de la Ruta: /favicon.ico no corresponde a una ruta valida"}
 {"level":40,"time":1679884297649,"pid":10648,"hostname":"PcFabian","msg":"Metodo: GET de la Ruta: /favicon.ico no corresponde a una ruta valida"}
 {"level":40,"time":1679884331909,"pid":9352,"hostname":"PcFabian","msg":"Metodo: GET de la Ruta: /favicon.ico no corresponde a una ruta valida"}
+{"level":40,"time":1680092319240,"pid":18932,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /chat no corresponde a una ruta valida"}
+{"level":40,"time":1680092426359,"pid":17848,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /chat no corresponde a una ruta valida"}
+{"level":40,"time":1680092459043,"pid":14500,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /chat/ no corresponde a una ruta valida"}
+{"level":40,"time":1680092551588,"pid":19636,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /chat no corresponde a una ruta valida"}
+{"level":40,"time":1680092602965,"pid":20120,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /chat/ no corresponde a una ruta valida"}
+{"level":40,"time":1680092622062,"pid":20184,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /chat/ no corresponde a una ruta valida"}
+{"level":40,"time":1680092700059,"pid":8164,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /chat/ no corresponde a una ruta valida"}
+{"level":40,"time":1680092735904,"pid":8164,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /chat no corresponde a una ruta valida"}
+{"level":40,"time":1680092769740,"pid":8164,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /chat/ no corresponde a una ruta valida"}
+{"level":40,"time":1680093566374,"pid":19620,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /chat/ no corresponde a una ruta valida"}
+{"level":40,"time":1680093889208,"pid":13716,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /chat/ no corresponde a una ruta valida"}
+{"level":40,"time":1680094171963,"pid":13716,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /chat/ no corresponde a una ruta valida"}
+{"level":40,"time":1680094186981,"pid":13716,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /productos/chat no corresponde a una ruta valida"}
+{"level":40,"time":1680094316222,"pid":13716,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /mensajes/ no corresponde a una ruta valida"}
+{"level":40,"time":1680094626222,"pid":620,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /chat no corresponde a una ruta valida"}
+{"level":40,"time":1680094659571,"pid":620,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /chat/ no corresponde a una ruta valida"}
+{"level":40,"time":1680094673790,"pid":620,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: / no corresponde a una ruta valida"}
+{"level":40,"time":1680095006808,"pid":15628,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: / no corresponde a una ruta valida"}
+{"level":40,"time":1680095055945,"pid":15628,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /chat/ no corresponde a una ruta valida"}
+{"level":40,"time":1680095432415,"pid":17304,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: / no corresponde a una ruta valida"}
+{"level":40,"time":1680095455322,"pid":17304,"hostname":"armcd040579","msg":"falta usuario o password"}
+{"level":40,"time":1680095598950,"pid":18920,"hostname":"armcd040579","msg":"falta usuario o password"}
+{"level":40,"time":1680095675952,"pid":15488,"hostname":"armcd040579","msg":"falta usuario o password"}
+{"level":40,"time":1680095768133,"pid":9660,"hostname":"armcd040579","msg":"falta usuario o password"}
+{"level":40,"time":1680095882621,"pid":204,"hostname":"armcd040579","msg":"falta usuario o password"}
+{"level":40,"time":1680095889073,"pid":204,"hostname":"armcd040579","msg":"falta usuario o password"}
+{"level":40,"time":1680096194668,"pid":13556,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: / no corresponde a una ruta valida"}
+{"level":40,"time":1680096197238,"pid":13556,"hostname":"armcd040579","msg":"Metodo: GET de la Ruta: /favicon.ico no corresponde a una ruta valida"}

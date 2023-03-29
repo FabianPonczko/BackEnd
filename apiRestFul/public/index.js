@@ -287,14 +287,7 @@ const renderSessionUser = async (userName,userCartQuantity)=>{
     socket.emit("all msg")
   })
 
-  const messageSave =async (chat)=>{
-    await fetch('/mensajes',{
-      method:"POST",
-      body: JSON.stringify(chat),
-      headers: {"Content-type": "application/json; charset=UTF-8"}
-    })
-  }
-
+ 
   const toOrder = document.getElementById('toOrder')
   
   const orderList = (id)=>{

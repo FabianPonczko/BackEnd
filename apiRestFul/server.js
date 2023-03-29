@@ -5,12 +5,12 @@ const dayjs = require("dayjs")
 const customParseFormat = require('dayjs/plugin/customParseFormat')
 const handlebars = require('express-handlebars')
 const {engine} = require('express-handlebars')
-const {routerOrder,routerCarts,routerDestroy,routerInfo,routerLogin, routerProducts,routerChats,routerUserCart} = require ('./routes/index.js')
+const {routerOrder,routerCarts,routerDestroy,routerInfo,routerLogin, routerProducts,routerUserCart,routerChat} = require ('./routes/index.js')
 const session = require ('express-session')
 const sesiones = require('./sessionConfig/session.js')
 const {PassportAuth} =require('./middlewares/passportAuth')
 const passport =require('passport')
-const {ProductDao, ChatDao, UserDao} = require ('./Dao/factoryDao')
+const {ChatDao} = require ('./Dao/factoryDao')
 const { noRuta } = require('./controller/noRutas')
 const cookieParser = require ('cookie-parser')
 const jwt = require('jsonwebtoken')
@@ -30,7 +30,7 @@ app.engine('hbs', engine({
   defaultLayout:"main.hbs"
 }));
 app.set('view engine', '.hbs');
-app.set('views',  './public/views');
+app.set('views','./public/views');
 
 let userName =""
 
@@ -67,10 +67,8 @@ httpServer.listen(process.env.PORT, () =>{
 })
 
 
-//llamo a ruta de login
 app.use('/',routerLogin)
 
-//llamo a la ruta para borrar la session luego redirecciono a login
 app.use('/',routerDestroy)
 
 app.use('/',userVerify, routerInfo)
@@ -81,9 +79,9 @@ app.use('/',userVerify,routerUserCart)
 
 app.use('/productos',userVerify, routerProducts)
 
-app.use('/',userVerify,routerChats)
-
 app.use('/',userVerify,routerOrder)
+
+app.use('/',userVerify,routerChat)
 
 app.get('*',noRuta)
 

@@ -48,6 +48,7 @@ const registro = async(req,res)=>{
 
           emailNuevoUsuario(email, name, adress, age, phone)
           
+          
         } catch (error) {
           console.log({ success: false });
         }
